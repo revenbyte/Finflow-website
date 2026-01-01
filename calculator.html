@@ -1,36 +1,221 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profit Calculator | FinFlow</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <div class="logo">FinFlow</div>
-        <nav>
-            <a href="index.html">Dashboard</a>
-            <a href="calculator.html">Calculator</a>
-            <a href="cashflow.html">Cash Flow</a>
-        </nav>
-    </header>
-    <main>
-        <div class="page-header">
-            <h1>Profit Calculator</h1>
-            <p>Calculate your business profits instantly</p>
-        </div>
-       
-        <div class="construction-message">
-            <h2>🛠️ Under Construction</h2>
-            <p>We're building an amazing profit calculator for you!</p>
-            <p>Coming next week in our Week 2 updates!</p>
-            <a href="index.html" class="cta-button">Back to Home</a>
-        </div>
-    </main>
-    <footer>
-        <p>Made for small businesses</p>
-    </footer>
-    <script src="app.js"></script>
-</body>
-</html>
+‎<!DOCTYPE html>
+‎<html lang="en">
+‎<head>
+‎    <meta charset="UTF-8">
+‎    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+‎    <title>Profit Calculator | FinFlow MW</title>
+‎    <link rel="stylesheet" href="style.css">
+‎    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+‎</head>
+‎<body>
+‎    <!-- HEADER (Same as homepage) -->
+‎    <header>
+‎        <div class="logo">FinFlow</div>
+‎        <button class="mobile-menu-btn" id="mobileMenuBtn">
+‎            <span></span>
+‎            <span></span>
+‎            <span></span>
+‎        </button>
+‎        <nav class="desktop-nav">
+‎            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+‎            <a href="calculator.html" class="active"><i class="fas fa-calculator"></i> Calculator</a>
+‎            <a href="cashflow.html"><i class="fas fa-chart-line"></i> Cash Flow</a>
+‎        </nav>
+‎        
+‎        <!-- Mobile navigation -->
+‎        <nav class="mobile-nav" id="mobileNav">
+‎            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+‎            <a href="calculator.html" class="active"><i class="fas fa-calculator"></i> Calculator</a>
+‎            <a href="cashflow.html"><i class="fas fa-chart-line"></i> Cash Flow</a>
+‎            <button class="close-menu" id="closeMenuBtn">× Close</button>
+‎        </nav>
+‎    </header>
+‎
+‎    <!-- MAIN CALCULATOR CONTENT -->
+‎    <main class="calculator-container">
+‎        <div class="page-header">
+‎            <h1><i class="fas fa-calculator"></i> Malawi Profit Calculator</h1>
+‎            <p>Calculate your business profit in Malawi Kwacha (MWK)</p>
+‎        </div>
+‎
+‎        <div class="calculator-wrapper">
+‎            <!-- LEFT: Input Section -->
+‎            <div class="calculator-inputs">
+‎                <h2><i class="fas fa-money-bill-wave"></i> Enter Your Figures</h2>
+‎                
+‎                <!-- INCOME SECTION -->
+‎                <div class="input-section">
+‎                    <h3><i class="fas fa-arrow-up green"></i> Income (Money Coming In)</h3>
+‎                    
+‎                    <div class="input-group">
+‎                        <label for="sales"><i class="fas fa-shopping-cart"></i> Sales Revenue</label>
+‎                        <div class="input-with-currency">
+‎                            <input type="number" id="sales" placeholder="0">
+‎                            <span class="currency">MWK</span>
+‎                        </div>
+‎                    </div>
+‎                    
+‎                    <div class="input-group">
+‎                        <label for="otherIncome"><i class="fas fa-plus-circle"></i> Other Income</label>
+‎                        <div class="input-with-currency">
+‎                            <input type="number" id="otherIncome" placeholder="0">
+‎                            <span class="currency">MWK</span>
+‎                        </div>
+‎                    </div>
+‎                    
+‎                    <button class="add-btn" id="addIncomeBtn">
+‎                        <i class="fas fa-plus"></i> Add Income Source
+‎                    </button>
+‎                </div>
+‎
+‎                <!-- EXPENSES SECTION -->
+‎                <div class="input-section">
+‎                    <h3><i class="fas fa-arrow-down red"></i> Expenses (Money Going Out)</h3>
+‎                    
+‎                    <div class="input-group">
+‎                        <label for="rent"><i class="fas fa-home"></i> Rent & Utilities</label>
+‎                        <div class="input-with-currency">
+‎                            <input type="number" id="rent" placeholder="0">
+‎                            <span class="currency">MWK</span>
+‎                        </div>
+‎                    </div>
+‎                    
+‎                    <div class="input-group">
+‎                        <label for="salaries"><i class="fas fa-users"></i> Salaries & Wages</label>
+‎                        <div class="input-with-currency">
+‎                            <input type="number" id="salaries" placeholder="0">
+‎                            <span class="currency">MWK</span>
+‎                        </div>
+‎                    </div>
+‎                    
+‎                    <div class="input-group">
+‎                        <label for="inventory"><i class="fas fa-boxes"></i> Inventory/Stock</label>
+‎                        <div class="input-with-currency">
+‎                            <input type="number" id="inventory" placeholder="0">
+‎                            <span class="currency">MWK</span>
+‎                        </div>
+‎                    </div>
+‎                    
+‎                    <div class="input-group">
+‎                        <label for="otherExpenses"><i class="fas fa-list"></i> Other Expenses</label>
+‎                        <div class="input-with-currency">
+‎                            <input type="number" id="otherExpenses" placeholder="0">
+‎                            <span class="currency">MWK</span>
+‎                        </div>
+‎                    </div>
+‎                    
+‎                    <button class="add-btn" id="addExpenseBtn">
+‎                        <i class="fas fa-plus"></i> Add Expense Item
+‎                    </button>
+‎                </div>
+‎
+‎                <!-- TAX SECTION (Malawi Focus) -->
+‎                <div class="input-section">
+‎                    <h3><i class="fas fa-percentage"></i> Malawi Tax Settings</h3>
+‎                    
+‎                    <div class="tax-option">
+‎                        <label class="checkbox-label">
+‎                            <input type="checkbox" id="includeTax">
+‎                            <span>Include estimated tax (30% standard rate)</span>
+‎                        </label>
+‎                        <p class="help-text">Based on common Malawi business tax rates</p>
+‎                    </div>
+‎                    
+‎                    <div class="input-group" id="customTaxGroup" style="display: none;">
+‎                        <label for="taxRate"><i class="fas fa-percent"></i> Custom Tax Rate (%)</label>
+‎                        <div class="input-with-percent">
+‎                            <input type="number" id="taxRate" min="0" max="100" value="30">
+‎                            <span class="percent">%</span>
+‎                        </div>
+‎                    </div>
+‎                </div>
+‎
+‎                <!-- CALCULATE BUTTON -->
+‎                <button class="calculate-btn" id="calculateBtn">
+‎                    <i class="fas fa-calculator"></i> Calculate My Profit
+‎                </button>
+‎            </div>
+‎
+‎            <!-- RIGHT: Results Section -->
+‎            <div class="calculator-results">
+‎                <h2><i class="fas fa-chart-pie"></i> Your Results</h2>
+‎                
+‎                <div class="results-card">
+‎                    <div class="result-row total-income">
+‎                        <span>Total Income</span>
+‎                        <span id="totalIncome" class="amount">0 MWK</span>
+‎                    </div>
+‎                    
+‎                    <div class="result-row total-expenses">
+‎                        <span>Total Expenses</span>
+‎                        <span id="totalExpenses" class="amount">0 MWK</span>
+‎                    </div>
+‎                    
+‎                    <div class="divider"></div>
+‎                    
+‎                    <div class="result-row gross-profit">
+‎                        <span>Gross Profit</span>
+‎                        <span id="grossProfit" class="amount">0 MWK</span>
+‎                    </div>
+‎                    
+‎                    <div class="result-row tax-amount">
+‎                        <span>Estimated Tax</span>
+‎                        <span id="taxAmount" class="amount">0 MWK</span>
+‎                    </div>
+‎                    
+‎                    <div class="divider"></div>
+‎                    
+‎                    <div class="result-row net-profit">
+‎                        <strong>Net Profit (Take Home)</strong>
+‎                        <strong id="netProfit" class="amount">0 MWK</span>
+‎                    </div>
+‎                    
+‎                    <div class="profit-status" id="profitStatus">
+‎                        <i class="fas fa-meh"></i> Enter your numbers above
+‎                    </div>
+‎                </div>
+‎
+‎                <!-- QUICK TIPS FOR MALAWI BUSINESSES -->
+‎                <div class="tips-card">
+‎                    <h3><i class="fas fa-lightbulb"></i> Tips for Malawi Businesses</h3>
+‎                    <ul>
+‎                        <li>Keep receipts for all business expenses</li>
+‎                        <li>Separate personal and business money</li>
+‎                        <li>Save 20-30% of profit for taxes</li>
+‎                        <li>Review your numbers monthly</li>
+‎                        <li>Use simple record books (khasu) for tracking</li>
+‎                    </ul>
+‎                </div>
+‎
+‎                <!-- ACTION BUTTONS -->
+‎                <div class="action-buttons">
+‎                    <button class="action-btn save-btn">
+‎                        <i class="fas fa-save"></i> Save This Calculation
+‎                    </button>
+‎                    <button class="action-btn reset-btn" id="resetBtn">
+‎                        <i class="fas fa-redo"></i> Reset Calculator
+‎                    </button>
+‎                </div>
+‎            </div>
+‎        </div>
+‎
+‎        <!-- SIMPLE EXPLANATION -->
+‎        <div class="explanation">
+‎            <h3><i class="fas fa-info-circle"></i> How This Works</h3>
+‎            <p><strong>Gross Profit</strong> = Total Income - Total Expenses</p>
+‎            <p><strong>Net Profit</strong> = Gross Profit - Tax (if included)</p>
+‎            <p class="note">This calculator uses Malawi Kwacha (MWK) and estimates based on common Malawi business practices. Always consult a local accountant for exact tax calculations.</p>
+‎        </div>
+‎    </main>
+‎
+‎    <!-- FOOTER -->
+‎    <footer>
+‎        <p>Made with pure passion by ELIJAH • Designed for Malawi Businesses • © <span id="currentYear">2026</span></p>
+‎    </footer>
+‎
+‎    <!-- JavaScript -->
+‎    <script src="app.js"></script>
+‎    <script src="calculator.js"></script>
+‎</body>
+‎</html>
+‎
