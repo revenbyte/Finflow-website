@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <title>FinFlow - Finance Made Easy</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- HEADER -->
+         <header>
+    <div class="logo">FinFlow</div>
+   
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+   
+    <!-- Navigation -->
+    <nav class="desktop-nav">
+        <a href="index.html">Dashboard</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="cashflow.html">Cash Flow</a>
+    </nav>
+   
+    <!-- Mobile navigation (hidden by default) -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">Dashboard</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="cashflow.html">Cash Flow</a>
+        <button class="close-menu" id="closeMenuBtn">× Close</button>
+    </nav>
+</header>
+        <!-- MAIN CONTENT -->
+        <main>    
+            <h1>Welcome to FinFlow!</h1>
+            <p>Your personal finance assistance</p>
+            <section class="hero">
+                <div class="hero-content">
+            <h2>Take Control of Your Finances</h2>
+            <p>Calculate profits, track cash flow, and grow your business with simple tools</p>
+                <button id="getStartedBtn" class="cta-button">Start Free Today →</button>
+                </div>
+                <div class="hero-image">
+        <!-- an image or graphic later -->
+                <div style="background: #1abc9c; width: 300px; height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+               Finance Dashboard Preview
+                </div>
+                </div>
+            </section>
+            <!-- FEATURES SECTION -->
+            <section class="features">
+                <h2>Everything You Need in One Place</h2>
+                <p class="section-subtitle">Powerful tools for small businesses and individuals</p>
+            
+                <div class="features-grid">
+                    <!-- Feature 1: Profit Calculator -->
+                    <div class="feature-card">
+                        <div class="feature-icon calc">$</div>
+                        <h3>Profit Calculator</h3>
+                        <p>Calculate profit/loss instantly. See net income after taxes and expenses.</p>
+                        <a href="calculator.html" class="feature-link">Try Calculator →</a>
+                    </div>
+                
+                    <!-- Feature 2: Cash Flow Tracker -->
+                    <div class="feature-card">
+                        <div class="feature-icon track">C</div>
+                        <h3>Cash Flow Tracker</h3>
+                        <p>Track income and expenses daily. Visualize your financial health.</p>
+                        <a href="cashflow.html" class="feature-link">Track Cash Flow →</a>
+                    </div>
+                
+                    <!-- Feature 3: Financial Insights -->
+                    <div class="feature-card">
+                        <div class="feature-icon insights">I</div>
+                        <h3>Financial Insights</h3>
+                        <p>Get personalized tips to save money and grow your business smarter.</p>
+                        <a href="#" class="feature-link">Learn More →</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+         <footer>
+            <p>Made with pure passion</p>
+         </footer>
+         <script src="app.js"></script>    
+    </body>
+</html>
