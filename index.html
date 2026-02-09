@@ -3,286 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinFlow MW - Business Ecosystem for Malawi</title>
+    <title>FinFlow MW - Business Finance Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <nav>
+    <!-- 🔝 HEADER: Minimal & Functional -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- App Logo + Name -->
+            <div class="brand">
                 <div class="logo">
-                    <h1><i class="fas fa-chart-line"></i> FinFlow <span>MW</span></h1>
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#finance">Finance</a></li>
-                    <li><a href="#security">Security</a></li>
-                    <li><a href="#automation">Automation</a></li>
-                    <li><a href="#digital">Digital</a></li>
-                    <li><a href="#communication">Communication</a></li>
-                    <li><a href="#" class="btn-outline">Get Started</a></li>
-                </ul>
-                <div class="menu-toggle">
-                    <i class="fas fa-bars"></i>
+                <div class="brand-name">
+                    <h1>FinFlow <span>MW</span></h1>
+                    <p class="brand-tagline">Business Finance</p>
                 </div>
-            </nav>
+            </div>
+
+            <!-- Business Selector -->
+            <div class="business-selector">
+                <select id="businessSelect">
+                    <option>Mama Jane's Shop</option>
+                    <option>My Second Business</option>
+                    <option>Add New Business +</option>
+                </select>
+            </div>
+
+            <!-- Date & Status -->
+            <div class="header-status">
+                <div class="date-display">
+                    <i class="far fa-calendar"></i>
+                    <span id="currentDate">Today, 15 Mar 2024</span>
+                </div>
+                <div class="cash-status">
+                    <span class="status-label">Cash Balance:</span>
+                    <span class="cash-amount">MK 245,630</span>
+                </div>
+            </div>
+
+            <!-- Notification Bell -->
+            <div class="notifications">
+                <button class="notification-btn">
+                    <i class="far fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </button>
+                <!-- Notification Dropdown -->
+                <div class="notification-dropdown">
+                    <div class="notification-item alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Low stock: Sugar (5 units left)</p>
+                        <span class="notification-time">2h ago</span>
+                    </div>
+                    <div class="notification-item warning">
+                        <i class="fas fa-clock"></i>
+                        <p>Rent expense due tomorrow</p>
+                        <span class="notification-time">1d ago</span>
+                    </div>
+                    <div class="notification-item info">
+                        <i class="fas fa-chart-line"></i>
+                        <p>Sales up 12% from yesterday</p>
+                        <span class="notification-time">Today</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile -->
+            <div class="profile">
+                <button class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </button>
+                <!-- Profile Dropdown -->
+                <div class="profile-dropdown">
+                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                    <div class="divider"></div>
+                    <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>Empowering Small Businesses in <span>Malawi</span></h2>
-                <p>An all-in-one ecosystem to manage your money, secure your business, automate operations, and grow digitally.</p>
-                <div class="hero-buttons">
-                    <a href="#finance" class="btn-primary">Start with Finance <i class="fas fa-arrow-right"></i></a>
-                    <a href="#" class="btn-secondary">Explore All Features</a>
+    <!-- 🧠 MAIN DASHBOARD: Answer "How is my business doing TODAY?" -->
+    <main class="dashboard">
+        <div class="dashboard-container">
+            <!-- Quick Stats Row -->
+            <div class="stats-grid">
+                <!-- Today's Sales -->
+                <div class="stat-card sales">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Today's Sales</h3>
+                        <p class="stat-amount">MK 124,850</p>
+                        <p class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 12% from yesterday
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Business Dashboard">
-            </div>
-        </div>
-    </section>
 
-    <!-- Finance Section (Main Focus) -->
-    <section id="finance" class="section-feature finance-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Our Core Feature</span>
-                <h2><i class="fas fa-money-bill-wave"></i> Finance & Cashflow</h2>
-                <p class="section-subtitle">Start here to take control of your business finances</p>
-            </div>
-            
-            <div class="feature-content">
-                <div class="feature-text">
-                    <h3>Real-Time Financial Tracking for Small Businesses</h3>
-                    <p>Our simple but powerful finance system automatically tracks sales, expenses, profit, stock, and cashflow in real time. It removes guesswork by showing business owners exactly where their money is going.</p>
-                    
-                    <div class="feature-benefits">
-                        <div class="benefit">
-                            <i class="fas fa-chart-pie"></i>
-                            <h4>Track Everything</h4>
-                            <p>Automatically monitor sales, expenses, profit, and cashflow in one place.</p>
-                        </div>
-                        <div class="benefit">
-                            <i class="fas fa-lightbulb"></i>
-                            <h4>Make Better Decisions</h4>
-                            <p>Get clear insights to price better, plan ahead, and avoid cashflow problems.</p>
-                        </div>
-                        <div class="benefit">
-                            <i class="fas fa-handshake"></i>
-                            <h4>Unlock Opportunities</h4>
-                            <p>Use your financial data to access loans and growth opportunities based on real performance.</p>
-                        </div>
+                <!-- Today's Expenses -->
+                <div class="stat-card expenses">
+                    <div class="stat-icon">
+                        <i class="fas fa-receipt"></i>
                     </div>
-                    
-                    <div class="feature-cta">
-                        <a href="#" class="btn-primary">Start Free Trial</a>
-                        <a href="#" class="btn-text">Learn More <i class="fas fa-arrow-right"></i></a>
+                    <div class="stat-content">
+                        <h3>Today's Expenses</h3>
+                        <p class="stat-amount">MK 43,210</p>
+                        <p class="stat-change negative">
+                            <i class="fas fa-arrow-up"></i> 8% from yesterday
+                        </p>
                     </div>
                 </div>
-                
-                <div class="feature-image">
-                    <div class="dashboard-preview">
-                        <div class="dashboard-header">
-                            <h4>FinFlow Dashboard</h4>
-                            <span>Today: <strong>MK 245,630</strong></span>
-                        </div>
-                        <div class="dashboard-stats">
-                            <div class="stat-card">
-                                <h5>Sales</h5>
-                                <p class="stat-value">MK 124,850</p>
-                                <p class="stat-change"><i class="fas fa-arrow-up"></i> 12% from yesterday</p>
-                            </div>
-                            <div class="stat-card">
-                                <h5>Expenses</h5>
-                                <p class="stat-value">MK 43,210</p>
-                                <p class="stat-change"><i class="fas fa-arrow-down"></i> 8% from yesterday</p>
-                            </div>
-                            <div class="stat-card">
-                                <h5>Profit</h5>
-                                <p class="stat-value">MK 81,640</p>
-                                <p class="stat-change"><i class="fas fa-arrow-up"></i> 18% from yesterday</p>
-                            </div>
-                            <div class="stat-card">
-                                <h5>Cashflow</h5>
-                                <p class="stat-value">MK 38,430</p>
-                                <p class="stat-change positive">+MK 12,400 this week</p>
-                            </div>
-                        </div>
-                        <div class="dashboard-chart">
-                            <p>Weekly Financial Overview</p>
-                            <div class="chart-bar" style="height: 80%;"><span>Mon</span></div>
-                            <div class="chart-bar" style="height: 65%;"><span>Tue</span></div>
-                            <div class="chart-bar" style="height: 90%;"><span>Wed</span></div>
-                            <div class="chart-bar" style="height: 75%;"><span>Thu</span></div>
-                            <div class="chart-bar" style="height: 95%;"><span>Fri</span></div>
-                            <div class="chart-bar" style="height: 40%;"><span>Sat</span></div>
-                            <div class="chart-bar" style="height: 30%;"><span>Sun</span></div>
-                        </div>
+
+                <!-- Today's Profit -->
+                <div class="stat-card profit">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Today's Profit</h3>
+                        <p class="stat-amount">MK 81,640</p>
+                        <p class="stat-percent">65.4% margin</p>
+                    </div>
+                </div>
+
+                <!-- Cash Balance -->
+                <div class="stat-card cash">
+                    <div class="stat-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Cash Balance</h3>
+                        <p class="stat-amount">MK 245,630</p>
+                        <p class="stat-trend">+MK 12,400 this week</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Other Features Sections -->
-    <section id="security" class="section-feature">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-shield-alt"></i> Security</h2>
-                <p class="section-subtitle">Affordable smart security for small businesses</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-camera"></i>
+            <!-- Alerts Summary -->
+            <div class="alerts-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-exclamation-circle"></i> Alerts</h2>
+                    <a href="#" class="view-all">View All</a>
                 </div>
-                <div class="feature-details">
-                    <h3>Physical & Digital Protection</h3>
-                    <p>We provide cameras, motion alerts, access control, and system monitoring — all visible in one dashboard. Get instant alerts when something unusual happens, log staff activity, and reduce losses from theft or misuse.</p>
-                    <a href="#" class="btn-text">Coming Soon <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="automation" class="section-feature">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-robot"></i> Automation</h2>
-                <p class="section-subtitle">Automate daily business operations</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-tasks"></i>
-                </div>
-                <div class="feature-details">
-                    <h3>Stop Doing Everything Manually</h3>
-                    <p>Sales automatically update stock and finances, low inventory triggers supplier reminders, daily reports are generated without effort. Automation turns small businesses into smooth-running systems instead of stressful, chaotic operations.</p>
-                    <a href="#" class="btn-text">Coming Soon <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="digital" class="section-feature">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-globe"></i> Digital Presence</h2>
-                <p class="section-subtitle">Go digital without complexity</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-store"></i>
-                </div>
-                <div class="feature-details">
-                    <h3>Instant Online Visibility</h3>
-                    <p>Quick setup of mini online stores, digital catalogs, and business profiles that customers can find and trust. Even businesses with no tech knowledge can appear professional and reachable online.</p>
-                    <a href="#" class="btn-text">Coming Soon <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="communication" class="section-feature">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-comments"></i> Customer Communication</h2>
-                <p class="section-subtitle">Smart tools to manage customers</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-                <div class="feature-details">
-                    <h3>Keep Customers Coming Back</h3>
-                    <p>Automated WhatsApp replies, promotions, reminders, and customer tracking help businesses keep clients coming back. See who your loyal customers are, who stopped buying, and re-engage them automatically.</p>
-                    <a href="#" class="btn-text">Coming Soon <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ecosystem Section -->
-    <section class="ecosystem">
-        <div class="container">
-            <div class="section-header">
-                <h2>One Complete Ecosystem</h2>
-                <p class="section-subtitle">Built for Malawi, scalable to the world</p>
-            </div>
-            <div class="ecosystem-content">
-                <p>Together, these elements form a single ecosystem that helps small businesses manage money, stay secure, operate efficiently, and grow digitally — built for Africa, scalable to the world.</p>
-                <a href="#" class="btn-primary">Join the Waiting List</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <h3><i class="fas fa-chart-line"></i> FinFlow MW</h3>
-                    <p>Empowering small businesses in Malawi with simple, powerful tools for growth and management.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <div class="alerts-grid">
+                    <div class="alert-card stock-alert">
+                        <i class="fas fa-box"></i>
+                        <div class="alert-content">
+                            <h4>Low Stock Items</h4>
+                            <p>Sugar (5), Cooking Oil (3), Salt (8)</p>
+                        </div>
+                        <button class="alert-action">Restock</button>
+                    </div>
+                    <div class="alert-card expense-alert">
+                        <i class="fas fa-clock"></i>
+                        <div class="alert-content">
+                            <h4>Upcoming Expenses</h4>
+                            <p>Rent (MK 50,000 due tomorrow)</p>
+                        </div>
+                        <button class="alert-action">Pay</button>
+                    </div>
+                    <div class="alert-card sales-alert">
+                        <i class="fas fa-chart-bar"></i>
+                        <div class="alert-content">
+                            <h4>Sales Trend</h4>
+                            <p>Morning sales lower than usual</p>
+                        </div>
+                        <button class="alert-action">Details</button>
                     </div>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#finance">Finance</a></li>
-                        <li><a href="#security">Security</a></li>
-                        <li><a href="#automation">Automation</a></li>
-                        <li><a href="#digital">Digital Presence</a></li>
-                        <li><a href="#communication">Communication</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Blantyre, Malawi</p>
-                    <p><i class="fas fa-phone"></i> +265 222 200 375</p>
-                    <p><i class="fas fa-envelope"></i> info@finflowmw.com</p>
-                </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 FinFlow MW. All rights reserved. Designed for Malawi small businesses.</p>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item sale">
+                        <div class="activity-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p>Sold 5kg Sugar for MK 12,500</p>
+                            <span class="activity-time">10:30 AM</span>
+                        </div>
+                        <span class="activity-amount positive">+12,500</span>
+                    </div>
+                    <div class="activity-item expense">
+                        <div class="activity-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p>Transport expense: MK 8,000</p>
+                            <span class="activity-time">9:15 AM</span>
+                        </div>
+                        <span class="activity-amount negative">-8,000</span>
+                    </div>
+                    <div class="activity-item sale">
+                        <div class="activity-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p>Sold Cooking Oil for MK 25,000</p>
+                            <span class="activity-time">Yesterday, 4:20 PM</span>
+                        </div>
+                        <span class="activity-amount positive">+25,000</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </main>
 
-    <script>
-        // Simple mobile menu toggle
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href') === '#') return;
-                
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                document.querySelector('.nav-links').classList.remove('active');
-            });
-        });
-    </script>
+    <!-- 🔽 BOTTOM NAV: Muscle Memory Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="sales.html" class="nav-item">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Sales</span>
+        </a>
+        <a href="expenses.html" class="nav-item">
+            <i class="fas fa-receipt"></i>
+            <span>Expenses</span>
+        </a>
+        <a href="stock.html" class="nav-item">
+            <i class="fas fa-box"></i>
+            <span>Stock</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Reports</span>
+        </a>
+    </nav>
+
+    <!-- Add Sale Modal -->
+    <div class="modal" id="addSaleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Sale</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="saleForm">
+                    <div class="form-group">
+                        <label for="productSelect">Product</label>
+                        <select id="productSelect" required>
+                            <option value="">Select Product</option>
+                            <option value="sugar">Sugar (MK 2,500/kg) - 15 in stock</option>
+                            <option value="oil">Cooking Oil (MK 5,000/L) - 8 in stock</option>
+                            <option value="salt">Salt (MK 1,500/kg) - 25 in stock</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method</label>
+                        <select id="paymentMethod" required>
+                            <option value="cash">Cash</option>
+                            <option value="airtel">Airtel Money</option>
+                            <option value="tnm">TNM Mpamba</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary close-modal">Cancel</button>
+                        <button type="submit" class="btn-primary">Add Sale</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
