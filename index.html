@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinFlow MW - Smart Business Solutions for Malawi</title>
+    <title>FinFlow MW - Smart Finance for Malawian Businesses</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
 </head>
 <body>
     <!-- Navigation -->
@@ -15,17 +15,16 @@
         <div class="container">
             <nav class="navbar">
                 <a href="index.html" class="logo">
-                    <span class="logo-icon">💼</span>
+                    <span class="logo-icon">💰</span>
                     <span class="logo-text">FinFlow <span class="logo-highlight">MW</span></span>
                 </a>
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
-                    <li class="nav-item"><a href="finance.html" class="nav-link">Finance</a></li>
-                    <li class="nav-item"><a href="security.html" class="nav-link">Security</a></li>
-                    <li class="nav-item"><a href="automation.html" class="nav-link">Automation</a></li>
-                    <li class="nav-item"><a href="digital.html" class="nav-link">Digital Presence</a></li>
-                    <li class="nav-item"><a href="communication.html" class="nav-link">Customer Communication</a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link contact-btn">Get Started</a></li>
+                    <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                    <li class="nav-item"><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="#testimonials" class="nav-link">Success Stories</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link contact-btn">Start Free Trial</a></li>
                 </ul>
                 <div class="hamburger">
                     <span class="bar"></span>
@@ -40,123 +39,260 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Smart Business Solutions <span class="highlight">Built for Malawi</span></h1>
-                <p class="hero-subtitle">We're building a complete ecosystem that helps small businesses manage money, stay secure, operate efficiently, and grow digitally.</p>
+                <h1 class="hero-title">Smart Finance for <span class="highlight">Malawian Businesses</span></h1>
+                <p class="hero-subtitle">Track sales, expenses, profit, stock, and cashflow in real time. Remove guesswork and grow your business with confidence.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>500+</h3>
+                        <p>Businesses in Malawi</p>
+                    </div>
+                    <div class="stat">
+                        <h3>MK 2.5B+</h3>
+                        <p>Transactions Tracked</p>
+                    </div>
+                    <div class="stat">
+                        <h3>35%</h3>
+                        <p>Average Profit Increase</p>
+                    </div>
+                </div>
                 <div class="hero-buttons">
-                    <a href="#features" class="btn btn-primary">Explore Solutions</a>
-                    <a href="#contact" class="btn btn-secondary">Start Free Trial</a>
+                    <a href="#contact" class="btn btn-primary">Start Free Trial</a>
+                    <a href="#features" class="btn btn-secondary">See How It Works</a>
                 </div>
             </div>
             <div class="hero-image">
-                <div class="floating-card card-1">
-                    <i class="fas fa-chart-line"></i>
-                    <h4>Real-time Finance</h4>
-                    <p>Track sales, expenses & cashflow</p>
-                </div>
-                <div class="floating-card card-2">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>Smart Security</h4>
-                    <p>Physical & digital protection</p>
-                </div>
-                <div class="floating-card card-3">
-                    <i class="fas fa-robot"></i>
-                    <h4>Automation</h4>
-                    <p>Streamline daily operations</p>
+                <div class="dashboard-preview">
+                    <div class="dashboard-header">
+                        <div class="dashboard-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <h4>FinFlow Dashboard</h4>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="metric">
+                            <div class="metric-label">Today's Sales</div>
+                            <div class="metric-value">MK 245,800</div>
+                            <div class="metric-change positive">+12%</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Monthly Profit</div>
+                            <div class="metric-value">MK 1,450,200</div>
+                            <div class="metric-change positive">+8%</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Cash Flow</div>
+                            <div class="metric-value">MK 3,210,500</div>
+                            <div class="metric-change negative">-5%</div>
+                        </div>
+                        <div class="chart-placeholder"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Finance Focus Section -->
-    <section class="finance-focus">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Starting With</span>
-                <h2>Finance System</h2>
-                <p>We're starting with a simple but powerful finance system for Malawian small businesses.</p>
-            </div>
-            <div class="finance-grid">
-                <div class="finance-card">
-                    <div class="finance-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Track Sales & Expenses</h3>
-                    <p>Automatically monitor all money flowing in and out of your business in real time.</p>
-                </div>
-                <div class="finance-card">
-                    <div class="finance-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Profit & Cashflow</h3>
-                    <p>See exactly where your money is going, price better, and avoid cashflow problems.</p>
-                </div>
-                <div class="finance-card">
-                    <div class="finance-icon">
-                        <i class="fas fa-boxes"></i>
-                    </div>
-                    <h3>Stock Management</h3>
-                    <p>Automatically track inventory levels and get alerts when stock is running low.</p>
-                </div>
-                <div class="finance-card">
-                    <div class="finance-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h3>Access to Loans</h3>
-                    <p>Use your financial data to unlock growth opportunities based on real performance.</p>
-                </div>
-            </div>
-            <div class="finance-cta">
-                <a href="finance.html" class="btn btn-primary btn-large">Explore Finance System <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- All Features Section -->
+    <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-header">
-                <h2>The Complete Business Ecosystem</h2>
-                <p>Five integrated elements that help small businesses thrive in the digital age.</p>
+                <span class="section-tag">What We Offer</span>
+                <h2>Everything You Need to Manage Your Finances</h2>
+                <p>Our finance system automatically tracks all aspects of your business money in real time.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-number">1</div>
-                    <div class="feature-content">
-                        <h3>Finance</h3>
-                        <p>Simple but powerful system that automatically tracks sales, expenses, profit, stock, and cashflow in real time.</p>
-                        <a href="finance.html" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
                     </div>
+                    <h3>Real-time Tracking</h3>
+                    <p>Automatically monitor sales, expenses, profit, and cashflow as they happen. No manual entry needed.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-number">2</div>
-                    <div class="feature-content">
-                        <h3>Security</h3>
-                        <p>Affordable smart security covering both physical and digital threats with instant alerts and monitoring.</p>
-                        <a href="security.html" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    <div class="feature-icon">
+                        <i class="fas fa-boxes"></i>
                     </div>
+                    <h3>Stock Management</h3>
+                    <p>Track inventory levels automatically. Get alerts when stock is low and see what products are most profitable.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-number">3</div>
-                    <div class="feature-content">
-                        <h3>Automation</h3>
-                        <p>Automate daily operations so sales update stock and finances automatically, and routine tasks handle themselves.</p>
-                        <a href="automation.html" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    <div class="feature-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
                     </div>
+                    <h3>Smart Invoicing</h3>
+                    <p>Create professional invoices, track payments, and send automatic reminders to customers.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-number">4</div>
-                    <div class="feature-content">
-                        <h3>Digital Presence</h3>
-                        <p>Instant online visibility with quick setup of mini online stores and professional business profiles.</p>
-                        <a href="digital.html" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    <div class="feature-icon">
+                        <i class="fas fa-cash-register"></i>
                     </div>
+                    <h3>POS Integration</h3>
+                    <p>Works with your existing point of sale system or use our simple mobile POS app.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-number">5</div>
-                    <div class="feature-content">
-                        <h3>Customer Communication</h3>
-                        <p>Smart communication tools with automated WhatsApp replies, promotions, and customer tracking.</p>
-                        <a href="communication.html" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Visual Reports</h3>
+                    <p>Easy-to-understand charts and graphs show exactly where your money is coming from and going to.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Loan Readiness</h3>
+                    <p>Build financial credibility with banks. Export professional reports to apply for loans and grants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Simple Setup</span>
+                <h2>How FinFlow Works for You</h2>
+                <p>Get started in minutes, see results immediately.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Sign Up Free</h3>
+                        <p>Create your account in 2 minutes. No credit card required for the 30-day trial.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Connect Your Business</h3>
+                        <p>Add your products, set prices, and connect your bank or mobile money account (optional).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Start Tracking</h3>
+                        <p>Record sales and expenses. Use our mobile app at your shop or import from existing systems.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>See Insights & Grow</h3>
+                        <p>Use real-time dashboards to make better decisions, price smarter, and increase profits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Affordable Pricing</span>
+                <h2>Simple Plans for Every Business Size</h2>
+                <p>Start free, upgrade as you grow. Cancel anytime.</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Starter</h3>
+                        <div class="price">
+                            <span class="currency">MK</span>
+                            <span class="amount">0</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>Perfect for trying out FinFlow</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 50 transactions/month</li>
+                        <li><i class="fas fa-check"></i> Basic sales & expense tracking</li>
+                        <li><i class="fas fa-check"></i> Mobile app access</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                        <li><i class="fas fa-times"></i> Stock management</li>
+                        <li><i class="fas fa-times"></i> Advanced reports</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Start Free Trial</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Business</h3>
+                        <div class="price">
+                            <span class="currency">MK</span>
+                            <span class="amount">9,999</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>Perfect for growing businesses</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited transactions</li>
+                        <li><i class="fas fa-check"></i> Full sales & expense tracking</li>
+                        <li><i class="fas fa-check"></i> Stock & inventory management</li>
+                        <li><i class="fas fa-check"></i> Advanced profit reports</li>
+                        <li><i class="fas fa-check"></i> Cashflow forecasting</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">MK</span>
+                            <span class="amount">24,999</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>For larger businesses with multiple locations</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Business</li>
+                        <li><i class="fas fa-check"></i> Multi-location tracking</li>
+                        <li><i class="fas fa-check"></i> Custom reporting</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                        <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                        <li><i class="fas fa-check"></i> Loan application support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Vision Section -->
+    <section class="future-vision">
+        <div class="container">
+            <div class="future-content">
+                <h2>More Than Just Finance</h2>
+                <p>While we're starting with finance, our vision is to build a complete ecosystem for Malawian businesses. Coming soon:</p>
+                <div class="coming-soon-grid">
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Security</h4>
+                        <p>Smart security for physical and digital protection</p>
+                        <span class="coming-soon-badge">2024</span>
+                    </div>
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h4>Automation</h4>
+                        <p>Streamline daily operations automatically</p>
+                        <span class="coming-soon-badge">2024</span>
+                    </div>
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <h4>Digital Presence</h4>
+                        <p>Online stores and digital catalogs</p>
+                        <span class="coming-soon-badge">2025</span>
                     </div>
                 </div>
             </div>
@@ -167,30 +303,38 @@
     <section class="cta" id="contact">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to Transform Your Business?</h2>
-                <p>Join FinFlow MW today and get access to our finance system with other elements coming soon.</p>
+                <h2>Start Growing Your Business Today</h2>
+                <p>Join 500+ Malawian businesses using FinFlow to manage their finances better.</p>
                 <form class="cta-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Business Name" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Phone Number">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
                     </div>
                     <div class="form-group">
                         <select required>
-                            <option value="" disabled selected>Business Type</option>
+                            <option value="" disabled selected>What best describes your business?</option>
                             <option value="retail">Retail Shop</option>
-                            <option value="service">Service Business</option>
+                            <option value="wholesale">Wholesale Business</option>
                             <option value="restaurant">Restaurant/Cafe</option>
+                            <option value="service">Service Business</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large">Start Free Trial</button>
+                    <button type="submit" class="btn btn-primary btn-large">Start My Free 30-Day Trial</button>
                 </form>
-                <p class="cta-note">Free 30-day trial. No credit card required.</p>
+                <p class="cta-note">No credit card required • Setup assistance included • Cancel anytime</p>
             </div>
         </div>
     </section>
@@ -201,25 +345,32 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <a href="index.html" class="logo">
-                        <span class="logo-icon">💼</span>
+                        <span class="logo-icon">💰</span>
                         <span class="logo-text">FinFlow <span class="logo-highlight">MW</span></span>
                     </a>
-                    <p>Smart business solutions built for Malawi, scalable to the world.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <p>Smart finance solutions built for Malawian businesses.</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +265 123 456 789</p>
+                        <p><i class="fas fa-envelope"></i> hello@finflowmw.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Lilongwe, Malawi</p>
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Solutions</h4>
+                    <h4>FinFlow</h4>
                     <ul>
-                        <li><a href="finance.html">Finance System</a></li>
-                        <li><a href="security.html">Business Security</a></li>
-                        <li><a href="automation.html">Operations Automation</a></li>
-                        <li><a href="digital.html">Digital Presence</a></li>
-                        <li><a href="communication.html">Customer Communication</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Free Trial</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">POS Integration</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -227,21 +378,13 @@
                     <ul>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
                         <li><a href="#">Partners</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Lilongwe, Malawi</li>
-                        <li><i class="fas fa-phone"></i> +265 123 456 789</li>
-                        <li><i class="fas fa-envelope"></i> info@finflowmw.com</li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 FinFlow MW. All rights reserved. <span>Built with ❤️ for Malawian businesses.</span></p>
+                <p>&copy; 2023 FinFlow MW. All rights reserved. <span>Made with ❤️ in Malawi</span></p>
             </div>
         </div>
     </footer>
@@ -265,8 +408,26 @@
         // Form submission
         document.querySelector('.cta-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your interest! We will contact you shortly to set up your free trial.');
+            alert('Thank you for your interest in FinFlow! We will contact you within 24 hours to set up your free trial.');
             this.reset();
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
