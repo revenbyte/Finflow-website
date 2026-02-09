@@ -3,34 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Flow Tracker | FinFlow</title>
+    <title>Cash Flow Tracker | FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="logo">FinFlow</div>
-        <nav>
-            <a href="index.html">Dashboard</a>
-            <a href="calculator.html">Calculator</a>
-            <a href="cashflow.html">Cash Flow</a>
-        </nav>
-    </header>
-    <main>
-        <div class="page-header">
-            <h1>Cash Flow Tracker</h1>
-            <p>Track your income and expenses</p>
+    <!-- HEADER (Same as other pages) -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">💰</span>
+                <span class="logo-text">FinFlow <strong>MW</strong></span>
+            </div>
+           
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="calculator.html">Calculator</a>
+                <a href="cashflow.html" class="active">Cash Flow</a>
+                <a href="#" class="nav-btn">Sign In</a>
+                <a href="#" class="nav-btn primary">Sign Up</a>
+            </nav>
+           
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
        
-        <div class="construction-message">
-            <h2>🛠️ Under Construction</h2>
-            <p>We're building an amazing cash flow tracker for you!</p>
-            <p>Coming next week in our Week 3 updates!</p>
-            <a href="index.html" class="cta-button">Back to Home</a>
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html">Home</a>
+            <a href="calculator.html">Calculator</a>
+            <a href="cashflow.html" class="active">Cash Flow</a>
+            <a href="#">Sign In</a>
+            <a href="#" class="primary">Sign Up</a>
+            <button class="close-menu" id="closeMenuBtn">× Close</button>
+        </nav>
+    </header>
+    <!-- CASH FLOW HERO -->
+    <section class="cashflow-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-chart-line"></i> Cash Flow Tracker</h1>
+                <p>Track your daily income and expenses. Visualize your financial health with simple tools designed for Malawi businesses.</p>
+                <div class="hero-features">
+                    <div class="feature-badge">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile-Friendly</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-wifi-slash"></i>
+                        <span>Works Offline</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-flag"></i>
+                        <span>MWK Currency</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-sync"></i>
+                        <span>Auto-Calculate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- MAIN CASH FLOW TRACKER -->
+    <main class="cashflow-main">
+        <div class="container">
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card income-card">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-label">Total Income</span>
+                        <span class="card-amount" id="totalIncome">0 MWK</span>
+                        <span class="card-change">+0% this month</span>
+                    </div>
+                </div>
+               
+                <div class="summary-card expense-card">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-label">Total Expenses</span>
+                        <span class="card-amount" id="totalExpenses">0 MWK</span>
+                        <span class="card-change">-0% this month</span>
+                    </div>
+                </div>
+               
+                <div class="summary-card balance-card">
+                    <div class="card-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-label">Cash Balance</span>
+                        <span class="card-amount" id="cashBalance">0 MWK</span>
+                        <span class="card-change">Current available</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Tracker Layout -->
+            <div class="tracker-layout">
+                <!-- LEFT: Add Transaction -->
+                <div class="tracker-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-plus-circle"></i> Add New Transaction</h2>
+                        <p>Record income or expenses in Malawi Kwacha</p>
+                    </div>
+                    <div class="transaction-form">
+                        <!-- Transaction Type -->
+                        <div class="form-group">
+                            <label for="transactionType"><i class="fas fa-exchange-alt"></i> Transaction Type</label>
+                            <div class="type-selector">
+                                <button class="type-btn income-btn active" data-type="income">
+                                    <i class="fas fa-arrow-up"></i> Income
+                                </button>
+                                <button class="type-btn expense-btn" data-type="expense">
+                                    <i class="fas fa-arrow-down"></i> Expense
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Amount -->
+                        <div class="form-group">
+                            <label for="amount"><i class="fas fa-money-bill-wave"></i> Amount (MWK)</label>
+                            <div class="input-with-icon">
+                                <input type="number" id="amount" placeholder="0" min="0" step="100">
+                                <span class="input-icon">MWK</span>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description"><i class="fas fa-file-alt"></i> Description</label>
+                            <input type="text" id="description" placeholder="What was this for? (e.g., Maize sales, Rent payment)">
+                        </div>
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category"><i class="fas fa-tag"></i> Category</label>
+                            <div class="category-selector">
+                                <select id="category">
+                                    <option value="">Select a category</option>
+                                    <optgroup label="Income">
+                                        <option value="sales">Sales Revenue</option>
+                                        <option value="services">Services</option>
+                                        <option value="investments">Investments</option>
+                                        <option value="other-income">Other Income</option>
+                                    </optgroup>
+                                    <optgroup label="Expenses">
+                                        <option value="rent">Rent & Utilities</option>
+                                        <option value="inventory">Inventory/Stock</option>
+                                        <option value="salaries">Salaries & Wages</option>
+                                        <option value="transport">Transport</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="other-expense">Other Expenses</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Date -->
+                        <div class="form-group">
+                            <label for="date"><i class="fas fa-calendar"></i> Date</label>
+                            <input type="date" id="date" value="">
+                        </div>
+                        <!-- Add Button -->
+                        <button class="btn btn-primary btn-large" id="addTransactionBtn">
+                            <i class="fas fa-plus"></i> Add Transaction
+                        </button>
+                    </div>
+                </div>
+                <!-- RIGHT: Transactions List -->
+                <div class="transactions-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-list"></i> Recent Transactions</h2>
+                        <div class="panel-actions">
+                            <button class="btn-filter active">All</button>
+                            <button class="btn-filter">Income</button>
+                            <button class="btn-filter">Expenses</button>
+                        </div>
+                    </div>
+                    <div class="transactions-list" id="transactionsList">
+                        <!-- Transaction items will appear here -->
+                        <div class="empty-state">
+                            <i class="fas fa-receipt"></i>
+                            <h3>No transactions yet</h3>
+                            <p>Add your first income or expense to start tracking your cash flow</p>
+                        </div>
+                    </div>
+                    <!-- Quick Stats -->
+                    <div class="quick-stats">
+                        <h3><i class="fas fa-chart-bar"></i> This Month</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Income</span>
+                                <span class="stat-value income">0 MWK</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Expenses</span>
+                                <span class="stat-value expense">0 MWK</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Net Flow</span>
+                                <span class="stat-value net">0 MWK</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Export Options -->
+                    <div class="export-options">
+                        <h3><i class="fas fa-download"></i> Export Your Data</h3>
+                        <div class="export-buttons">
+                            <button class="btn-export">
+                                <i class="fas fa-file-excel"></i> Excel
+                            </button>
+                            <button class="btn-export">
+                                <i class="fas fa-file-pdf"></i> PDF Report
+                            </button>
+                            <button class="btn-export">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-pie"></i> Cash Flow Visualization</h2>
+                    <p>See your financial patterns at a glance</p>
+                </div>
+               
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Income vs Expenses</h3>
+                            <select class="chart-period">
+                                <option>This Month</option>
+                                <option>Last Month</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="bar income-bar" style="height: 70%">
+                                    <span>Income</span>
+                                </div>
+                                <div class="bar expense-bar" style="height: 40%">
+                                    <span>Expenses</span>
+                                </div>
+                            </div>
+                            <p class="chart-note">Chart will show real data when you add transactions</p>
+                        </div>
+                    </div>
+                   
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Expense Categories</h3>
+                            <select class="chart-period">
+                                <option>This Month</option>
+                                <option>Last Month</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="pie-chart">
+                                <div class="pie-segment" style="--percentage: 40%; --color: #3498db;">
+                                    <span>Rent</span>
+                                </div>
+                                <div class="pie-segment" style="--percentage: 25%; --color: #2ecc71;">
+                                    <span>Inventory</span>
+                                </div>
+                                <div class="pie-segment" style="--percentage: 20%; --color: #e74c3c;">
+                                    <span>Salaries</span>
+                                </div>
+                                <div class="pie-segment" style="--percentage: 15%; --color: #f39c12;">
+                                    <span>Other</span>
+                                </div>
+                            </div>
+                            <p class="chart-note">Pie chart showing expense distribution</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tips for Malawi Businesses -->
+            <div class="tips-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-lightbulb"></i> Cash Flow Tips for Malawi Businesses</h2>
+                    <p>Best practices for managing your money</p>
+                </div>
+               
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Track Daily</h3>
+                        <p>Record all transactions daily. Even small amounts matter for accurate cash flow.</p>
+                    </div>
+                   
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Save for Taxes</h3>
+                        <p>Set aside 20-30% of profits for taxes. Keep it in a separate account.</p>
+                    </div>
+                   
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Review Weekly</h3>
+                        <p>Check your cash flow every week. Spot problems before they grow.</p>
+                    </div>
+                   
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>Emergency Fund</h3>
+                        <p>Keep 3 months of expenses saved. Malawi businesses face unexpected challenges.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-    <footer>
-        <p>Made for small businesses</p>
+    <!-- FOOTER (Same as other pages) -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <span class="logo-icon">💰</span>
+                        <span class="logo-text">FinFlow <strong>MW</strong></span>
+                    </div>
+                    <p>Financial tools designed for Malawi businesses. Simple, powerful, and free.</p>
+                </div>
+               
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Tools</h4>
+                        <a href="calculator.html">Profit Calculator</a>
+                        <a href="cashflow.html">Cash Flow Tracker</a>
+                        <a href="features.html">Financial Insights</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="javascript:void(0)"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="javascript:void(0)"><i class="fab fa-facebook"></i> Facebook</a>
+                        <a href="javascript:void(0)"><i class="fas fa-envelope"></i> Email</a>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="footer-bottom">
+                <p>Made with passion in Malawi • © <span id="currentYear">2026</span></p>
+                <p class="footer-note">Designed for Malawi small businesses and entrepreneurs</p>
+            </div>
+        </div>
     </footer>
+    <!-- JavaScript -->
     <script src="app.js"></script>
+    <script src="cashflow.js"></script>
 </body>
 </html>
