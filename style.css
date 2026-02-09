@@ -3246,3 +3246,385 @@ input[type="text"]:focus, input[type="date"]:focus, select:focus {
         padding: 2rem 1.5rem;
     }
 }
+‎/* ========== CALCULATOR STYLES ========== */
+‎
+‎/* Calculator Container */
+‎.calculator-container {
+‎    max-width: 1200px;
+‎    margin: 0 auto;
+‎    padding: 1rem;
+‎}
+‎
+‎.page-header {
+‎    text-align: center;
+‎    padding: 2rem 1rem;
+‎    background: linear-gradient(135deg, #1abc9c, #16a085);
+‎    color: white;
+‎    border-radius: 10px;
+‎    margin-bottom: 2rem;
+‎}
+‎
+‎.page-header h1 {
+‎    font-size: 2.2rem;
+‎    margin-bottom: 0.5rem;
+‎}
+‎
+‎.page-header p {
+‎    font-size: 1.1rem;
+‎    opacity: 0.9;
+‎}
+‎
+‎/* Calculator Wrapper */
+‎.calculator-wrapper {
+‎    display: grid;
+‎    grid-template-columns: 1fr 1fr;
+‎    gap: 2rem;
+‎    margin-bottom: 3rem;
+‎}
+‎
+‎/* Inputs Section */
+‎.calculator-inputs {
+‎    background: white;
+‎    padding: 2rem;
+‎    border-radius: 10px;
+‎    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+‎}
+‎
+‎.input-section {
+‎    margin-bottom: 2rem;
+‎    padding-bottom: 1.5rem;
+‎    border-bottom: 1px solid #eee;
+‎}
+‎
+‎.input-section h3 {
+‎    color: #2c3e50;
+‎    margin-bottom: 1.5rem;
+‎    font-size: 1.3rem;
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 10px;
+‎}
+‎
+‎.input-section h3 .green {
+‎    color: #27ae60;
+‎}
+‎
+‎.input-section h3 .red {
+‎    color: #e74c3c;
+‎}
+‎
+‎/* Input Groups */
+‎.input-group {
+‎    margin-bottom: 1.2rem;
+‎}
+‎
+‎.input-group label {
+‎    display: block;
+‎    margin-bottom: 0.5rem;
+‎    color: #34495e;
+‎    font-weight: 500;
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 8px;
+‎}
+‎
+‎.input-with-currency, .input-with-percent {
+‎    display: flex;
+‎    border: 2px solid #ddd;
+‎    border-radius: 8px;
+‎    overflow: hidden;
+‎    transition: border-color 0.3s;
+‎}
+‎
+‎.input-with-currency:focus-within, 
+‎.input-with-percent:focus-within {
+‎    border-color: #1abc9c;
+‎}
+‎
+‎.input-with-currency input,
+‎.input-with-percent input {
+‎    flex: 1;
+‎    border: none;
+‎    padding: 0.8rem 1rem;
+‎    font-size: 1.1rem;
+‎    outline: none;
+‎}
+‎
+‎.currency, .percent {
+‎    background: #f8f9fa;
+‎    padding: 0.8rem 1.2rem;
+‎    font-weight: bold;
+‎    color: #2c3e50;
+‎    border-left: 1px solid #ddd;
+‎}
+‎
+‎.currency {
+‎    min-width: 70px;
+‎    text-align: center;
+‎}
+‎
+‎/* Buttons */
+‎.add-btn, .calculate-btn, .action-btn {
+‎    width: 100%;
+‎    padding: 1rem;
+‎    border: none;
+‎    border-radius: 8px;
+‎    font-size: 1.1rem;
+‎    font-weight: 600;
+‎    cursor: pointer;
+‎    transition: all 0.3s;
+‎    display: flex;
+‎    align-items: center;
+‎    justify-content: center;
+‎    gap: 10px;
+‎    margin-top: 1rem;
+‎}
+‎
+‎.add-btn {
+‎    background: #f8f9fa;
+‎    color: #2c3e50;
+‎    border: 2px dashed #ddd;
+‎}
+‎
+‎.add-btn:hover {
+‎    background: #e9ecef;
+‎    border-color: #1abc9c;
+‎}
+‎
+‎.calculate-btn {
+‎    background: linear-gradient(135deg, #1abc9c, #16a085);
+‎    color: white;
+‎    margin-top: 2rem;
+‎}
+‎
+‎.calculate-btn:hover {
+‎    transform: translateY(-2px);
+‎    box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4);
+‎}
+‎
+‎/* Tax Section */
+‎.tax-option {
+‎    background: #f8f9fa;
+‎    padding: 1rem;
+‎    border-radius: 8px;
+‎    margin-bottom: 1rem;
+‎}
+‎
+‎.checkbox-label {
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 10px;
+‎    cursor: pointer;
+‎    font-weight: 500;
+‎}
+‎
+‎.checkbox-label input {
+‎    width: 18px;
+‎    height: 18px;
+‎}
+‎
+‎.help-text {
+‎    font-size: 0.9rem;
+‎    color: #7f8c8d;
+‎    margin-top: 0.5rem;
+‎    margin-left: 28px;
+‎}
+‎
+‎/* Results Section */
+‎.calculator-results {
+‎    background: white;
+‎    padding: 2rem;
+‎    border-radius: 10px;
+‎    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+‎}
+‎
+‎.results-card {
+‎    background: #f8f9fa;
+‎    padding: 1.5rem;
+‎    border-radius: 10px;
+‎    margin-bottom: 2rem;
+‎}
+‎
+‎.result-row {
+‎    display: flex;
+‎    justify-content: space-between;
+‎    padding: 0.8rem 0;
+‎    border-bottom: 1px solid #e9ecef;
+‎}
+‎
+‎.result-row:last-child {
+‎    border-bottom: none;
+‎}
+‎
+‎.amount {
+‎    font-weight: 600;
+‎    font-size: 1.1rem;
+‎}
+‎
+‎.divider {
+‎    height: 2px;
+‎    background: #ddd;
+‎    margin: 1rem 0;
+‎}
+‎
+‎.gross-profit .amount {
+‎    color: #27ae60;
+‎}
+‎
+‎.tax-amount .amount {
+‎    color: #e74c3c;
+‎}
+‎
+‎.net-profit {
+‎    background: #2c3e50;
+‎    color: white;
+‎    padding: 1rem;
+‎    border-radius: 8px;
+‎    margin-top: 1rem;
+‎}
+‎
+‎.net-profit .amount {
+‎    color: #1abc9c;
+‎    font-size: 1.3rem;
+‎}
+‎
+‎/* Profit Status */
+‎.profit-status {
+‎    text-align: center;
+‎    padding: 1rem;
+‎    margin-top: 1rem;
+‎    border-radius: 8px;
+‎    background: #f8f9fa;
+‎    font-weight: 500;
+‎}
+‎
+‎/* Tips Card */
+‎.tips-card {
+‎    background: #e3f2fd;
+‎    padding: 1.5rem;
+‎    border-radius: 10px;
+‎    margin-bottom: 2rem;
+‎    border-left: 5px solid #2196f3;
+‎}
+‎
+‎.tips-card h3 {
+‎    color: #1976d2;
+‎    margin-bottom: 1rem;
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 10px;
+‎}
+‎
+‎.tips-card ul {
+‎    list-style: none;
+‎    padding-left: 0;
+‎}
+‎
+‎.tips-card li {
+‎    padding: 0.5rem 0;
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 10px;
+‎}
+‎
+‎.tips-card li:before {
+‎    content: "✓";
+‎    color: #4caf50;
+‎    font-weight: bold;
+‎}
+‎
+‎/* Action Buttons */
+‎.action-buttons {
+‎    display: grid;
+‎    grid-template-columns: 1fr 1fr;
+‎    gap: 1rem;
+‎}
+‎
+‎.action-btn {
+‎    padding: 0.8rem;
+‎    font-size: 1rem;
+‎}
+‎
+‎.save-btn {
+‎    background: #3498db;
+‎    color: white;
+‎}
+‎
+‎.save-btn:hover {
+‎    background: #2980b9;
+‎}
+‎
+‎.reset-btn {
+‎    background: #e74c3c;
+‎    color: white;
+‎}
+‎
+‎.reset-btn:hover {
+‎    background: #c0392b;
+‎}
+‎
+‎/* Explanation */
+‎.explanation {
+‎    background: white;
+‎    padding: 2rem;
+‎    border-radius: 10px;
+‎    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+‎    margin-top: 2rem;
+‎}
+‎
+‎.explanation h3 {
+‎    color: #2c3e50;
+‎    margin-bottom: 1rem;
+‎    display: flex;
+‎    align-items: center;
+‎    gap: 10px;
+‎}
+‎
+‎.explanation p {
+‎    margin-bottom: 0.8rem;
+‎    line-height: 1.6;
+‎}
+‎
+‎.note {
+‎    font-size: 0.9rem;
+‎    color: #7f8c8d;
+‎    font-style: italic;
+‎    margin-top: 1rem;
+‎    padding: 1rem;
+‎    background: #f8f9fa;
+‎    border-radius: 5px;
+‎}
+‎
+‎/* Mobile Responsiveness */
+‎@media (max-width: 992px) {
+‎    .calculator-wrapper {
+‎        grid-template-columns: 1fr;
+‎    }
+‎}
+‎
+‎@media (max-width: 768px) {
+‎    .page-header h1 {
+‎        font-size: 1.8rem;
+‎    }
+‎    
+‎    .calculator-inputs,
+‎    .calculator-results {
+‎        padding: 1.5rem;
+‎    }
+‎    
+‎    .action-buttons {
+‎        grid-template-columns: 1fr;
+‎    }
+‎    
+‎    .input-section h3 {
+‎        font-size: 1.1rem;
+‎    }
+‎}
+‎
+‎/* Active navigation link */
+‎nav a.active {
+‎    color: #1abc9c;
+‎    font-weight: bold;
+‎    border-bottom: 2px solid #1abc9c;
+‎}
+‎
