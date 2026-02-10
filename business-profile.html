@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Business - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">My Business</p>
+                </a>
+            </div>
+
+            <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a href="sales.html">Sales</a></li>
+                    <li class="nav-item"><a href="expenses.html">Expenses</a></li>
+                    <li class="nav-item"><a href="reports.html">Reports</a></li>
+                    <li class="nav-item"><a href="business-profile.html" class="nav-link active">My Business</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <a href="settings.html" class="btn btn-outline">Settings</a>
+                    <a href="logout.html" class="btn btn-login">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Business Profile -->
+    <main class="section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb mb-4">
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="business-profile.html">My Business</a></li>
+                </ul>
+            </div>
+
+            <div class="grid grid-3 gap-4">
+                <!-- Left Column - Business Info -->
+                <div class="col-span-2">
+                    <!-- Business Details Card -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h3 class="mb-0">Business Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="business-form">
+                                <div class="grid grid-2 gap-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Business Name</label>
+                                        <input type="text" class="form-control" value="My Awesome Business" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Business Type</label>
+                                        <select class="form-control form-select">
+                                            <option>Retail Shop</option>
+                                            <option>Restaurant/Cafe</option>
+                                            <option>Service Business</option>
+                                            <option>Manufacturing</option>
+                                            <option>Agriculture</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Business Registration</label>
+                                        <input type="text" class="form-control" placeholder="Registration number">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Tax ID (TIN)</label>
+                                        <input type="text" class="form-control" placeholder="Tax Identification Number">
+                                    </div>
+                                    
+                                    <div class="form-group col-span-2">
+                                        <label class="form-label">Business Address</label>
+                                        <textarea class="form-control" rows="2">123 Business Street, Lilongwe, Malawi</textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" value="+265 XXX XXX XXX" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" value="business@example.com" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Currency</label>
+                                        <select class="form-control form-select">
+                                            <option selected>Malawian Kwacha (MWK)</option>
+                                            <option>US Dollar (USD)</option>
+                                            <option>South African Rand (ZAR)</option>
+                                            <option>Euro (EUR)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Fiscal Year Start</label>
+                                        <select class="form-control form-select">
+                                            <option>January</option>
+                                            <option>February</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option selected>May</option>
+                                            <option>June</option>
+                                            <option>July</option>
+                                            <option>August</option>
+                                            <option>September</option>
+                                            <option>October</option>
+                                            <option>November</option>
+                                            <option>December</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-primary" onclick="showToast('Business details updated!', 'success')">
+                                        Save Changes
+                                    </button>
+                                    <button type="button" class="btn btn-outline" onclick="document.getElementById('business-form').reset()">
+                                        Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Business Performance -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">Business Performance Summary</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3 gap-3">
+                                <div class="text-center">
+                                    <h4 class="text-muted">Total Sales</h4>
+                                    <h2 class="text-success">MWK 1.2M</h2>
+                                    <p class="small">This fiscal year</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <h4 class="text-muted">Total Expenses</h4>
+                                    <h2 class="text-danger">MWK 850K</h2>
+                                    <p class="small">This fiscal year</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <h4 class="text-muted">Net Profit</h4>
+                                    <h2 class="text-primary">MWK 350K</h2>
+                                    <p class="small">This fiscal year</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <a href="reports.html" class="btn btn-outline btn-block">View Detailed Reports</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Actions & Settings -->
+                <div>
+                    <!-- Quick Actions -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h3 class="mb-0">Quick Actions</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-column gap-2">
+                                <a href="export-data.html" class="btn btn-outline btn-block">Export Business Data</a>
+                                <a href="backup.html" class="btn btn-outline btn-block">Create Backup</a>
+                                <a href="team.html" class="btn btn-outline btn-block">Manage Team</a>
+                                <a href="subscription.html" class="btn btn-outline btn-block">Subscription Plan</a>
+                                <a href="integration.html" class="btn btn-outline btn-block">Integrations</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Status -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h3 class="mb-0">Business Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-column gap-3">
+                                <div>
+                                    <div class="d-flex justify-between align-center mb-1">
+                                        <span class="small">Account Status</span>
+                                        <span class="badge badge-success">Active</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="bg-success rounded" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="d-flex justify-between align-center mb-1">
+                                        <span class="small">Data Storage</span>
+                                        <span class="small">45% used</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="bg-primary rounded" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="d-flex justify-between align-center mb-1">
+                                        <span class="small">Subscription Plan</span>
+                                        <span class="badge badge-primary">Pro Growth</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="bg-primary rounded" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support Card -->
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="mb-3">Need Help?</h4>
+                            <p class="small mb-3">Our support team is here to help you grow your business</p>
+                            <div class="d-flex flex-column gap-2">
+                                <a href="help.html" class="btn btn-outline btn-block">Help Center</a>
+                                <a href="contact.html" class="btn btn-primary btn-block">Contact Support</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="card mt-4 border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Danger Zone</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">These actions are irreversible. Please proceed with caution.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-danger" onclick="confirmAction('deleteAccount')">
+                            Delete Business Account
+                        </button>
+                        <button class="btn btn-outline" onclick="confirmAction('resetData')">
+                            Reset All Data
+                        </button>
+                        <button class="btn btn-outline" onclick="confirmAction('downgrade')">
+                            Downgrade Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year">2024</span> FinFlow MW Business Profile.</p>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="privacy.html" class="small">Privacy</a>
+                    <a href="terms.html" class="small">Terms</a>
+                    <a href="security.html" class="small">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Additional business profile functionality
+        function confirmAction(action) {
+            const messages = {
+                'deleteAccount': 'Are you sure you want to delete your business account? This cannot be undone!',
+                'resetData': 'Are you sure you want to reset all business data? This will delete all transactions!',
+                'downgrade': 'Are you sure you want to downgrade your plan? Some features will be disabled.'
+            };
+            
+            if (confirm(messages[action])) {
+                showToast(`Action "${action}" initiated.`, 'warning');
+                // In real app, this would make API call
+            }
+        }
+    </script>
+</body>
+</html>

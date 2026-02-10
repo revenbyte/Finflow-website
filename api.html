@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                </a>
+            </div>
+            <button id="mobile-menu-toggle" class="mobile-toggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="api.html" class="active">API</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <h1 class="text-gradient">API Documentation</h1>
+            <p class="lead mb-4">Integrate FinFlow MW with your applications</p>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Getting Started</h3>
+                    <p>Our REST API allows developers to access financial data programmatically.</p>
+                    <pre><code>curl -X GET https://api.finflowmw.com/v1/sales \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="container">
+            <p class="text-center">© 2024 FinFlow MW. API access requires a Pro plan or higher.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

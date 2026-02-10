@@ -3,287 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinFlow MW - Business Finance Dashboard</title>
+    <title>FinFlow MW - Smart Finance for African Businesses</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 🔝 HEADER: Minimal & Functional -->
-    <header class="main-header">
-        <div class="header-container">
-            <!-- App Logo + Name -->
-            <div class="brand">
-                <div class="logo">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="brand-name">
-                    <h1>FinFlow <span>MW</span></h1>
-                    <p class="brand-tagline">Business Finance</p>
-                </div>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Smart Finance for Africa</p>
+                </a>
             </div>
 
-            <!-- Business Selector -->
-            <div class="business-selector">
-                <select id="businessSelect">
-                    <option>Mama Jane's Shop</option>
-                    <option>My Second Business</option>
-                    <option>Add New Business +</option>
-                </select>
-            </div>
+            <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
-            <!-- Date & Status -->
-            <div class="header-status">
-                <div class="date-display">
-                    <i class="far fa-calendar"></i>
-                    <span id="currentDate">Today, 15 Mar 2024</span>
-                </div>
-                <div class="cash-status">
-                    <span class="status-label">Cash Balance:</span>
-                    <span class="cash-amount">MK 245,630</span>
-                </div>
-            </div>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="features.html" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">More <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="help.html">Help Center</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <!-- Notification Bell -->
-            <div class="notifications">
-                <button class="notification-btn">
-                    <i class="far fa-bell"></i>
-                    <span class="notification-count">3</span>
-                </button>
-                <!-- Notification Dropdown -->
-                <div class="notification-dropdown">
-                    <div class="notification-item alert">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Low stock: Sugar (5 units left)</p>
-                        <span class="notification-time">2h ago</span>
-                    </div>
-                    <div class="notification-item warning">
-                        <i class="fas fa-clock"></i>
-                        <p>Rent expense due tomorrow</p>
-                        <span class="notification-time">1d ago</span>
-                    </div>
-                    <div class="notification-item info">
-                        <i class="fas fa-chart-line"></i>
-                        <p>Sales up 12% from yesterday</p>
-                        <span class="notification-time">Today</span>
-                    </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Sign In</a>
+                    <a href="signup.html" class="btn btn-signup">Start Free</a>
                 </div>
-            </div>
-
-            <!-- Profile -->
-            <div class="profile">
-                <button class="profile-btn">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </button>
-                <!-- Profile Dropdown -->
-                <div class="profile-dropdown">
-                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#"><i class="fas fa-question-circle"></i> Help</a>
-                    <div class="divider"></div>
-                    <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
-            </div>
+            </nav>
         </div>
     </header>
 
-    <!-- 🧠 MAIN DASHBOARD: Answer "How is my business doing TODAY?" -->
-    <main class="dashboard">
-        <div class="dashboard-container">
-            <!-- Quick Stats Row -->
-            <div class="stats-grid">
-                <!-- Today's Sales -->
-                <div class="stat-card sales">
-                    <div class="stat-icon">
-                        <i class="fas fa-money-bill-wave"></i>
+    <!-- Hero Section -->
+    <section class="hero-section section-lg">
+        <div class="container">
+            <div class="hero-container animate-fade-up">
+                <div class="hero-text">
+                    <span class="hero-subtitle">WHERE SMALL BUSINESSES BECOME PROFITABLE</span>
+                    <h1 class="hero-title">Financial Clarity for <span class="text-gradient">African Businesses</span></h1>
+                    <p class="hero-description">
+                        Real-time sales tracking, expense management, and cash flow automation 
+                        designed for Africa's unique business landscape. No accounting degree needed.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <a href="signup.html" class="btn btn-primary btn-large">Start Free Trial</a>
+                        <a href="demo.html" class="btn btn-secondary btn-large">Watch Demo</a>
+                        <a href="features.html" class="btn btn-outline btn-large">See Features</a>
                     </div>
-                    <div class="stat-content">
-                        <h3>Today's Sales</h3>
-                        <p class="stat-amount">MK 124,850</p>
-                        <p class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> 12% from yesterday
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Today's Expenses -->
-                <div class="stat-card expenses">
-                    <div class="stat-icon">
-                        <i class="fas fa-receipt"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>Today's Expenses</h3>
-                        <p class="stat-amount">MK 43,210</p>
-                        <p class="stat-change negative">
-                            <i class="fas fa-arrow-up"></i> 8% from yesterday
-                        </p>
+                    
+                    <div class="hero-features">
+                        <span class="feature-badge">Works Offline</span>
+                        <span class="feature-badge">5-Minute Setup</span>
+                        <span class="feature-badge">Free Forever Plan</span>
+                        <span class="feature-badge">Mobile & Desktop</span>
                     </div>
                 </div>
-
-                <!-- Today's Profit -->
-                <div class="stat-card profit">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>Today's Profit</h3>
-                        <p class="stat-amount">MK 81,640</p>
-                        <p class="stat-percent">65.4% margin</p>
-                    </div>
-                </div>
-
-                <!-- Cash Balance -->
-                <div class="stat-card cash">
-                    <div class="stat-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>Cash Balance</h3>
-                        <p class="stat-amount">MK 245,630</p>
-                        <p class="stat-trend">+MK 12,400 this week</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Alerts Summary -->
-            <div class="alerts-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-exclamation-circle"></i> Alerts</h2>
-                    <a href="#" class="view-all">View All</a>
-                </div>
-                <div class="alerts-grid">
-                    <div class="alert-card stock-alert">
-                        <i class="fas fa-box"></i>
-                        <div class="alert-content">
-                            <h4>Low Stock Items</h4>
-                            <p>Sugar (5), Cooking Oil (3), Salt (8)</p>
+                
+                <div class="hero-visual animate-slide-right">
+                    <div class="dashboard-preview">
+                        <div class="visual-placeholder">
+                            <h3>Live Dashboard Preview</h3>
+                            <p>Your financial overview in real-time</p>
                         </div>
-                        <button class="alert-action">Restock</button>
-                    </div>
-                    <div class="alert-card expense-alert">
-                        <i class="fas fa-clock"></i>
-                        <div class="alert-content">
-                            <h4>Upcoming Expenses</h4>
-                            <p>Rent (MK 50,000 due tomorrow)</p>
-                        </div>
-                        <button class="alert-action">Pay</button>
-                    </div>
-                    <div class="alert-card sales-alert">
-                        <i class="fas fa-chart-bar"></i>
-                        <div class="alert-content">
-                            <h4>Sales Trend</h4>
-                            <p>Morning sales lower than usual</p>
-                        </div>
-                        <button class="alert-action">Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="activity-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-history"></i> Recent Activity</h2>
-                </div>
-                <div class="activity-list">
-                    <div class="activity-item sale">
-                        <div class="activity-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <div class="activity-details">
-                            <p>Sold 5kg Sugar for MK 12,500</p>
-                            <span class="activity-time">10:30 AM</span>
-                        </div>
-                        <span class="activity-amount positive">+12,500</span>
-                    </div>
-                    <div class="activity-item expense">
-                        <div class="activity-icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <div class="activity-details">
-                            <p>Transport expense: MK 8,000</p>
-                            <span class="activity-time">9:15 AM</span>
-                        </div>
-                        <span class="activity-amount negative">-8,000</span>
-                    </div>
-                    <div class="activity-item sale">
-                        <div class="activity-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <div class="activity-details">
-                            <p>Sold Cooking Oil for MK 25,000</p>
-                            <span class="activity-time">Yesterday, 4:20 PM</span>
-                        </div>
-                        <span class="activity-amount positive">+25,000</span>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- 🔽 BOTTOM NAV: Muscle Memory Navigation -->
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-        </a>
-        <a href="sales.html" class="nav-item">
-            <i class="fas fa-money-bill-wave"></i>
-            <span>Sales</span>
-        </a>
-        <a href="expenses.html" class="nav-item">
-            <i class="fas fa-receipt"></i>
-            <span>Expenses</span>
-        </a>
-        <a href="stock.html" class="nav-item">
-            <i class="fas fa-box"></i>
-            <span>Stock</span>
-        </a>
-        <a href="reports.html" class="nav-item">
-            <i class="fas fa-chart-bar"></i>
-            <span>Reports</span>
-        </a>
-    </nav>
-
-    <!-- Add Sale Modal -->
-    <div class="modal" id="addSaleModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Sale</h3>
-                <button class="close-modal">&times;</button>
+    <!-- Three Phase Journey -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-gradient">Your 3-Step Financial Journey</h2>
+                <p class="lead">From tracking to growth with FinFlow MW</p>
             </div>
-            <div class="modal-body">
-                <form id="saleForm">
-                    <div class="form-group">
-                        <label for="productSelect">Product</label>
-                        <select id="productSelect" required>
-                            <option value="">Select Product</option>
-                            <option value="sugar">Sugar (MK 2,500/kg) - 15 in stock</option>
-                            <option value="oil">Cooking Oil (MK 5,000/L) - 8 in stock</option>
-                            <option value="salt">Salt (MK 1,500/kg) - 25 in stock</option>
-                        </select>
+            
+            <div class="grid grid-3 stagger-children">
+                <!-- Phase 1 -->
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <span class="badge badge-primary">Phase 1</span>
+                            <h3 class="mb-0">Track Everything</h3>
+                        </div>
+                        <p>Automatically record sales, expenses, and inventory in real-time.</p>
+                        <ul class="mt-3">
+                            <li>✓ Real-time Sales Tracking</li>
+                            <li>✓ Expense Categorization</li>
+                            <li>✓ Stock Management</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="signup.html" class="btn btn-primary">Start Free</a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" id="quantity" min="1" value="1" required>
+                </div>
+                
+                <!-- Phase 2 -->
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <span class="badge badge-primary">Phase 2</span>
+                            <h3 class="mb-0">Gain Insights</h3>
+                        </div>
+                        <p>Transform numbers into actionable intelligence with AI analysis.</p>
+                        <ul class="mt-3">
+                            <li>✓ Profit Margin Analysis</li>
+                            <li>✓ Cash Flow Forecasting</li>
+                            <li>✓ Customer Behavior Insights</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="dashboard.html" class="btn btn-primary">View Dashboard</a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="paymentMethod">Payment Method</label>
-                        <select id="paymentMethod" required>
-                            <option value="cash">Cash</option>
-                            <option value="airtel">Airtel Money</option>
-                            <option value="tnm">TNM Mpamba</option>
-                        </select>
+                </div>
+                
+                <!-- Phase 3 -->
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <span class="badge badge-primary">Phase 3</span>
+                            <h3 class="mb-0">Grow Confidently</h3>
+                        </div>
+                        <p>Use your financial data to access loans and make strategic decisions.</p>
+                        <ul class="mt-3">
+                            <li>✓ Loan Readiness Reports</li>
+                            <li>✓ Investor-ready Financials</li>
+                            <li>✓ Growth Opportunity Alerts</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="pricing.html" class="btn btn-primary">See Plans</a>
+                        </div>
                     </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary close-modal">Cancel</button>
-                        <button type="submit" class="btn-primary">Add Sale</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="app.js"></script>
+    <!-- Core Features -->
+    <section class="section bg-card">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-gradient">Core Financial Features</h2>
+                <p class="lead">Everything you need to manage your business money</p>
+            </div>
+            
+            <div class="grid grid-2 gap-4 stagger-children">
+                <!-- Feature 1 -->
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <div class="feature-icon">💰</div>
+                            <h3 class="mb-0">Sales Tracking</h3>
+                        </div>
+                        <p>Record and monitor all sales in real-time with automatic categorization.</p>
+                        <a href="features.html#sales" class="btn btn-outline mt-3">Explore Sales Tools →</a>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <div class="feature-icon">📊</div>
+                            <h3 class="mb-0">Expense Management</h3>
+                        </div>
+                        <p>Categorize and control business expenses with receipt scanning.</p>
+                        <a href="features.html#expenses" class="btn btn-outline mt-3">Explore Expense Tools →</a>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <div class="feature-icon">📈</div>
+                            <h3 class="mb-0">Cash Flow Dashboard</h3>
+                        </div>
+                        <p>See your cash position at a glance with real-time updates.</p>
+                        <a href="dashboard.html" class="btn btn-outline mt-3">Go to Dashboard →</a>
+                    </div>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <div class="feature-icon">📦</div>
+                            <h3 class="mb-0">Inventory Management</h3>
+                        </div>
+                        <p>Track stock levels automatically and get low stock alerts.</p>
+                        <a href="features.html#inventory" class="btn btn-outline mt-3">Explore Inventory Tools →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="features.html" class="btn btn-primary btn-large">View All 12 Features →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Modules -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-gradient">Complete Business Ecosystem</h2>
+                <p class="lead">FinFlow is evolving beyond finance</p>
+            </div>
+            
+            <div class="grid grid-4 gap-4 stagger-children">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Security Module</h4>
+                        <p class="small">Affordable smart security for small businesses</p>
+                        <span class="badge badge-warning mt-2">Coming Q3 2024</span>
+                        <a href="security.html" class="btn btn-outline btn-small mt-3">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Automation</h4>
+                        <p class="small">Automate daily business operations</p>
+                        <span class="badge badge-warning mt-2">Coming Q4 2024</span>
+                        <a href="automation.html" class="btn btn-outline btn-small mt-3">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Digital Presence</h4>
+                        <p class="small">Instant online visibility</p>
+                        <span class="badge badge-warning mt-2">Coming Q1 2025</span>
+                        <a href="digital-presence.html" class="btn btn-outline btn-small mt-3">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Customer Tools</h4>
+                        <p class="small">Smart WhatsApp automation</p>
+                        <span class="badge badge-warning mt-2">Coming Q2 2025</span>
+                        <a href="customer-communication.html" class="btn btn-outline btn-small mt-3">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section bg-card">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Ready to Transform Your Business Finances?</h2>
+                <p class="lead mb-4">Join thousands of African businesses using FinFlow MW</p>
+                
+                <div class="d-flex justify-center gap-3 flex-wrap">
+                    <a href="signup.html" class="btn btn-primary btn-large">Start Free Trial</a>
+                    <a href="pricing.html" class="btn btn-outline btn-large">See Pricing Plans</a>
+                    <a href="contact.html" class="btn btn-secondary btn-large">Book a Demo Call</a>
+                </div>
+                
+                <p class="mt-4 small">Free forever plan available • Setup in 5 minutes • Works offline • Mobile & Desktop</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="footer-title">FinFlow MW</h3>
+                    <p class="footer-description">Smart finance solutions built for Africa, scalable to the world.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                        <a href="#" class="social-link" aria-label="Facebook">f</a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                        <a href="#" class="social-link" aria-label="WhatsApp">✓</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="features.html">All Features</a></li>
+                        <li><a href="dashboard.html">Live Dashboard</a></li>
+                        <li><a href="mobile-app.html">Mobile App</a></li>
+                        <li><a href="integrations.html">Integrations</a></li>
+                        <li><a href="api.html">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="press.html">Press</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                        <li><a href="gdpr.html">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year">2024</span> FinFlow MW. All rights reserved.</p>
+                    <p>Made for Africa, scalable to the world.</p>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="privacy.html">Privacy</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="cookies.html">Cookies</a>
+                    <a href="security.html">Security</a>
+                </div>
+                
+                <div class="back-to-top">
+                    <a href="#main-header" class="back-to-top-link">↑ Back to Top</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
