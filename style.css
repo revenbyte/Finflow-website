@@ -709,20 +709,26 @@ h6 { font-size: 1rem; }
     background: rgba(0, 0, 0, 0.1);
 }
 
-/* Floating Cards */
+/* Floating Cards - FIXED */
 .floating-card {
-    animation: float 6s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite;
+    animation-play-state: running;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) rotateX(0) rotateY(0); }
-    33% { transform: translateY(-20px) rotateX(5deg) rotateY(5deg); }
-    66% { transform: translateY(-10px) rotateX(-5deg) rotateY(-5deg); }
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
 }
 
-.floating-card:hover {
-    animation: none;
-    transform: translateY(-15px) rotateX(10deg) rotateY(10deg);
+.floating-card:hover,
+.floating-card:active {
+    animation-play-state: paused !important;
+    transform: translateY(-15px) scale(1.02) !important;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
 /* ===== GRIDS ===== */
@@ -1673,9 +1679,16 @@ textarea.form-control {
         transform: translateY(-5px);
     }
     
-    .floating-card:hover {
-        animation: float 6s ease-in-out infinite;
-        transform: none;
+    /* Floating cards on mobile - FIXED */
+    .floating-card {
+        animation: float 5s ease-in-out infinite;
+    }
+    
+    .floating-card:hover,
+    .floating-card:active {
+        animation-play-state: paused !important;
+        transform: translateY(-8px) scale(1.02) !important;
+        transition: transform 0.2s ease !important;
     }
     
     /* Forms Mobile */
