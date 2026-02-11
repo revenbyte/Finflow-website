@@ -12,6 +12,7 @@
             <div class="logo-area">
                 <a href="index.html" class="logo-link">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Smart Finance for Malawi</p>
                 </a>
             </div>
             <button id="mobile-menu-toggle" class="mobile-toggle">
@@ -22,53 +23,157 @@
             <nav id="main-nav" class="main-navigation">
                 <ul class="nav-list">
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
                     <li><a href="help.html" class="active">Help</a></li>
-                    <li><a href="tutorials.html">Tutorials</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Sign In</a>
+                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                </div>
             </nav>
         </div>
     </header>
 
     <main class="section">
         <div class="container">
-            <h1 class="text-gradient">Help Center</h1>
-            <p class="lead mb-4">Find answers to common questions</p>
-            
-            <div class="accordion mb-4">
-                <div class="accordion-item">
-                    <button class="accordion-header">How do I record my first sale?</button>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Click "Record Sale" in your dashboard, enter the sale details, and save. The system will automatically update your cash balance and inventory.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center mb-5">
+                <h1 class="text-gradient">Help Center</h1>
+                <p class="lead">Find answers, get support, and learn how to grow your business</p>
                 
-                <div class="accordion-item">
-                    <button class="accordion-header">Can I use FinFlow MW offline?</button>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Yes! FinFlow MW works offline. All data is saved locally and syncs automatically when you're back online.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="accordion-item">
-                    <button class="accordion-header">How do I export my financial reports?</button>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Go to the Reports section, select the report type, choose date range, and click "Export as PDF" or "Export as Excel".</p>
-                        </div>
+                <div class="max-width-600 mx-auto mt-4">
+                    <div class="d-flex gap-2">
+                        <input type="text" class="form-control" placeholder="Search for help articles...">
+                        <button class="btn btn-primary">Search</button>
                     </div>
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card-body text-center">
-                    <h3>Still Need Help?</h3>
-                    <p>Our support team is ready to assist you</p>
-                    <a href="contact.html" class="btn btn-primary">Contact Support</a>
+            <div class="grid grid-4 gap-4 mb-5">
+                <a href="faq.html" class="card text-center" style="text-decoration: none;">
+                    <div class="card-body">
+                        <span style="font-size: 2.5rem;">❓</span>
+                        <h4 class="mt-3 mb-2">FAQ</h4>
+                        <p class="small text-muted">Frequently asked questions</p>
+                    </div>
+                </a>
+                
+                <a href="tutorials.html" class="card text-center" style="text-decoration: none;">
+                    <div class="card-body">
+                        <span style="font-size: 2.5rem;">📹</span>
+                        <h4 class="mt-3 mb-2">Tutorials</h4>
+                        <p class="small text-muted">Video guides</p>
+                    </div>
+                </a>
+                
+                <a href="guides.html" class="card text-center" style="text-decoration: none;">
+                    <div class="card-body">
+                        <span style="font-size: 2.5rem;">📚</span>
+                        <h4 class="mt-3 mb-2">Guides</h4>
+                        <p class="small text-muted">Step-by-step articles</p>
+                    </div>
+                </a>
+                
+                <a href="contact.html" class="card text-center" style="text-decoration: none;">
+                    <div class="card-body">
+                        <span style="font-size: 2.5rem;">📧</span>
+                        <h4 class="mt-3 mb-2">Contact</h4>
+                        <p class="small text-muted">Reach support team</p>
+                    </div>
+                </a>
+            </div>
+            
+            <h2 class="text-center mb-4">Popular Help Topics</h2>
+            
+            <div class="grid grid-3 gap-4 stagger-children">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Getting Started</h4>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0;">
+                            <li class="mb-2"><a href="#">• How to create an account</a></li>
+                            <li class="mb-2"><a href="#">• Setting up your business profile</a></li>
+                            <li class="mb-2"><a href="#">• Adding your first product</a></li>
+                            <li class="mb-2"><a href="#">• Recording your first sale</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-small mt-3">View All</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Sales & Invoicing</h4>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0;">
+                            <li class="mb-2"><a href="#">• How to create an invoice</a></li>
+                            <li class="mb-2"><a href="#">• Recording cash sales</a></li>
+                            <li class="mb-2"><a href="#">• Sending invoices via WhatsApp</a></li>
+                            <li class="mb-2"><a href="#">• Tracking payment status</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-small mt-3">View All</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Expenses</h4>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0;">
+                            <li class="mb-2"><a href="#">• Adding business expenses</a></li>
+                            <li class="mb-2"><a href="#">• Scanning receipt photos</a></li>
+                            <li class="mb-2"><a href="#">• Categorizing expenses</a></li>
+                            <li class="mb-2"><a href="#">• Viewing expense reports</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-small mt-3">View All</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Inventory</h4>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0;">
+                            <li class="mb-2"><a href="#">• Adding products</a></li>
+                            <li class="mb-2"><a href="#">• Updating stock levels</a></li>
+                            <li class="mb-2"><a href="#">• Low stock alerts</a></li>
+                            <li class="mb-2"><a href="#">• Supplier management</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-small mt-3">View All</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Reports</h4>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0;">
+                            <li class="mb-2"><a href="#">• Profit & Loss statements</a></li>
+                            <li class="mb-2"><a href="#">• Cash flow reports</a></li>
+                            <li class="mb-2"><a href="#">• Export to PDF/Excel</a></li>
+                            <li class="mb-2"><a href="#">• Custom date ranges</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-small mt-3">View All</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Account & Billing</h4>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0;">
+                            <li class="mb-2"><a href="#">• Upgrading your plan</a></li>
+                            <li class="mb-2"><a href="#">• Payment methods</a></li>
+                            <li class="mb-2"><a href="#">• Canceling subscription</a></li>
+                            <li class="mb-2"><a href="#">• Downloading your data</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-outline btn-small mt-3">View All</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-5 text-center">
+                <div class="card-body">
+                    <h3>Can't find what you're looking for?</h3>
+                    <p class="mb-4">Our support team is ready to help you 24/7</p>
+                    <div class="d-flex justify-center gap-3 flex-wrap">
+                        <a href="contact.html" class="btn btn-primary">Contact Support</a>
+                        <a href="demo.html" class="btn btn-outline">Book a Demo</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,7 +181,42 @@
 
     <footer id="main-footer">
         <div class="container">
-            <p class="text-center">© 2026 FinFlow MW. Support available 9AM-5PM CAT, Monday-Friday.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="footer-title">FinFlow MW</h3>
+                    <p class="footer-description">Smart finance solutions built for Malawi, scalable to the world.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="cookies.html">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year">2026</span> FinFlow MW. All rights reserved.</p>
+                </div>
+            </div>
         </div>
     </footer>
 

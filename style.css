@@ -1679,17 +1679,44 @@ textarea.form-control {
         transform: translateY(-5px);
     }
     
-    /* Floating cards on mobile - FIXED */
+    /* Floating Cards - MOBILE FIXED */
+.floating-card {
+    animation: float 4s ease-in-out infinite;
+    will-change: transform;
+    position: relative;
+    z-index: 5;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating-card:hover {
+    animation: none;
+    transform: translateY(-12px) scale(1.02);
+    transition: transform 0.2s ease;
+    box-shadow: var(--shadow-heavy);
+}
+
+/* MOBILE SPECIFIC - NO HOVER EFFECT */
+@media (max-width: 768px) {
     .floating-card {
-        animation: float 5s ease-in-out infinite;
+        animation: float 4s ease-in-out infinite;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
     }
     
     .floating-card:hover,
     .floating-card:active {
-        animation-play-state: paused !important;
-        transform: translateY(-8px) scale(1.02) !important;
-        transition: transform 0.2s ease !important;
+        animation: float 4s ease-in-out infinite !important;
+        transform: none !important;
+        box-shadow: none !important;
     }
+}
     
     /* Forms Mobile */
     .newsletter-form {
@@ -1779,5 +1806,40 @@ textarea.form-control {
     .text-gradient {
         background: none !important;
         color: black !important;
+    }
+}
+/* ===== ULTIMATE MOBILE FIX - OVERRIDE EVERYTHING ===== */
+@media (max-width: 768px) {
+    .floating-card {
+        animation: float 4s ease-in-out infinite !important;
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .floating-card:hover,
+    .floating-card:active,
+    .floating-card:focus {
+        animation: float 4s ease-in-out infinite !important;
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: none !important;
+    }
+    
+    /* Force cards to be visible */
+    .card.floating-card,
+    .phase-card.floating-card,
+    .feature-card.floating-card {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
     }
 }
