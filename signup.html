@@ -30,6 +30,7 @@
                 <div class="card-body">
                     <div id="error-message" class="alert alert-danger" style="display: none;"></div>
                     <div id="success-message" class="alert alert-success" style="display: none;"></div>
+                    <div id="loading-message" class="alert alert-info" style="display: none;">Creating your account...</div>
                     
                     <form id="signup-form">
                         <div class="form-group">
@@ -68,8 +69,7 @@
                         </div>
                         
                         <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
-                            <span id="btn-text">Create Free Account</span>
-                            <span id="btn-spinner" style="display: none;">Creating account...</span>
+                            Create Free Account
                         </button>
                     </form>
                     
@@ -93,7 +93,7 @@
 
     <script>
         // ===== SUPABASE CONFIGURATION =====
-        // PASTE YOUR SUPABASE URL AND ANON KEY HERE:
+        // ⚠️ IMPORTANT: REPLACE THESE WITH YOUR ACTUAL SUPABASE URL AND KEY
         const SUPABASE_URL = 'https://xpwurfjjfdfctteudvsb.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhwd3VyZmpqZmRmY3R0ZXVkdnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4NDQ0NzYsImV4cCI6MjA4NjQyMDQ3Nn0.K3Sz7NP9l_AMFYW6Bds0_ew4uWybuWmfspSoLyzfYfg';
         
@@ -102,18 +102,28 @@
 
         // ===== SIGNUP FORM HANDLER =====
         document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            // 🟢 THIS IS THE FIX - PREVENTS PAGE REFRESH
             e.preventDefault();
             
+            // Get form values
             const businessName = document.getElementById('businessName').value;
             const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
+            
             const errorDiv = document.getElementById('error-message');
             const successDiv = document.getElementById('success-message');
+            const loadingDiv = document.getElementById('loading-message');
+            const submitBtn = document.getElementById('submit-btn');
             
+            // Hide previous messages
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
+            
+            // Show loading
+            loadingDiv.style.display = 'block';
+            submitBtn.disabled = true;
             
             try {
                 // 1. Create user account
@@ -142,11 +152,12 @@
                 if (dbError) throw dbError;
                 
                 // Success!
-                successDiv.textContent = 'Account created! Check your email to verify.';
+                loadingDiv.style.display = 'none';
+                successDiv.textContent = '✅ Account created! Check your email to verify.';
                 successDiv.style.display = 'block';
                 
                 // Clear form
-                this.reset();
+                document.getElementById('signup-form').reset();
                 
                 // Redirect to login after 3 seconds
                 setTimeout(() => {
@@ -154,8 +165,11 @@
                 }, 3000);
                 
             } catch (error) {
-                errorDiv.textContent = error.message;
+                loadingDiv.style.display = 'none';
+                errorDiv.textContent = '❌ ' + error.message;
                 errorDiv.style.display = 'block';
+                submitBtn.disabled = false;
+                console.error('Signup error:', error);
             }
         });
     </script>

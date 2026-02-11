@@ -28,6 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+                    <div id="loading-message" class="alert alert-info" style="display: none;">Signing in...</div>
                     
                     <form id="login-form">
                         <div class="form-group">
@@ -40,7 +41,7 @@
                             <input type="password" id="password" class="form-control" placeholder="Your password" required>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-block">
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
                             Sign In
                         </button>
                     </form>
@@ -78,22 +79,30 @@
 
         // ===== LOGIN FORM =====
         document.getElementById('login-form').addEventListener('submit', async function(e) {
+            // 🟢 THIS IS THE FIX - PREVENTS PAGE REFRESH
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('error-message');
+            const loadingDiv = document.getElementById('loading-message');
+            const submitBtn = document.getElementById('submit-btn');
             
             errorDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+            submitBtn.disabled = true;
             
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password
             });
             
+            loadingDiv.style.display = 'none';
+            
             if (error) {
-                errorDiv.textContent = error.message;
+                errorDiv.textContent = '❌ ' + error.message;
                 errorDiv.style.display = 'block';
+                submitBtn.disabled = false;
             } else {
                 window.location.href = 'dashboard.html';
             }

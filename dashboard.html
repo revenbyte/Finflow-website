@@ -16,7 +16,18 @@
                     <p class="site-tagline" id="business-name">Dashboard</p>
                 </a>
             </div>
+            <button id="mobile-menu-toggle" class="mobile-toggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                    <li><a href="sales.html">Sales</a></li>
+                    <li><a href="expenses.html">Expenses</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                </ul>
                 <div class="auth-buttons">
                     <span id="user-email" style="color: var(--text-secondary); margin-right: 1rem;"></span>
                     <button id="logout-btn" class="btn btn-login">Logout</button>
@@ -27,10 +38,15 @@
 
     <main class="section">
         <div class="container">
-            <div id="dashboard-content">
+            <div id="loading" class="text-center" style="padding: 4rem;">
+                <h3>Loading your dashboard...</h3>
+            </div>
+            
+            <div id="dashboard-content" style="display: none;">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h2 id="welcome-message">Welcome back!</h2>
+                        <h2 id="welcome-message" class="mb-1">Welcome back!</h2>
+                        <p class="text-muted">Here's your financial overview</p>
                     </div>
                 </div>
                 
@@ -38,25 +54,46 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="small text-muted">Cash Balance</h3>
-                            <h2>MWK 542,890</h2>
+                            <h2 class="mb-0">MWK 542,890</h2>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <h3 class="small text-muted">Today's Sales</h3>
-                            <h2>MWK 45,320</h2>
+                            <h2 class="mb-0">MWK 45,320</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">This Month</h3>
+                            <h2 class="mb-0">MWK 128,450</h2>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <h3 class="small text-muted">Your Plan</h3>
-                            <h2 id="user-plan">Starter</h2>
+                            <h2 id="user-plan" class="mb-0">Starter</h2>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Status</h3>
-                            <h2 class="text-success">Active</h2>
+                </div>
+                
+                <div class="grid grid-3 gap-4">
+                    <div class="card" onclick="window.location.href='record-sale.html'" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <span style="font-size: 2rem;">💰</span>
+                            <h4 class="mt-2">Record Sale</h4>
+                        </div>
+                    </div>
+                    <div class="card" onclick="window.location.href='add-expense.html'" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <span style="font-size: 2rem;">📝</span>
+                            <h4 class="mt-2">Add Expense</h4>
+                        </div>
+                    </div>
+                    <div class="card" onclick="window.location.href='business-profile.html'" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <span style="font-size: 2rem;">⚙️</span>
+                            <h4 class="mt-2">Settings</h4>
                         </div>
                     </div>
                 </div>
@@ -64,23 +101,55 @@
         </div>
     </main>
 
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        // ===== SUPABASE CONFIG =====
         const SUPABASE_URL = 'https://xpwurfjjfdfctteudvsb.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhwd3VyZmpqZmRmY3R0ZXVkdnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4NDQ0NzYsImV4cCI6MjA4NjQyMDQ3Nn0.K3Sz7NP9l_AMFYW6Bds0_ew4uWybuWmfspSoLyzfYfg';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Check authentication
+        // ===== CHECK AUTHENTICATION =====
         supabase.auth.getSession().then(async ({ data }) => {
+            const loading = document.getElementById('loading');
+            const dashboard = document.getElementById('dashboard-content');
+            
             if (!data.session) {
                 window.location.href = 'login.html';
             } else {
                 const user = data.session.user;
+                
+                // Show dashboard
+                loading.style.display = 'none';
+                dashboard.style.display = 'block';
+                
+                // Display user info
                 document.getElementById('user-email').textContent = user.email;
                 document.getElementById('welcome-message').textContent = `Welcome back, ${user.email}!`;
+                
+                // Get business name from database
+                const { data: userData } = await supabase
+                    .from('users')
+                    .select('business_name, plan')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (userData) {
+                    document.getElementById('business-name').textContent = userData.business_name || 'Dashboard';
+                    document.getElementById('user-plan').textContent = userData.plan || 'Starter';
+                }
             }
         });
 
-        // Logout
+        // ===== LOGOUT =====
         document.getElementById('logout-btn').addEventListener('click', async function() {
             await supabase.auth.signOut();
             window.location.href = 'index.html';
