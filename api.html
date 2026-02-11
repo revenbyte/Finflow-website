@@ -12,6 +12,7 @@
             <div class="logo-area">
                 <a href="index.html" class="logo-link">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Smart Finance for Malawi</p>
                 </a>
             </div>
             <button id="mobile-menu-toggle" class="mobile-toggle">
@@ -23,25 +24,68 @@
                 <ul class="nav-list">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="features.html">Features</a></li>
-                    <li><a href="api.html" class="active">API</a></li>
                     <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="api.html" class="active">API</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Sign In</a>
+                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                </div>
             </nav>
         </div>
     </header>
 
     <main class="section">
         <div class="container">
-            <h1 class="text-gradient">API Documentation</h1>
-            <p class="lead mb-4">Integrate FinFlow MW with your applications</p>
+            <div class="text-center mb-5">
+                <h1 class="text-gradient">API Documentation</h1>
+                <p class="lead">Integrate FinFlow MW with your applications</p>
+            </div>
             
             <div class="card mb-4">
                 <div class="card-body">
                     <h3>Getting Started</h3>
                     <p>Our REST API allows developers to access financial data programmatically.</p>
-                    <pre><code>curl -X GET https://api.finflowmw.com/v1/sales \
-  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+                    
+                    <div class="bg-dark p-4 rounded mt-3">
+                        <pre><code style="color: #fff;">// Example API Request
+curl -X GET https://api.finflowmw.com/v1/sales \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-3 gap-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Authentication</h4>
+                        <p>API keys are available on Pro and Premium plans.</p>
+                        <span class="badge badge-primary">API Key Required</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Rate Limits</h4>
+                        <p>Pro: 1000 req/hour • Premium: 5000 req/hour</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Endpoints</h4>
+                        <p>Sales, Expenses, Reports, Inventory</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3>API Access Requires Pro Plan or Higher</h3>
+                    <p class="mb-4">Upgrade to start building integrations</p>
+                    <a href="pricing.html" class="btn btn-primary">View Pricing</a>
                 </div>
             </div>
         </div>
@@ -49,7 +93,39 @@
 
     <footer id="main-footer">
         <div class="container">
-            <p class="text-center">© 2026 FinFlow MW. API access requires a Pro plan or higher.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="footer-title">FinFlow MW</h3>
+                    <p class="footer-description">Smart finance solutions for Malawian businesses.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="api.html">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year">2026</span> FinFlow MW. All rights reserved. Blantyre, Malawi.</p>
+                </div>
+            </div>
         </div>
     </footer>
 

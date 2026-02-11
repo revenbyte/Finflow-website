@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <header id="main-header">
@@ -21,68 +23,141 @@
         <div class="container container-narrow">
             <div class="text-center mb-5">
                 <h1 class="text-gradient">Create Your Account</h1>
-                <p>Start managing your business finances in minutes</p>
+                <p class="lead">Start managing your business finances in minutes</p>
             </div>
             
             <div class="card">
                 <div class="card-body">
-                    <form class="signup-form">
+                    <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+                    <div id="success-message" class="alert alert-success" style="display: none;"></div>
+                    
+                    <form id="signup-form">
                         <div class="form-group">
                             <label class="form-label">Business Name</label>
-                            <input type="text" class="form-control" placeholder="Your business name" required>
+                            <input type="text" id="businessName" class="form-control" placeholder="Your business name" required>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-control" placeholder="Your full name" required>
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="fullName" class="form-control" placeholder="Your full name" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" placeholder="you@example.com" required>
+                            <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" placeholder="+265 XXX XXX XXX" required>
+                            <input type="tel" id="phone" class="form-control" placeholder="+265 XXX XXX XXX" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control" placeholder="Create a strong password" required>
-                            <div class="form-text">Minimum 8 characters with letters and numbers</div>
+                            <input type="password" id="password" class="form-control" placeholder="Create a strong password" required>
+                            <div class="form-text">Minimum 6 characters</div>
                         </div>
                         
                         <div class="form-group">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="terms" required>
                                 <label class="form-check-label" for="terms">
-                                    I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>
+                                    I agree to the <a href="terms.html">Terms of Service</a>
                                 </label>
                             </div>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-block">Create Free Account</button>
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+                            <span id="btn-text">Create Free Account</span>
+                            <span id="btn-spinner" style="display: none;">Creating account...</span>
+                        </button>
                     </form>
                     
-                    <div class="mt-4 text-center">
-                        <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                    <div class="text-center mt-4">
+                        <p>Already have an account? <a href="login.html">Sign in</a></p>
                     </div>
                 </div>
-            </div>
-            
-            <div class="mt-4 text-center">
-                <p class="small">Free forever plan includes basic features. No credit card required.</p>
             </div>
         </div>
     </main>
 
     <footer id="main-footer">
         <div class="container">
-            <p class="text-center">© 2026 FinFlow MW. Setup in 5 minutes, works offline.</p>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // ===== SUPABASE CONFIGURATION =====
+        // PASTE YOUR SUPABASE URL AND ANON KEY HERE:
+        const SUPABASE_URL = 'https://xpwurfjjfdfctteudvsb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhwd3VyZmpqZmRmY3R0ZXVkdnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4NDQ0NzYsImV4cCI6MjA4NjQyMDQ3Nn0.K3Sz7NP9l_AMFYW6Bds0_ew4uWybuWmfspSoLyzfYfg';
+        
+        // Initialize Supabase
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ===== SIGNUP FORM HANDLER =====
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const businessName = document.getElementById('businessName').value;
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error-message');
+            const successDiv = document.getElementById('success-message');
+            
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            try {
+                // 1. Create user account
+                const { data: authData, error: authError } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                });
+                
+                if (authError) throw authError;
+                
+                // 2. Save user profile to database
+                const { error: dbError } = await supabase
+                    .from('users')
+                    .insert([
+                        { 
+                            id: authData.user.id,
+                            business_name: businessName,
+                            full_name: fullName,
+                            email: email,
+                            phone: phone,
+                            plan: 'starter',
+                            created_at: new Date()
+                        }
+                    ]);
+                
+                if (dbError) throw dbError;
+                
+                // Success!
+                successDiv.textContent = 'Account created! Check your email to verify.';
+                successDiv.style.display = 'block';
+                
+                // Clear form
+                this.reset();
+                
+                // Redirect to login after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
+                
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>

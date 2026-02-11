@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <header id="main-header">
@@ -20,38 +21,31 @@
     <main class="section">
         <div class="container container-narrow">
             <div class="text-center mb-5">
-                <h1 class="text-gradient">Sign In</h1>
-                <p>Welcome back to FinFlow MW</p>
+                <h1 class="text-gradient">Welcome Back</h1>
+                <p class="lead">Sign in to your FinFlow MW account</p>
             </div>
             
             <div class="card">
                 <div class="card-body">
-                    <form class="login-form">
+                    <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+                    
+                    <form id="login-form">
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" placeholder="you@example.com" required>
+                            <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control" placeholder="Your password" required>
+                            <input type="password" id="password" class="form-control" placeholder="Your password" required>
                         </div>
                         
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="remember">
-                                <label class="form-check-label" for="remember">Remember me</label>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        
-                        <div class="text-center mt-3">
-                            <a href="forgot-password.html">Forgot password?</a>
-                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Sign In
+                        </button>
                     </form>
                     
-                    <div class="mt-4 text-center">
+                    <div class="text-center mt-4">
                         <p>Don't have an account? <a href="signup.html">Sign up free</a></p>
                     </div>
                 </div>
@@ -61,10 +55,49 @@
 
     <footer id="main-footer">
         <div class="container">
-            <p class="text-center">© 2026 FinFlow MW. Secure login with encryption.</p>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // ===== SUPABASE CONFIG =====
+        const SUPABASE_URL = 'https://xpwurfjjfdfctteudvsb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhwd3VyZmpqZmRmY3R0ZXVkdnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4NDQ0NzYsImV4cCI6MjA4NjQyMDQ3Nn0.K3Sz7NP9l_AMFYW6Bds0_ew4uWybuWmfspSoLyzfYfg';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ===== CHECK IF ALREADY LOGGED IN =====
+        supabase.auth.getSession().then(({ data }) => {
+            if (data.session) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        // ===== LOGIN FORM =====
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error-message');
+            
+            errorDiv.style.display = 'none';
+            
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            
+            if (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.style.display = 'block';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
 </body>
 </html>

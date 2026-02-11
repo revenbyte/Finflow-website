@@ -5,328 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- Header -->
     <header id="main-header">
         <div class="container header-container">
             <div class="logo-area">
                 <a href="index.html" class="logo-link">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                    <p class="site-tagline">Dashboard</p>
+                    <p class="site-tagline" id="business-name">Dashboard</p>
                 </a>
             </div>
-
-            <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-
             <nav id="main-nav" class="main-navigation">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
-                    <li class="nav-item"><a href="sales.html">Sales</a></li>
-                    <li class="nav-item"><a href="expenses.html">Expenses</a></li>
-                    <li class="nav-item"><a href="reports.html">Reports</a></li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle">More <span class="dropdown-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="inventory.html">Inventory</a></li>
-                            <li><a href="customers.html">Customers</a></li>
-                            <li><a href="suppliers.html">Suppliers</a></li>
-                            <li><a href="settings.html">Settings</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
                 <div class="auth-buttons">
-                    <a href="business-profile.html" class="btn btn-outline">My Business</a>
-                    <a href="logout.html" class="btn btn-login">Logout</a>
+                    <span id="user-email" style="color: var(--text-secondary); margin-right: 1rem;"></span>
+                    <button id="logout-btn" class="btn btn-login">Logout</button>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- Dashboard Main -->
-    <main class="section-sm">
+    <main class="section">
         <div class="container">
-            <!-- Welcome & Quick Stats -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-between align-center flex-wrap gap-3">
-                        <div>
-                            <h2 class="mb-1">Welcome back, Business Owner!</h2>
-                            <p class="text-muted">Here's your financial overview for today</p>
-                        </div>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-primary" onclick="showToast('Recording sale...', 'success')">
-                                <span>+ Record Sale</span>
-                            </button>
-                            <button class="btn btn-outline" onclick="showToast('Adding expense...', 'info')">
-                                <span>+ Add Expense</span>
-                            </button>
-                        </div>
+            <div id="dashboard-content">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 id="welcome-message">Welcome back!</h2>
                     </div>
                 </div>
-            </div>
-
-            <!-- Key Metrics -->
-            <div class="grid grid-4 gap-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-between align-center mb-2">
+                
+                <div class="grid grid-4 gap-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
                             <h3 class="small text-muted">Cash Balance</h3>
-                            <span class="badge badge-success">↑ 12%</span>
+                            <h2>MWK 542,890</h2>
                         </div>
-                        <h2 class="mb-0">MWK 542,890</h2>
-                        <p class="small text-muted">Updated just now</p>
                     </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-between align-center mb-2">
+                    <div class="card">
+                        <div class="card-body">
                             <h3 class="small text-muted">Today's Sales</h3>
-                            <span class="badge badge-success">↑ 15%</span>
-                        </div>
-                        <h2 class="mb-0">MWK 45,320</h2>
-                        <p class="small text-muted">From 42 transactions</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-between align-center mb-2">
-                            <h3 class="small text-muted">Net Profit</h3>
-                            <span class="badge badge-success">↑ 8%</span>
-                        </div>
-                        <h2 class="mb-0">MWK 128,450</h2>
-                        <p class="small text-muted">This month</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-between align-center mb-2">
-                            <h3 class="small text-muted">Pending Expenses</h3>
-                            <span class="badge badge-danger">↑ 5%</span>
-                        </div>
-                        <h2 class="mb-0">MWK 18,750</p>
-                        <p class="small text-muted">To be paid</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts & Graphs -->
-            <div class="grid grid-2 gap-4 mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="mb-0">Cash Flow This Week</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-placeholder">
-                            <div class="d-flex align-end gap-2" style="height: 200px;">
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 80%; width: 30px;"></div>
-                                    <span class="small mt-2">Mon</span>
-                                </div>
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 65%; width: 30px;"></div>
-                                    <span class="small mt-2">Tue</span>
-                                </div>
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 90%; width: 30px;"></div>
-                                    <span class="small mt-2">Wed</span>
-                                </div>
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 75%; width: 30px;"></div>
-                                    <span class="small mt-2">Thu</span>
-                                </div>
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 95%; width: 30px;"></div>
-                                    <span class="small mt-2">Fri</span>
-                                </div>
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 60%; width: 30px;"></div>
-                                    <span class="small mt-2">Sat</span>
-                                </div>
-                                <div class="flex-1 d-flex flex-column align-center">
-                                    <div class="bg-primary rounded-top" style="height: 40%; width: 30px;"></div>
-                                    <span class="small mt-2">Sun</span>
-                                </div>
-                            </div>
+                            <h2>MWK 45,320</h2>
                         </div>
                     </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="mb-0">Expense Categories</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-column gap-3">
-                            <div>
-                                <div class="d-flex justify-between mb-1">
-                                    <span>Supplies</span>
-                                    <span>MWK 45,000</span>
-                                </div>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="bg-primary rounded" style="width: 40%;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-between mb-1">
-                                    <span>Utilities</span>
-                                    <span>MWK 28,000</span>
-                                </div>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="bg-success rounded" style="width: 25%;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-between mb-1">
-                                    <span>Salaries</span>
-                                    <span>MWK 120,000</span>
-                                </div>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="bg-warning rounded" style="width: 65%;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-between mb-1">
-                                    <span>Marketing</span>
-                                    <span>MWK 15,000</span>
-                                </div>
-                                <div class="progress" style="height: 8px;">
-                                    <div class="bg-info rounded" style="width: 12%;"></div>
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Your Plan</h3>
+                            <h2 id="user-plan">Starter</h2>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Recent Transactions -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-between align-center">
-                        <h3 class="mb-0">Recent Transactions</h3>
-                        <a href="transactions.html" class="btn btn-outline btn-small">View All</a>
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Type</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Today</td>
-                                    <td>Sale - Customer: John Doe</td>
-                                    <td><span class="badge badge-success">Income</span></td>
-                                    <td>MWK 15,000</td>
-                                    <td><span class="badge badge-success">Completed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Today</td>
-                                    <td>Supplier Payment - ABC Supplies</td>
-                                    <td><span class="badge badge-danger">Expense</span></td>
-                                    <td>MWK 8,500</td>
-                                    <td><span class="badge badge-success">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Yesterday</td>
-                                    <td>Sale - Customer: Jane Smith</td>
-                                    <td><span class="badge badge-success">Income</span></td>
-                                    <td>MWK 22,000</td>
-                                    <td><span class="badge badge-success">Completed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Yesterday</td>
-                                    <td>Electricity Bill</td>
-                                    <td><span class="badge badge-danger">Expense</span></td>
-                                    <td>MWK 12,000</td>
-                                    <td><span class="badge badge-warning">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2 days ago</td>
-                                    <td>Sale - Customer: Mike Johnson</td>
-                                    <td><span class="badge badge-success">Income</span></td>
-                                    <td>MWK 18,500</td>
-                                    <td><span class="badge badge-success">Completed</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="grid grid-4 gap-4 mt-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="mb-3">Record Sale</h4>
-                        <p class="small mb-3">Quick sale entry</p>
-                        <button class="btn btn-primary btn-block" onclick="showToast('Opening sale form...', 'info')">
-                            Start Sale
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="mb-3">Add Expense</h4>
-                        <p class="small mb-3">Record business expense</p>
-                        <button class="btn btn-outline btn-block" onclick="showToast('Opening expense form...', 'info')">
-                            Add Expense
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="mb-3">View Reports</h4>
-                        <p class="small mb-3">Generate financial reports</p>
-                        <a href="reports.html" class="btn btn-outline btn-block">View Reports</a>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="mb-3">Check Inventory</h4>
-                        <p class="small mb-3">View stock levels</p>
-                        <a href="inventory.html" class="btn btn-outline btn-block">View Stock</a>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Status</h3>
+                            <h2 class="text-success">Active</h2>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer id="main-footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; <span id="current-year">2026</span> FinFlow MW Dashboard. Data updates in real-time.</p>
-                </div>
-                <div class="d-flex gap-3">
-                    <span class="small text-muted">Last sync: Just now</span>
-                    <button class="btn btn-outline btn-small" onclick="showToast('Syncing data...', 'success')">
-                        Sync Now
-                    </button>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        const SUPABASE_URL = 'https://xpwurfjjfdfctteudvsb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhwd3VyZmpqZmRmY3R0ZXVkdnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4NDQ0NzYsImV4cCI6MjA4NjQyMDQ3Nn0.K3Sz7NP9l_AMFYW6Bds0_ew4uWybuWmfspSoLyzfYfg';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    <script src="js/main.js"></script>
+        // Check authentication
+        supabase.auth.getSession().then(async ({ data }) => {
+            if (!data.session) {
+                window.location.href = 'login.html';
+            } else {
+                const user = data.session.user;
+                document.getElementById('user-email').textContent = user.email;
+                document.getElementById('welcome-message').textContent = `Welcome back, ${user.email}!`;
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', async function() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        });
+    </script>
 </body>
 </html>

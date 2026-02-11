@@ -12,6 +12,7 @@
             <div class="logo-area">
                 <a href="index.html" class="logo-link">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Smart Finance for Malawi</p>
                 </a>
             </div>
             <button id="mobile-menu-toggle" class="mobile-toggle">
@@ -22,42 +23,87 @@
             <nav id="main-nav" class="main-navigation">
                 <ul class="nav-list">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="integrations.html" class="active">Integrations</a></li>
                     <li><a href="features.html">Features</a></li>
-                    <li><a href="api.html">API</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="integrations.html" class="active">Integrations</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Sign In</a>
+                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                </div>
             </nav>
         </div>
     </header>
 
     <main class="section">
         <div class="container">
-            <h1 class="text-gradient">Integrations</h1>
-            <p class="lead mb-5">Connect FinFlow MW with other tools you use</p>
+            <div class="text-center mb-5">
+                <h1 class="text-gradient">Integrations</h1>
+                <p class="lead">Connect FinFlow MW with tools you already use</p>
+            </div>
             
             <div class="grid grid-3 gap-4">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h3>WhatsApp Business</h3>
+                        <span style="font-size: 3rem;">💬</span>
+                        <h3 class="mt-3">WhatsApp Business</h3>
                         <p>Send invoices and receipts directly via WhatsApp</p>
-                        <span class="badge badge-success">Available Now</span>
+                        <span class="badge badge-success mt-2">Available Now</span>
                     </div>
                 </div>
                 
                 <div class="card">
                     <div class="card-body text-center">
-                        <h3>Mobile Money</h3>
-                        <p>Track Airtel Money and TNM Mpamba transactions</p>
-                        <span class="badge badge-success">Available Now</span>
+                        <span style="font-size: 3rem;">📱</span>
+                        <h3 class="mt-3">Airtel Money</h3>
+                        <p>Track Airtel Money transactions automatically</p>
+                        <span class="badge badge-success mt-2">Available Now</span>
                     </div>
                 </div>
                 
                 <div class="card">
                     <div class="card-body text-center">
-                        <h3>Bank APIs</h3>
-                        <p>Connect with local bank accounts (Coming Soon)</p>
-                        <span class="badge badge-warning">Coming Q3 2028</span>
+                        <span style="font-size: 3rem;">📲</span>
+                        <h3 class="mt-3">TNM Mpamba</h3>
+                        <p>Track TNM Mpamba payments and transfers</p>
+                        <span class="badge badge-success mt-2">Available Now</span>
                     </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <span style="font-size: 3rem;">🏦</span>
+                        <h3 class="mt-3">National Bank</h3>
+                        <p>Connect with National Bank of Malawi accounts</p>
+                        <span class="badge badge-warning mt-2">Coming Q3 2024</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <span style="font-size: 3rem;">🏦</span>
+                        <h3 class="mt-3">Standard Bank</h3>
+                        <p>Connect with Standard Bank Malawi accounts</p>
+                        <span class="badge badge-warning mt-2">Coming Q3 2024</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body text-center">
+                        <span style="font-size: 3rem;">🏦</span>
+                        <h3 class="mt-3">FDH Bank</h3>
+                        <p>Connect with FDH Bank accounts</p>
+                        <span class="badge badge-warning mt-2">Coming Q4 2024</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-5">
+                <div class="card-body text-center">
+                    <h3>Need a Custom Integration?</h3>
+                    <p class="mb-4">We work with Malawian businesses to build tailored solutions</p>
+                    <a href="contact.html" class="btn btn-primary">Contact Our Team</a>
                 </div>
             </div>
         </div>
@@ -65,7 +111,39 @@
 
     <footer id="main-footer">
         <div class="container">
-            <p class="text-center">© 2026 FinFlow MW. More integrations coming soon.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="footer-title">FinFlow MW</h3>
+                    <p class="footer-description">Smart finance solutions for Malawian businesses.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="integrations.html">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year">2026</span> FinFlow MW. All rights reserved. Blantyre, Malawi.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
