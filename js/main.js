@@ -1,7 +1,6 @@
-// main.js - SIMPLIFIED VERSION FOR TESTING
-
+// main.js - NO Supabase code, ONLY UI functionality
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ main.js loaded');
+    console.log('✅ main.js loaded - UI only');
     
     // ===== MOBILE MENU TOGGLE =====
     const mobileToggle = document.getElementById('mobile-menu-toggle');
@@ -43,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const content = this.nextElementSibling;
             const isActive = this.classList.contains('active');
             
+            // Close all others
             document.querySelectorAll('.accordion-header').forEach(h => {
                 h.classList.remove('active');
                 if (h.nextElementSibling) {
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
+            // Open this one
             if (!isActive) {
                 this.classList.add('active');
                 if (content) {
@@ -59,10 +60,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // ===== DROPDOWN MENUS =====
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.addEventListener('mouseenter', function() {
+            if (window.innerWidth > 768) {
+                const menu = this.querySelector('.dropdown-menu');
+                if (menu) menu.style.display = 'block';
+            }
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+            if (window.innerWidth > 768) {
+                const menu = this.querySelector('.dropdown-menu');
+                if (menu) menu.style.display = 'none';
+            }
+        });
+    });
+    
     // ===== CURRENT YEAR IN FOOTER =====
     const yearElement = document.getElementById('current-year');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
+    }
+    
+    // ===== BACK TO TOP BUTTON =====
+    const backToTop = document.querySelector('.back-to-top-link');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTop.style.opacity = '1';
+                backToTop.style.visibility = 'visible';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.visibility = 'hidden';
+            }
+        });
     }
     
     console.log('✅ main.js initialized');
