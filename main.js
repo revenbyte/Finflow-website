@@ -1,6 +1,7 @@
-// main.js - JavaScript for ALL pages
+// main.js - JavaScript for ALL pages (Supabase Compatible)
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
+    // ===== MOBILE MENU TOGGLE =====
     const mobileToggle = document.getElementById('mobile-menu-toggle');
     const mainNav = document.getElementById('main-nav');
     
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Header scroll effect
+    // ===== HEADER SCROLL EFFECT =====
     const header = document.getElementById('main-header');
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Dropdown menus
+    // ===== DROPDOWN MENUS =====
     document.querySelectorAll('.dropdown').forEach(dropdown => {
         dropdown.addEventListener('mouseenter', function() {
             if (window.innerWidth > 768) {
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // FAQ accordion
+    // ===== FAQ ACCORDION =====
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
             const content = this.nextElementSibling;
@@ -87,8 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Form submissions
+    // ===== 🟢 FIXED: FORM HANDLER - ONLY FOR CONTACT FORMS, NOT SIGNUP/LOGIN =====
     document.querySelectorAll('form').forEach(form => {
+        // IGNORE signup and login forms - they have their own handlers
+        if (form.id === 'signup-form' || form.id === 'login-form') {
+            return; // Skip these forms
+        }
+        
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -106,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (isValid) {
-                // In a real app, this would submit to a server
                 alert('Thank you! Form submitted successfully.');
                 this.reset();
             } else {
@@ -115,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Smooth scrolling for anchor links
+    // ===== SMOOTH SCROLLING =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -141,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Back to top button
+    // ===== BACK TO TOP BUTTON =====
     const backToTop = document.querySelector('.back-to-top-link');
     if (backToTop) {
         window.addEventListener('scroll', function() {
@@ -155,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize animations
+    // ===== ANIMATIONS =====
     const animateElements = document.querySelectorAll('.animate-fade-up, .animate-slide-left, .animate-slide-right');
     
     const observer = new IntersectionObserver((entries) => {
@@ -174,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
     
-    // Tab functionality
+    // ===== TABS =====
     document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', function() {
             const tabId = this.getAttribute('data-tab');
@@ -196,13 +201,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Current year in footer
+    // ===== CURRENT YEAR IN FOOTER =====
     const yearElement = document.getElementById('current-year');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
     }
     
-    // Toast notifications (for future enhancements)
+    // ===== TOAST NOTIFICATIONS =====
     window.showToast = function(message, type = 'success') {
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
