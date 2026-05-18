@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container container-narrow">
+            <div class="text-center mb-5">
+                <h1 class="text-gradient">Create Your Account</h1>
+                <p class="lead">Start managing your business finances in minutes</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <!-- ERROR MESSAGES -->
+                    <div id="error-message" class="alert alert-danger" style="display: none; margin-bottom: 20px;"></div>
+                    <div id="success-message" class="alert alert-success" style="display: none; margin-bottom: 20px;"></div>
+                    
+                    <form id="signup-form">
+                        <div class="form-group">
+                            <label class="form-label">Business Name</label>
+                            <input type="text" id="businessName" class="form-control" placeholder="Your business name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="fullName" class="form-control" placeholder="Your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+265 XXX XXX XXX" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="password" class="form-control" placeholder="Create a strong password" required>
+                            <div class="form-text">Minimum 6 characters</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="terms.html">Terms of Service</a>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+                            <span id="btn-text">Create Free Account</span>
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p>Already have an account? <a href="login.html">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ===== SUPABASE CONFIG =====
+    const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+    
+    // Initialize Supabase Client
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    const signupForm = document.getElementById('signup-form');
+    
+    signupForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // UI Loading States
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const errorDiv = document.getElementById('error-message');
+        const successDiv = document.getElementById('success-message');
+        
+        btnText.textContent = 'Creating account...';
+        submitBtn.disabled = true;
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'none';
+        
+        // Extract inputs
+        const businessName = document.getElementById('businessName').value;
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+            // 1. Create user in Supabase Auth
+            const { data: authData, error: authError } = await supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+            });
+            
+            if (authError) throw authError;
+            
+            // Check if user object was returned successfully
+            if (!authData || !authData.user) {
+                throw new Error("Authentication failed to initialize standard session.");
+            }
+            
+            // 2. Save supplementary metadata to custom profile table
+            const { error: dbError } = await supabaseClient
+                .from('users')
+                .insert([
+                    { 
+                        id: authData.user.id,
+                        business_name: businessName,
+                        full_name: fullName,
+                        email: email,
+                        phone: phone,
+                        plan: 'starter'
+                    }
+                ]);
+            
+            if (dbError) throw dbError;
+            
+            // Success handler
+            successDiv.textContent = '✅ Account registered! Please check your inbox to confirm your email verification link before logging in.';
+            successDiv.style.display = 'block';
+            signupForm.reset();
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 4000);
+            
+        } catch (error) {
+            errorDiv.textContent = '❌ ' + error.message;
+            errorDiv.style.display = 'block';
+            
+            // Reset UI state
+            btnText.textContent = 'Create Free Account';
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

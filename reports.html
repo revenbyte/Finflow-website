@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Financial Reports</p>
+                </a>
+            </div>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="transactions.html">Ledger Book</a></li>
+                    <li><a href="reports.html" class="nav-link active">Reports</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button id="logout-btn" class="btn btn-login">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <!-- LOADING OVERLAY -->
+            <div id="loading" class="text-center" style="padding: 4rem;">
+                <h3>Compiling financial data structures...</h3>
+            </div>
+
+            <!-- MAIN REPORT VIEWPORT -->
+            <div id="report-content" style="display: none;">
+                
+                <!-- SUMMARY STATEMENT CARDS -->
+                <div class="grid grid-3 gap-4 mb-4">
+                    <div class="card" style="border-left: 5px solid #1565c0;">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Total Gross Income</h3>
+                            <h2 id="rep-income" style="color: #1565c0; margin: 0;">MWK 0</h2>
+                        </div>
+                    </div>
+                    <div class="card" style="border-left: 5px solid #c62828;">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Total Total Expenses</h3>
+                            <h2 id="rep-expenses" style="color: #c62828; margin: 0;">MWK 0</h2>
+                        </div>
+                    </div>
+                    <div class="card" style="border-left: 5px solid #2e7d32;">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Net Profit Margin</h3>
+                            <h2 id="rep-profit" style="color: #2e7d32; margin: 0;">MWK 0</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 gap-4">
+                    <!-- LEFT COLUMN: CATEGORICAL EXPENSE ANALYSIS -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mb-1">Expense Breakdown</h3>
+                            <p class="text-muted small mb-3">See exactly where your business cash is leaking</p>
+                            
+                            <div id="expense-bars-container">
+                                <!-- Dynamic progress bars will inject here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: FINANCIAL INSIGHTS ENGINE -->
+                    <div class="card" style="background-color: #f9fbfd; border: 1px dashed #b3e5fc;">
+                        <div class="card-body">
+                            <h3 class="mb-2">💡 Automated Business Insights</h3>
+                            <div id="insight-box" style="line-height: 1.6; color: #333;">
+                                Analyzing your ledgers...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== UPDATED SUPABASE INSTANCE CREDENTIALS =====
+        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUserId = null;
+
+        // ===== SECURE PAGE SECURE RUNTIME =====
+        supabaseClient.auth.getSession().then(({ data }) => {
+            if (!data.session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            currentUserId = data.session.user.id;
+            
+            // Fire the engine data compiler
+            generateReportData();
+        });
+
+        // ===== ANALYTICS COMPILER ENGINE =====
+        async function generateReportData() {
+            try {
+                const { data: transactions, error } = await supabaseClient
+                    .from('transactions')
+                    .select('type, amount, category')
+                    .eq('user_id', currentUserId);
+
+                if (error) throw error;
+
+                let incomeTotal = 0;
+                let expenseTotal = 0;
+                
+                // Track category totals dictionary specifically for expenses
+                const categoryMap = {
+                    'Stock': 0,
+                    'Rent': 0,
+                    'Transport': 0,
+                    'Wages': 0,
+                    'Other': 0
+                };
+
+                if (transactions) {
+                    transactions.forEach(tx => {
+                        const amt = parseFloat(tx.amount) || 0;
+                        if (tx.type === 'income') {
+                            incomeTotal += amt;
+                        } else if (tx.type === 'expense') {
+                            expenseTotal += amt;
+                            // Add sum to category mapping tracker
+                            if (categoryMap[tx.category] !== undefined) {
+                                categoryMap[tx.category] += amt;
+                            } else {
+                                categoryMap['Other'] += amt;
+                            }
+                        }
+                    });
+                }
+
+                const netProfit = incomeTotal - expenseTotal;
+
+                // Render metrics values to Top Level Summary Cards
+                document.getElementById('rep-income').textContent = `MWK ${incomeTotal.toLocaleString()}`;
+                document.getElementById('rep-expenses').textContent = `MWK ${expenseTotal.toLocaleString()}`;
+                document.getElementById('rep-profit').textContent = `MWK ${netProfit.toLocaleString()}`;
+
+                // Process dynamic visual progress bars inside container
+                renderExpenseBreakdown(categoryMap, expenseTotal);
+                
+                // Generate automated advice insights for your partner's clients
+                generateBusinessInsights(incomeTotal, expenseTotal, netProfit, categoryMap);
+
+            } catch (err) {
+                console.error("Report breakdown failure: ", err.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('report-content').style.display = 'block';
+            }
+        }
+
+        // ===== RENDERING METHOD FOR VISUAL PROGRESS BARS =====
+        function renderExpenseBreakdown(categoryMap, totalExpense) {
+            const container = document.getElementById('expense-bars-container');
+            container.innerHTML = '';
+
+            if (totalExpense === 0) {
+                container.innerHTML = `<p style="color:#888; text-align:center; padding: 20px;">No operational expenses tracked yet.</p>`;
+                return;
+            }
+
+            for (const [category, amount] of Object.entries(categoryMap)) {
+                // Calculate percentage relative to total cost outbound strings
+                const percentage = totalExpense > 0 ? ((amount / totalExpense) * 180 / 1.8).toFixed(0) : 0;
+                
+                const segment = document.createElement('div');
+                segment.style.marginBottom = "20px";
+                segment.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem;">
+                        <strong>${category}</strong>
+                        <span style="color:#555;">MWK ${amount.toLocaleString()} (${percentage}%)</span>
+                    </div>
+                    <div style="width: 100%; background-color: #eee; height: 12px; border-radius: 6px; overflow: hidden;">
+                        <div style="width: ${percentage}%; background-color: #c62828; height: 100%; border-radius: 6px; transition: width 0.5s ease;"></div>
+                    </div>
+                `;
+                container.appendChild(segment);
+            }
+        }
+
+        // ===== LOGIC RULE ARCHITECTURE FOR AUTOMATED ADVICE =====
+        function generateBusinessInsights(income, expense, profit, categoryMap) {
+            const box = document.getElementById('insight-box');
+            let feedbackText = "";
+
+            if (income === 0 && expense === 0) {
+                box.textContent = "Start adding transactions to your Ledger Book, and our accounting algorithm will automatically write optimization insights for your business right here.";
+                return;
+            }
+
+            // High level conditional performance checking rules
+            if (profit < 0) {
+                feedbackText += `<p style="color:#c62828; font-weight:bold;">⚠️ Critical Risk Status: Your business is currently operational at a financial net loss. Your outgoing costs outpace incoming revenue strings.</p>`;
+            } else if (income > 0 && (expense / income) > 0.7) {
+                feedbackText += `<p style="color:#ef6c00; font-weight:bold;">⚠️ Warning Flag: Your operational expense load eats up over 70% of gross incoming revenue pipelines. Profit margins are dangerously tight.</p>`;
+            } else {
+                feedbackText += `<p style="color:#2e7d32; font-weight:bold;">✅ Good Financial Health: Your business structures are running soundly and producing net positive capital assets.</p>`;
+            }
+
+            // Find highest expense culprit category logic loops
+            let highestCategory = "";
+            let maxVal = 0;
+            for (const [cat, val] of Object.entries(categoryMap)) {
+                if (val > maxVal) {
+                    maxVal = val;
+                    highestCategory = cat;
+                }
+            }
+
+            if (maxVal > 0) {
+                feedbackText += `<p class="mt-3">🎯 **Cost Center Highlight:** Your number one driver of operational cash outbound drain is **${highestCategory}**, logging a cumulative value of **MWK ${maxVal.toLocaleString()}**. Your business should audit this category closely to cut waste and preserve cash reserves.</p>`;
+            }
+
+            box.innerHTML = feedbackText;
+        }
+
+        // ===== LOGOUT BUTTON ENGINE =====
+        document.getElementById('logout-btn').addEventListener('click', async function() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

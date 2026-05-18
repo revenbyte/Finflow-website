@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline" id="business-name">Loading...</p>
+                </a>
+            </div>
+            <button id="mobile-menu-toggle" class="mobile-toggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                    <li><a href="transactions.html">Ledger Book</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <span id="user-email" style="color: #666; margin-right: 1rem;"></span>
+                    <button id="logout-btn" class="btn btn-login">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <!-- LOADING OVERLAY -->
+            <div id="loading" class="text-center" style="padding: 4rem;">
+                <h3>Loading your dashboard...</h3>
+            </div>
+            
+            <!-- REAL-TIME DASHBOARD CONTENT -->
+            <div id="dashboard-content" style="display: none;">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 id="welcome-message" class="mb-1">Welcome back!</h2>
+                        <p class="text-muted">Here's your financial overview</p>
+                    </div>
+                </div>
+                
+                <!-- DYNAMIC METRICS GRID -->
+                <div class="grid grid-4 gap-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Net Cash Balance</h3>
+                            <h2 class="mb-0" id="stat-balance" style="color: #2e7d32;">MWK 0</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Total Sales (Income)</h3>
+                            <h2 class="mb-0" id="stat-sales" style="color: #1565c0;">MWK 0</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Total Expenses</h3>
+                            <h2 class="mb-0" id="stat-expenses" style="color: #c62828;">MWK 0</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="small text-muted">Your Plan</h3>
+                            <h2 id="user-plan" class="mb-0">Starter</h2>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NAVIGATION SHORTCUTS -->
+                <div class="grid grid-3 gap-4">
+                    <div class="card" onclick="window.location.href='transactions.html'" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <span style="font-size: 2rem;">📓</span>
+                            <h4 class="mt-2">Open Ledger Book</h4>
+                        </div>
+                    </div>
+                    <div class="card" onclick="window.location.href='reports.html'" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <span style="font-size: 2rem;">📊</span>
+                            <h4 class="mt-2">View Reports</h4>
+                        </div>
+                    </div>
+                    <div class="card" onclick="window.location.href='settings.html'" style="cursor: pointer;">
+                        <div class="card-body text-center">
+                            <span style="font-size: 2rem;">⚙️</span>
+                            <h4 class="mt-2">Settings</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== SUPABASE CONFIG =====
+        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+        
+        // Fixed naming collision
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ===== SECURE PAGE ENGINE =====
+        supabaseClient.auth.getSession().then(async ({ data }) => {
+            const loading = document.getElementById('loading');
+            const dashboard = document.getElementById('dashboard-content');
+            
+            if (!data.session) {
+                // Boot unauthenticated traffic back to login
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const user = data.session.user;
+            
+            // Render basic profile data points
+            document.getElementById('user-email').textContent = user.email;
+            
+            try {
+                // Fetch user profile information
+                const { data: userData, error: profileError } = await supabaseClient
+                    .from('users')
+                    .select('business_name, full_name, plan')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (profileError) throw profileError;
+                
+                if (userData) {
+                    document.getElementById('business-name').textContent = userData.business_name || 'FinFlow MW';
+                    document.getElementById('welcome-message').textContent = `Welcome back, ${userData.full_name || 'User'}!`;
+                    document.getElementById('user-plan').textContent = userData.plan || 'Starter';
+                }
+
+                // Call calculation engine
+                await calculateFinancialMetrics(user.id);
+                
+            } catch (err) {
+                console.error("Data loading error:", err.message);
+                document.getElementById('welcome-message').textContent = `Welcome back!`;
+            } finally {
+                // Toggle viewports once operations complete
+                loading.style.display = 'none';
+                dashboard.style.display = 'block';
+            }
+        });
+
+        // ===== FINANCIAL CALCULATION ENGINE =====
+        async function calculateFinancialMetrics(userId) {
+            try {
+                // Pull all transactions assigned to this specific business user
+                const { data: transactions, error } = await supabaseClient
+                    .from('transactions')
+                    .select('type, amount')
+                    .eq('user_id', userId);
+                
+                if (error) throw error;
+                
+                let totalSales = 0;
+                let totalExpenses = 0;
+                
+                if (transactions) {
+                    transactions.forEach(tx => {
+                        const amt = parseFloat(tx.amount) || 0;
+                        if (tx.type === 'income') {
+                            totalSales += amt;
+                        } else if (tx.type === 'expense') {
+                            totalExpenses += amt;
+                        }
+                    });
+                }
+                
+                const netBalance = totalSales - totalExpenses;
+                
+                // Format functions to append currency nicely
+                document.getElementById('stat-sales').textContent = `MWK ${totalSales.toLocaleString()}`;
+                document.getElementById('stat-expenses').textContent = `MWK ${totalExpenses.toLocaleString()}`;
+                document.getElementById('stat-balance').textContent = `MWK ${netBalance.toLocaleString()}`;
+                
+            } catch (err) {
+                console.error("Metrics engine breakdown:", err.message);
+            }
+        }
+
+        // ===== LOGOUT BUTTON =====
+        document.getElementById('logout-btn').addEventListener('click', async function() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

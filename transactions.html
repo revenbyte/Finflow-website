@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledger Book - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Ledger Book</p>
+                </a>
+            </div>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="transactions.html" class="nav-link active">Ledger Book</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button id="logout-btn" class="btn btn-login">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <div id="loading" class="text-center" style="padding: 2rem;">
+                <h3>Verifying secure vault access...</h3>
+            </div>
+
+            <div id="ledger-content" style="display: none;">
+                <div class="grid grid-2 gap-4">
+                    
+                    <!-- LEFT COLUMN: RECORD A TRANSACTION FORM -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mb-3">Log Transaction</h3>
+                            <div id="form-alert" class="alert" style="display: none; margin-bottom: 15px;"></div>
+                            
+                            <form id="transaction-form">
+                                <div class="form-group">
+                                    <label class="form-label">Transaction Type</label>
+                                    <select id="tx-type" class="form-control" required>
+                                        <option value="income">💰 Sale / Income (Money In)</option>
+                                        <option value="expense">📝 Expense / Cost (Money Out)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Amount (MWK)</label>
+                                    <input type="number" step="0.01" id="tx-amount" class="form-control" placeholder="e.g. 15000" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Category</label>
+                                    <select id="tx-category" class="form-control" required>
+                                        <option value="Sales">Sales Revenue</option>
+                                        <option value="Stock">Restocking / Inventory</option>
+                                        <option value="Rent">Rent & Utilities</option>
+                                        <option value="Transport">Transport / Logistics</option>
+                                        <option value="Wages">Wages / Staff Pay</option>
+                                        <option value="Other">Other Expenses</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Description / Note</label>
+                                    <input type="text" id="tx-desc" class="form-control" placeholder="e.g. Sold 3 wholesale bags of maize">
+                                </div>
+
+                                <button type="submit" id="save-btn" class="btn btn-primary btn-block">Save to Ledger</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: RECENT HISTORY LIST -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mb-3">Transaction History</h3>
+                            <div style="overflow-x: auto;">
+                                <table class="table" style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid #eee; text-align: left;">
+                                            <th style="padding: 10px;">Date</th>
+                                            <th style="padding: 10px;">Details</th>
+                                            <th style="padding: 10px; text-align: right;">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="history-table-body">
+                                        <!-- Dynamic entries drop in here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== SUPABASE INITIALIZATION =====
+        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUserId = null;
+
+        // ===== AUTH RUNTIME GUARD =====
+        supabaseClient.auth.getSession().then(({ data }) => {
+            if (!data.session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            currentUserId = data.session.user.id;
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('ledger-content').style.display = 'block';
+            
+            // Initial pull of user history
+            renderLedgerHistory();
+        });
+
+        // ===== FORM SUBMISSION ENGINE =====
+        document.getElementById('transaction-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const alertDiv = document.getElementById('form-alert');
+            const saveBtn = document.getElementById('save-btn');
+            
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Recording entry...';
+            alertDiv.style.display = 'none';
+
+            const type = document.getElementById('tx-type').value;
+            const amount = parseFloat(document.getElementById('tx-amount').value);
+            const category = document.getElementById('tx-category').value;
+            const description = document.getElementById('tx-desc').value;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('transactions')
+                    .insert([
+                        {
+                            user_id: currentUserId,
+                            type: type,
+                            amount: amount,
+                            category: category,
+                            description: description
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                // Success handlers
+                alertDiv.className = "alert alert-success";
+                alertDiv.textContent = "✅ Transaction successfully bound to ledger!";
+                alertDiv.style.display = "block";
+                
+                document.getElementById('transaction-form').reset();
+                
+                // Instantly re-fetch data rows so the user sees their input update
+                await renderLedgerHistory();
+
+            } catch (err) {
+                alertDiv.className = "alert alert-danger";
+                alertDiv.textContent = "❌ Vault error: " + err.message;
+                alertDiv.style.display = "block";
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save to Ledger';
+            }
+        });
+
+        // ===== ENGINE: READ AND RENDER RUNTIME LAUNCH =====
+        async function renderLedgerHistory() {
+            const tbody = document.getElementById('history-table-body');
+            tbody.innerHTML = ''; // Wipe out existing placeholder markup
+
+            try {
+                // Read operations ordering data by timestamp descending
+                const { data: records, error } = await supabaseClient
+                    .from('transactions')
+                    .select('*')
+                    .eq('user_id', currentUserId)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (!records || records.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px; color:#888;">No transactions recorded yet. Your book is completely empty!</td></tr>`;
+                    return;
+                }
+
+                records.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = "1px solid #f5f5f5";
+                    
+                    // Parse localized date formatting structures
+                    const txDate = new Date(row.created_at).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'short'
+                    });
+
+                    // Check type class assignment rules for custom UI coloring
+                    const prefix = row.type === 'income' ? '+' : '-';
+                    const colorStyle = row.type === 'income' ? 'color:#2e7d32; font-weight:bold;' : 'color:#c62828; font-weight:bold;';
+                    const displayDescription = row.description ? ` - ${row.description}` : '';
+
+                    tr.innerHTML = `
+                        <td style="padding: 12px 10px; color: #666; font-size: 0.9rem;">${txDate}</td>
+                        <td style="padding: 12px 10px;"><strong>${row.category}</strong><span style="color:#888; font-size:0.85rem;">${displayDescription}</span></td>
+                        <td style="padding: 12px 10px; text-align: right; ${colorStyle}">${prefix} MWK ${parseFloat(row.amount).toLocaleString()}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red; padding:20px;">Failed to parse ledger array: ${err.message}</td></tr>`;
+            }
+        }
+
+        // ===== LOGOUT BUTTON ENGINE =====
+        document.getElementById('logout-btn').addEventListener('click', async function() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

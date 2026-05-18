@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Control Panel</p>
+                </a>
+            </div>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="transactions.html">Ledger Book</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button id="logout-btn" class="btn btn-login">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width: 600px;">
+            <!-- LOADING OVERLAY -->
+            <div id="loading" class="text-center" style="padding: 3rem;">
+                <h3>Fetching account profiles...</h3>
+            </div>
+
+            <!-- MAIN SETTINGS FORM -->
+            <div id="settings-content" style="display: none;">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="mb-1">Business Settings</h2>
+                        <p class="text-muted small mb-4">Manage your profile info and application configurations</p>
+                        
+                        <div id="settings-alert" class="alert" style="display: none; margin-bottom: 20px;"></div>
+
+                        <form id="settings-form">
+                            <div class="form-group">
+                                <label class="form-label">Registered Email Address</label>
+                                <input type="email" id="set-email" class="form-control" disabled style="background-color: #eee; cursor: not-allowed;">
+                                <small class="text-muted">Account login emails cannot be modified for audit tracking.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Full Name / Owner Name</label>
+                                <input type="text" id="set-name" class="form-control" required placeholder="e.g. John Phiri">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Business / Trading Name</label>
+                                <input type="text" id="set-business" class="form-control" required placeholder="e.g. Phiri Agro-Dealers">
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="form-label">Current Plan Status</label>
+                                <div style="background: #e3f2fd; padding: 12px; border-radius: 6px; border: 1px solid #90caf9; display: flex; justify-content: space-between; align-items: center;">
+                                    <strong id="set-plan" style="color: #0d47a1; text-transform: uppercase;">STARTER</strong>
+                                    <span style="font-size: 0.8rem; background: #0d47a1; color: #fff; padding: 3px 8px; border-radius: 4px; font-weight: bold;">ACTIVE</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="save-settings-btn" class="btn btn-primary btn-block">Update Profile Data</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== SUPABASE INSTANCE CREDENTIALS =====
+        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUserId = null;
+
+        // ===== SECURE ACCESS CONTROL CHECK =====
+        supabaseClient.auth.getSession().then(async ({ data }) => {
+            if (!data.session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const user = data.session.user;
+            currentUserId = user.id;
+            
+            // Set email immediately from Auth data
+            document.getElementById('set-email').value = user.email;
+
+            // Load existing profile parameters
+            await loadUserProfile();
+        });
+
+        // ===== READ USER PROFILE FROM DB =====
+        async function loadUserProfile() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('users')
+                    .select('full_name, business_name, plan')
+                    .eq('id', currentUserId)
+                    .single();
+
+                if (error) throw error;
+
+                if (data) {
+                    document.getElementById('set-name').value = data.full_name || '';
+                    document.getElementById('set-business').value = data.business_name || '';
+                    document.getElementById('set-plan').textContent = data.plan || 'Starter';
+                }
+            } catch (err) {
+                console.error("Profile load err:", err.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('settings-content').style.display = 'block';
+            }
+        }
+
+        // ===== WRITE USER PROFILE SUBMISSION ENGINE =====
+        document.getElementById('settings-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const alertDiv = document.getElementById('settings-alert');
+            const saveBtn = document.getElementById('save-settings-btn');
+
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving structural changes...';
+            alertDiv.style.display = 'none';
+
+            const fullName = document.getElementById('set-name').value;
+            const businessName = document.getElementById('set-business').value;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('users')
+                    .update({
+                        full_name: fullName,
+                        business_name: businessName
+                    })
+                    .eq('id', currentUserId);
+
+                if (error) throw error;
+
+                alertDiv.className = "alert alert-success";
+                alertDiv.textContent = "✅ Profile registry updated successfully!";
+                alertDiv.style.display = "block";
+
+            } catch (err) {
+                alertDiv.className = "alert alert-danger";
+                alertDiv.textContent = "❌ Write fault encountered: " + err.message;
+                alertDiv.style.display = "block";
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Update Profile Data';
+            }
+        });
+
+        // ===== LOGOUT ROUTINE =====
+        document.getElementById('logout-btn').addEventListener('click', async function() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

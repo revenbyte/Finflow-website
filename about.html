@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - FinFlow MW</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                </a>
+            </div>
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link active">About</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="auth-buttons" id="nav-auth-container">
+                    <a href="login.html" class="btn btn-login">Sign In</a>
+                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Hero -->
+    <section class="section section-lg text-center">
+        <div class="container animate-fade-up">
+            <span class="hero-subtitle">OUR MISSION</span>
+            <h1 class="section-title text-gradient">Empowering Malawian SMEs</h1>
+            <p class="lead" style="max-width: 800px; margin: 20px auto;">
+                FinFlow MW was born out of a simple observation: local businesses in Malawi drive the economy, but keeping track of cash flow shouldn't require an expensive accounting degree or complex software built for western markets.
+            </p>
+        </div>
+    </section>
+
+    <!-- Core Values / Vision -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="grid grid-3">
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <h3 class="text-primary">Locally Tailored</h3>
+                        <p>Built specifically handling MWK calculations, local operational tracking habits, and offline-first data capabilities for areas with shaky connections.</p>
+                    </div>
+                </div>
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <h3 class="text-primary">Absolute Clarity</h3>
+                        <p>No confusing accounting jargon. We turn complex rows of daily expenses into clear, visual progress bars and instant profit statements.</p>
+                    </div>
+                </div>
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <h3 class="text-primary">Growth Focused</h3>
+                        <p>We don't just track your past; we help secure your future by making your business data presentable for formal micro-finance loans.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container text-center">
+            <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+        </div>
+    </footer>
+
+    <script src="auth-check.js"></script>
+</body>
+</html>

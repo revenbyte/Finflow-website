@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinFlow MW - Smart Finance for Malawi Businesses</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                    <p class="site-tagline">Smart Finance for Malawi</p>
+                </a>
+            </div>
+
+            <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav id="main-nav" class="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <!-- DYNAMIC AUTH LINKS (Managed by JavaScript below) -->
+                <div class="auth-buttons" id="nav-auth-container">
+                    <a href="login.html" class="btn btn-login">Sign In</a>
+                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section section-lg">
+        <div class="container">
+            <div class="hero-container animate-fade-up">
+                <div class="hero-text">
+                    <span class="hero-subtitle">WHERE SMALL BUSINESSES BECOME PROFITABLE</span>
+                    <h1 class="hero-title">Financial Clarity for <span class="text-gradient">Malawian Businesses</span></h1>
+                    <p class="hero-description">
+                        Real-time sales tracking, expense management, and cash flow automation 
+                        designed for Malawi's unique business landscape. No accounting degree needed.
+                    </p>
+                    
+                    <div class="hero-actions" id="hero-auth-container">
+                        <a href="signup.html" class="btn btn-primary btn-large">Start Free Trial</a>
+                        <a href="login.html" class="btn btn-outline btn-large">Sign In to Account</a>
+                    </div>
+                    
+                    <div class="hero-features">
+                        <span class="feature-badge">Works Offline</span>
+                        <span class="feature-badge">5-Minute Setup</span>
+                        <span class="feature-badge">Free Forever Plan</span>
+                        <span class="feature-badge">Mobile & Desktop</span>
+                    </div>
+                </div>
+                
+                <div class="hero-visual animate-slide-right">
+                    <div class="dashboard-preview" onclick="window.location.href='dashboard.html'" style="cursor: pointer;">
+                        <div class="visual-placeholder" style="background: linear-gradient(135deg, #0d47a1, #1565c0); color: white; padding: 3rem; border-radius: 12px; text-align: center;">
+                            <h3>📊 Live Dashboard Entry</h3>
+                            <p class="mt-2" style="opacity: 0.9;">Click here to access your active financial overview tracking sheets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Phase Journey -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-gradient">Your 3-Step Financial Journey</h2>
+                <p class="lead">From tracking to growth with FinFlow MW</p>
+            </div>
+            
+            <div class="grid grid-3 stagger-children">
+                <!-- Phase 1 -->
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <span class="badge badge-primary">Phase 1</span>
+                            <h3 class="mb-0">Track Everything</h3>
+                        </div>
+                        <p>Automatically record sales and operational costs inside a simplified local system ledger book.</p>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0; line-height: 1.8;">
+                            <li>✓ Real-time Ledger Inputs</li>
+                            <li>✓ Smart Expense Categorization</li>
+                            <li>✓ Instant Local Cash Logs</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Phase 2 -->
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <span class="badge badge-primary">Phase 2</span>
+                            <h3 class="mb-0">Gain Insights</h3>
+                        </div>
+                        <p>Transform raw sales rows into actionable strategy guidelines with automated data analysis systems.</p>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0; line-height: 1.8;">
+                            <li>✓ Net Profit Calculations</li>
+                            <li>✓ Operational Loss Alerts</li>
+                            <li>✓ Top Expense Drainage Highlights</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Phase 3 -->
+                <div class="card floating-card">
+                    <div class="card-body">
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <span class="badge badge-primary">Phase 3</span>
+                            <h3 class="mb-0">Grow Confidently</h3>
+                        </div>
+                        <p>Use your compiled financial data tables to show clear performance history maps to local loan vendors.</p>
+                        <ul class="mt-3" style="list-style: none; padding-left: 0; line-height: 1.8;">
+                            <li>✓ Clear Profit Summaries</li>
+                            <li>✓ Clean Data Transparency</li>
+                            <li>✓ Growth Metric Vectors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span>2026</span> FinFlow MW. Blantyre, Malawi. All rights reserved.</p>
+                    <p class="small text-muted" style="margin-top: 5px;">Smart finance solutions built for Malawi, scalable to the world.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== LIVE SESSION UTILITY SCRIPT ===== -->
+    <script>
+        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Check if user is logged in to change navigation dynamically
+        supabaseClient.auth.getSession().then(({ data }) => {
+            if (data.session) {
+                // User is authenticated! Swap the login/signup triggers with a shortcut direct to the dashboard
+                document.getElementById('nav-auth-container').innerHTML = `
+                    <a href="dashboard.html" class="btn btn-signup">Go to Dashboard →</a>
+                `;
+                
+                document.getElementById('hero-auth-container').innerHTML = `
+                    <a href="dashboard.html" class="btn btn-primary btn-large">Enter Dashboard Control Panel</a>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
