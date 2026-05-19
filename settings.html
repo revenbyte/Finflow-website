@@ -9,76 +9,100 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <header id="main-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                    <p class="site-tagline">Control Panel</p>
-                </a>
+
+    <div class="app-layout">
+        
+        <!-- ===== DESKTOP SIDEBAR ===== -->
+        <aside class="sidebar-desktop">
+            <div class="sidebar-header">
+                <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                <p class="site-tagline">Control Panel</p>
             </div>
-            <nav id="main-nav" class="main-navigation">
+            
+            <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="transactions.html">Ledger Book</a></li>
-                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="transactions.html" class="nav-link">Ledger Book</a></li>
+                    <li><a href="reports.html" class="nav-link">Reports</a></li>
                 </ul>
-                <div class="auth-buttons">
-                    <button id="logout-btn" class="btn btn-login">Logout</button>
-                </div>
             </nav>
-        </div>
-    </header>
-
-    <main class="section">
-        <div class="container" style="max-width: 600px;">
-            <!-- LOADING OVERLAY -->
-            <div id="loading" class="text-center" style="padding: 3rem;">
-                <h3>Fetching account profiles...</h3>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline" style="width: 100%;">Logout</button>
             </div>
+        </aside>
 
-            <!-- MAIN SETTINGS FORM -->
-            <div id="settings-content" style="display: none;">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="mb-1">Business Settings</h2>
-                        <p class="text-muted small mb-4">Manage your profile info and application configurations</p>
-                        
-                        <div id="settings-alert" class="alert" style="display: none; margin-bottom: 20px;"></div>
+        <!-- ===== MOBILE FLOATING NAV ===== -->
+        <nav class="mobile-floating-nav">
+            <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+            <a href="transactions.html" class="mobile-nav-item">Ledger</a>
+            <a href="reports.html" class="mobile-nav-item">Reports</a>
+            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+        </nav>
 
-                        <form id="settings-form">
-                            <div class="form-group">
-                                <label class="form-label">Registered Email Address</label>
-                                <input type="email" id="set-email" class="form-control" disabled style="background-color: #eee; cursor: not-allowed;">
-                                <small class="text-muted">Account login emails cannot be modified for audit tracking.</small>
-                            </div>
+        <!-- ===== MAIN CONTENT WRAPPER ===== -->
+        <main class="main-content">
+            <div class="container hero-section" style="max-width: 650px; margin: 0 auto;">
+                
+                <!-- LOADING OVERLAY -->
+                <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
+                    <h3 class="text-gradient">Fetching account profiles...</h3>
+                    <p class="text-muted">Pulling secure database variables...</p>
+                </div>
 
-                            <div class="form-group">
-                                <label class="form-label">Full Name / Owner Name</label>
-                                <input type="text" id="set-name" class="form-control" required placeholder="e.g. John Phiri">
-                            </div>
+                <!-- MAIN SETTINGS FORM VIEWPORT -->
+                <div id="settings-content" style="display: none;">
+                    
+                    <!-- Title Header -->
+                    <header class="mb-5">
+                        <h2 class="text-gradient">System Settings</h2>
+                        <p class="lead">Manage your profile info and core system parameters.</p>
+                    </header>
 
-                            <div class="form-group">
-                                <label class="form-label">Business / Trading Name</label>
-                                <input type="text" id="set-business" class="form-control" required placeholder="e.g. Phiri Agro-Dealers">
-                            </div>
+                    <div class="card floating-card">
+                        <div class="card-body" style="padding: var(--space-md);">
+                            <h3 class="mb-1" style="font-size: 1.3rem;">Business Identity</h3>
+                            <p class="text-muted" style="font-size: 0.85rem; margin-bottom: var(--space-md);">Manage your public trading profiles and user access tags</p>
+                            
+                            <!-- Dynamic Feedback Alert -->
+                            <div id="settings-alert" class="badge" style="display: none; width: 100%; padding: 0.75rem; margin-bottom: 1.2rem; border-radius: var(--radius-medium); text-align: left; font-size: 0.85rem;"></div>
 
-                            <div class="form-group mb-4">
-                                <label class="form-label">Current Plan Status</label>
-                                <div style="background: #e3f2fd; padding: 12px; border-radius: 6px; border: 1px solid #90caf9; display: flex; justify-content: space-between; align-items: center;">
-                                    <strong id="set-plan" style="color: #0d47a1; text-transform: uppercase;">STARTER</strong>
-                                    <span style="font-size: 0.8rem; background: #0d47a1; color: #fff; padding: 3px 8px; border-radius: 4px; font-weight: bold;">ACTIVE</span>
+                            <form id="settings-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                                <div>
+                                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Registered Email Address</label>
+                                    <input type="email" id="set-email" style="width:100%; padding:0.75rem; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color: var(--text-muted); font-family: inherit; cursor: not-allowed;" disabled>
+                                    <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.3rem;">Account login emails cannot be modified for secure audit tracking.</small>
                                 </div>
-                            </div>
 
-                            <button type="submit" id="save-settings-btn" class="btn btn-primary btn-block">Update Profile Data</button>
-                        </form>
+                                <div>
+                                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Full Name / Owner Name</label>
+                                    <input type="text" id="set-name" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" required placeholder="e.g. John Phiri">
+                                </div>
+
+                                <div>
+                                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Business / Trading Name</label>
+                                    <input type="text" id="set-business" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" required placeholder="e.g. Phiri Agro-Dealers">
+                                </div>
+
+                                <div style="margin-top: 0.5rem;">
+                                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Current Plan Status</label>
+                                    <div style="background: rgba(52, 152, 219, 0.03); padding: 1rem; border-radius: var(--radius-medium); border: 1px dashed rgba(52, 152, 219, 0.25); display: flex; justify-content: space-between; align-items: center;">
+                                        <strong id="set-plan" style="color: #3498db; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.5px;">STARTER</strong>
+                                        <span style="font-size: 0.75rem; background: #3498db; color: #fff; padding: 3px 8px; border-radius: var(--radius-small); font-weight: 700; letter-spacing: 0.5px;">ACTIVE</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="save-settings-btn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.85rem;">Update Profile Data</button>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
+    <!-- ===== PROFILE CONFIGURATION RUNTIME ENGINE ===== -->
     <script>
         // ===== SUPABASE INSTANCE CREDENTIALS =====
         const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
@@ -138,8 +162,8 @@
             saveBtn.textContent = 'Saving structural changes...';
             alertDiv.style.display = 'none';
 
-            const fullName = document.getElementById('set-name').value;
-            const businessName = document.getElementById('set-business').value;
+            const fullName = document.getElementById('set-name').value.trim();
+            const businessName = document.getElementById('set-business').value.trim();
 
             try {
                 const { error } = await supabaseClient
@@ -152,12 +176,16 @@
 
                 if (error) throw error;
 
-                alertDiv.className = "alert alert-success";
+                alertDiv.style.background = "rgba(46, 125, 50, 0.15)";
+                alertDiv.style.color = "#2ecc71";
+                alertDiv.style.border = "1px solid rgba(46, 125, 50, 0.3)";
                 alertDiv.textContent = "✅ Profile registry updated successfully!";
                 alertDiv.style.display = "block";
 
             } catch (err) {
-                alertDiv.className = "alert alert-danger";
+                alertDiv.style.background = "rgba(198, 40, 40, 0.15)";
+                alertDiv.style.color = "#e74c3c";
+                alertDiv.style.border = "1px solid rgba(198, 40, 40, 0.3)";
                 alertDiv.textContent = "❌ Write fault encountered: " + err.message;
                 alertDiv.style.display = "block";
             } finally {
@@ -166,11 +194,18 @@
             }
         });
 
-        // ===== LOGOUT ROUTINE =====
-        document.getElementById('logout-btn').addEventListener('click', async function() {
+        // ===== LOGOUT ROUTINE ACTIONS (CROSS-PLATFORM) =====
+        async function handleSignOut() {
             await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
-        });
+        }
+
+        document.getElementById('logout-btn').addEventListener('click', handleSignOut);
+        
+        const mobileLogout = document.getElementById('mobile-logout-btn');
+        if (mobileLogout) {
+            mobileLogout.addEventListener('click', handleSignOut);
+        }
     </script>
 </body>
 </html>

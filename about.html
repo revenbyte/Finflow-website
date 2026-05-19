@@ -5,76 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header id="main-header">
-        <div class="container header-container">
+
+    <!-- ===== MARKETING CONTAINER HEADER ===== -->
+    <header class="marketing-header">
+        <div class="container header-viewport">
             <div class="logo-area">
-                <a href="index.html" class="logo-link">
+                <a href="index.html" style="text-decoration: none;">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
                 </a>
             </div>
-            <nav id="main-nav" class="main-navigation">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link active">About</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <nav class="marketing-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
-                <div class="auth-buttons" id="nav-auth-container">
-                    <a href="login.html" class="btn btn-login">Sign In</a>
-                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                <div class="auth-cluster" id="nav-auth-container">
+                    <!-- auth.js script injections hook here -->
+                    <a href="login.html" class="btn btn-outline">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Start Free</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- About Hero -->
-    <section class="section section-lg text-center">
-        <div class="container animate-fade-up">
-            <span class="hero-subtitle">OUR MISSION</span>
-            <h1 class="section-title text-gradient">Empowering Malawian SMEs</h1>
-            <p class="lead" style="max-width: 800px; margin: 20px auto;">
-                FinFlow MW was born out of a simple observation: local businesses in Malawi drive the economy, but keeping track of cash flow shouldn't require an expensive accounting degree or complex software built for western markets.
-            </p>
-        </div>
-    </section>
+    <!-- ===== ABOUT HERO SECTION ===== -->
+    <main style="padding-top: 100px;">
+        <section class="hero-section text-center">
+            <div class="container" style="max-width: 800px;">
+                <span class="hero-subtitle" style="letter-spacing: 2px; color: #3498db; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">Our Mission</span>
+                <h1 class="text-gradient mb-3" style="font-size: var(--font-xl); font-weight: 800;">Empowering Malawian SMEs</h1>
+                <p class="lead" style="color: var(--text-secondary); line-height: 1.8;">
+                    FinFlow MW was born out of a simple observation: local businesses in Malawi drive the economic engine, but keeping accurate track of daily cash flow shouldn't require an expensive accounting degree or complex corporate systems built for western markets.
+                </p>
+            </div>
+        </section>
 
-    <!-- Core Values / Vision -->
-    <section class="section bg-light">
-        <div class="container">
-            <div class="grid grid-3">
-                <div class="card floating-card">
-                    <div class="card-body">
-                        <h3 class="text-primary">Locally Tailored</h3>
-                        <p>Built specifically handling MWK calculations, local operational tracking habits, and offline-first data capabilities for areas with shaky connections.</p>
+        <!-- ===== CORE VALUE ARCHITECTURES ===== -->
+        <section style="padding: var(--space-xl) 0; background: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255, 255, 255, 0.03);">
+            <div class="container">
+                <div class="grid grid-3 gap-4">
+                    <div class="card floating-card">
+                        <div class="card-body" style="padding: var(--space-md);">
+                            <h3 style="color: #3498db; font-size: 1.25rem; margin-bottom: 0.75rem;">Locally Tailored</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Built specifically handling MWK calculations, local operational tracking habits, and optimized data structures engineered to work with local networks.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card floating-card">
-                    <div class="card-body">
-                        <h3 class="text-primary">Absolute Clarity</h3>
-                        <p>No confusing accounting jargon. We turn complex rows of daily expenses into clear, visual progress bars and instant profit statements.</p>
+                    <div class="card floating-card">
+                        <div class="card-body" style="padding: var(--space-md);">
+                            <h3 style="color: #3498db; font-size: 1.25rem; margin-bottom: 0.75rem;">Absolute Clarity</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">No confusing accounting jargon. We turn complex rows of daily expenses into clear, visual progress bars and instant profit statements.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card floating-card">
-                    <div class="card-body">
-                        <h3 class="text-primary">Growth Focused</h3>
-                        <p>We don't just track your past; we help secure your future by making your business data presentable for formal micro-finance loans.</p>
+                    <div class="card floating-card">
+                        <div class="card-body" style="padding: var(--space-md);">
+                            <h3 style="color: #3498db; font-size: 1.25rem; margin-bottom: 0.75rem;">Growth Focused</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">We don't just track your past; we help secure your future by making your business data presentable for formal micro-finance loan applications.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer id="main-footer">
+    <!-- ===== MARKETING FOOTER ===== -->
+    <footer style="padding: var(--space-lg) 0; border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: var(--space-xl);">
         <div class="container text-center">
-            <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
         </div>
     </footer>
 
-    <script src="auth-check.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>

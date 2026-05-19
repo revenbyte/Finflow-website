@@ -8,92 +8,80 @@
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-    <header id="main-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                </a>
-            </div>
-        </div>
-    </header>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: var(--space-sm);">
 
-    <main class="section">
-        <div class="container container-narrow">
-            <div class="text-center mb-5">
-                <h1 class="text-gradient">Welcome Back</h1>
-                <p class="lead">Sign in to your FinFlow MW account</p>
-            </div>
+    <!-- ===== CENTRAL AUTH CONTAINER ===== -->
+    <div class="card floating-card" style="width: 100%; max-width: 450px; border: 1px solid rgba(255, 255, 255, 0.05); background: rgba(26, 34, 45, 0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+        <div class="card-body" style="padding: var(--space-md);">
             
-            <div class="card">
-                <div class="card-body">
-                    <!-- FEEDBACK ALERTS -->
-                    <div id="error-message" class="alert alert-danger" style="display: none; margin-bottom: 20px;"></div>
-                    <div id="loading-message" class="alert alert-info" style="display: none; margin-bottom: 20px;">Signing in...</div>
-                    
-                    <form id="login-form">
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" id="password" class="form-control" placeholder="Your password" required>
-                        </div>
-                        
-                        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
-                            Sign In
-                        </button>
-                    </form>
-                    
-                    <div class="text-center mt-4">
-                        <p>Don't have an account? <a href="signup.html">Sign up free</a></p>
-                    </div>
-                </div>
+            <!-- Logo Section -->
+            <div class="text-center" style="margin-bottom: var(--space-md);">
+                <h1 class="site-logo" style="font-size: 2.2rem; margin-bottom: 0.2rem;">FinFlow<span class="logo-highlight">MW</span></h1>
+                <p class="site-tagline" style="font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">Security Gateway</p>
             </div>
-        </div>
-    </main>
 
-    <footer id="main-footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
-                </div>
+            <div class="text-center" style="margin-bottom: var(--space-md);">
+                <h3 class="text-gradient" style="font-size: 1.6rem; margin-bottom: 0.4rem;">Welcome Back</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to unlock your encrypted financial ledger vault.</p>
             </div>
-        </div>
-    </footer>
 
+            <!-- FEEDBACK ALERTS (Consolidated into one slick token box) -->
+            <div id="auth-alert" class="badge" style="display: none; width: 100%; padding: 0.75rem; margin-bottom: 1.2rem; border-radius: var(--radius-medium); text-align: left; font-size: 0.85rem; line-height: 1.4;"></div>
+
+            <!-- Login Form -->
+            <form id="login-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div>
+                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Email Address</label>
+                    <input type="email" id="email" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" placeholder="you@domain.com" required>
+                </div>
+
+                <div>
+                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Password</label>
+                    <input type="password" id="password" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.85rem;">Secure Authentication</button>
+            </form>
+
+            <!-- Footer Navigation Link -->
+            <div class="text-center" style="margin-top: var(--space-md); border-top: 1px solid rgba(255,255,255,0.05); padding-top: var(--space-sm);">
+                <p style="color: var(--text-muted); font-size: 0.85rem;">
+                    Don't have an account? <a href="signup.html" style="color: var(--primary); text-decoration: none; font-weight: 600; transition: var(--transition-fast);">Sign up free</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== LOG IN CORE LOGIC ENGINE ===== -->
     <script>
         // ===== SUPABASE CONFIG =====
         const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
-        
-        // Fix: Changed name from 'supabase' to 'supabaseClient' to prevent global library conflicts
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // ===== CHECK IF ALREADY LOGGED IN =====
+        // ===== IDENTITY SESSION INTERCEPTOR =====
         supabaseClient.auth.getSession().then(({ data }) => {
             if (data && data.session) {
                 window.location.href = 'dashboard.html';
             }
         });
 
-        // ===== LOGIN FORM SUBMIT ENGINE =====
+        // ===== SIGN IN ROUTINE EXECUTION =====
         document.getElementById('login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('error-message');
-            const loadingDiv = document.getElementById('loading-message');
+            const alertDiv = document.getElementById('auth-alert');
             const submitBtn = document.getElementById('submit-btn');
             
-            // Toggle visual layout states
-            errorDiv.style.display = 'none';
-            loadingDiv.style.display = 'block';
+            // Set interface to active loading layout
+            alertDiv.style.background = "rgba(26, 188, 156, 0.15)";
+            alertDiv.style.color = "#1abc9c";
+            alertDiv.style.border = "1px solid rgba(26, 188, 156, 0.3)";
+            alertDiv.textContent = "⏳ Verification active. Opening secure gate...";
+            alertDiv.style.display = 'block';
             submitBtn.disabled = true;
             
             try {
@@ -104,13 +92,24 @@
                 
                 if (error) throw error;
                 
-                // Route user to protected dashboard view on success
-                window.location.href = 'dashboard.html';
+                // Absolute success: update notification token and dispatch runtime switch
+                alertDiv.style.background = "rgba(46, 125, 50, 0.15)";
+                alertDiv.style.color = "#2ecc71";
+                alertDiv.style.border = "1px solid rgba(46, 125, 50, 0.3)";
+                alertDiv.textContent = "✅ Access Granted. Synchronizing system variables...";
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
                 
             } catch (error) {
-                loadingDiv.style.display = 'none';
-                errorDiv.textContent = '❌ ' + error.message;
-                errorDiv.style.display = 'block';
+                // Parse server exceptions directly into localized notification token
+                alertDiv.style.background = "rgba(198, 40, 40, 0.15)";
+                alertDiv.style.color = "#e74c3c";
+                alertDiv.style.border = "1px solid rgba(198, 40, 40, 0.3)";
+                alertDiv.textContent = '❌ Access Denied: ' + error.message;
+                alertDiv.style.display = 'block';
+                
                 submitBtn.disabled = false;
             }
         });

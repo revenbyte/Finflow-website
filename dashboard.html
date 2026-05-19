@@ -9,118 +9,120 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <header id="main-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                    <p class="site-tagline" id="business-name">Loading...</p>
-                </a>
-            </div>
-            <button id="mobile-menu-toggle" class="mobile-toggle">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav id="main-nav" class="main-navigation">
-                <ul class="nav-list">
-                    <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
-                    <li><a href="transactions.html">Ledger Book</a></li>
-                    <li><a href="reports.html">Reports</a></li>
-                </ul>
-                <div class="auth-buttons">
-                    <span id="user-email" style="color: #666; margin-right: 1rem;"></span>
-                    <button id="logout-btn" class="btn btn-login">Logout</button>
-                </div>
-            </nav>
-        </div>
-    </header>
 
-    <main class="section">
-        <div class="container">
-            <!-- LOADING OVERLAY -->
-            <div id="loading" class="text-center" style="padding: 4rem;">
-                <h3>Loading your dashboard...</h3>
+    <div class="app-layout">
+        
+        <!-- ===== DESKTOP SIDEBAR ===== -->
+        <aside class="sidebar-desktop">
+            <div class="sidebar-header">
+                <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                <p class="site-tagline" id="business-name">Loading...</p>
             </div>
             
-            <!-- REAL-TIME DASHBOARD CONTENT -->
-            <div id="dashboard-content" style="display: none;">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h2 id="welcome-message" class="mb-1">Welcome back!</h2>
-                        <p class="text-muted">Here's your financial overview</p>
-                    </div>
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                    <li><a href="transactions.html" class="nav-link">Ledger Book</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <span id="user-email" style="display: block; color: var(--text-muted); font-size: 0.8rem; margin-bottom: var(--space-xs); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+                <button id="logout-btn" class="btn btn-outline" style="width: 100%;">Logout</button>
+            </div>
+        </aside>
+
+        <!-- ===== MOBILE FLOATING NAV ===== -->
+        <nav class="mobile-floating-nav">
+            <a href="dashboard.html" class="mobile-nav-item active">Dashboard</a>
+            <a href="transactions.html" class="mobile-nav-item">Ledger Book</a>
+            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+        </nav>
+
+        <!-- ===== MAIN CONTENT WRAPPER ===== -->
+        <main class="main-content">
+            <div class="container hero-section">
+                
+                <!-- LOADING OVERLAY -->
+                <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
+                    <h3 class="text-gradient">Loading your dashboard...</h3>
+                    <p class="text-muted">Synchronizing secure data points...</p>
                 </div>
                 
-                <!-- DYNAMIC METRICS GRID -->
-                <div class="grid grid-4 gap-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Net Cash Balance</h3>
-                            <h2 class="mb-0" id="stat-balance" style="color: #2e7d32;">MWK 0</h2>
+                <!-- REAL-TIME DASHBOARD CONTENT -->
+                <div id="dashboard-content" style="display: none;">
+                    
+                    <!-- Welcome Hero Header -->
+                    <header class="mb-5">
+                        <h2 id="welcome-message" class="text-gradient">Welcome back!</h2>
+                        <p class="lead">Here is a secure operational summary of your business capital streams.</p>
+                    </header>
+                    
+                    <!-- DYNAMIC METRICS GRID -->
+                    <div class="grid grid-4 gap-4 mb-5">
+                        <div class="card floating-card">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Net Cash Balance</h3>
+                                <h2 class="mb-0" id="stat-balance" style="color: #2ecc71; font-size: 1.8rem; font-weight: 700;">MWK 0</h2>
+                            </div>
+                        </div>
+                        <div class="card floating-card">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Total Sales (Income)</h3>
+                                <h2 class="mb-0" id="stat-sales" style="color: #3498db; font-size: 1.8rem; font-weight: 700;">MWK 0</h2>
+                            </div>
+                        </div>
+                        <div class="card floating-card">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Total Expenses</h3>
+                                <h2 class="mb-0" id="stat-expenses" style="color: #e74c3c; font-size: 1.8rem; font-weight: 700;">MWK 0</h2>
+                            </div>
+                        </div>
+                        <div class="card floating-card">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Your Account Plan</h3>
+                                <h2 id="user-plan" class="mb-0" style="color: var(--text-primary); font-size: 1.8rem; font-weight: 700;">Starter</h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Total Sales (Income)</h3>
-                            <h2 class="mb-0" id="stat-sales" style="color: #1565c0;">MWK 0</h2>
+                    
+                    <!-- NAVIGATION SHORTCUTS -->
+                    <h3 class="text-gradient" style="font-size: 1.3rem; margin-bottom: var(--space-sm);">Quick Actions</h3>
+                    <div class="grid grid-3 gap-4">
+                        <div class="card" onclick="window.location.href='transactions.html'" style="cursor: pointer; background: rgba(255,255,255,0.02); transition: var(--transition-fast);">
+                            <div class="card-body text-center" style="padding: var(--space-md);">
+                                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">📓</span>
+                                <h4 style="color: var(--text-primary); font-weight: 600;">Open Ledger Book</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Log incoming revenue or costs</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="window.location.href='reports.html'" style="cursor: pointer; background: rgba(255,255,255,0.02); transition: var(--transition-fast);">
+                            <div class="card-body text-center" style="padding: var(--space-md);">
+                                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">📊</span>
+                                <h4 style="color: var(--text-primary); font-weight: 600;">View Reports</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Analyse sales distributions</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="window.location.href='settings.html'" style="cursor: pointer; background: rgba(255,255,255,0.02); transition: var(--transition-fast);">
+                            <div class="card-body text-center" style="padding: var(--space-md);">
+                                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">⚙️</span>
+                                <h4 style="color: var(--text-primary); font-weight: 600;">Settings</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Manage profile configurations</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Total Expenses</h3>
-                            <h2 class="mb-0" id="stat-expenses" style="color: #c62828;">MWK 0</h2>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Your Plan</h3>
-                            <h2 id="user-plan" class="mb-0">Starter</h2>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- NAVIGATION SHORTCUTS -->
-                <div class="grid grid-3 gap-4">
-                    <div class="card" onclick="window.location.href='transactions.html'" style="cursor: pointer;">
-                        <div class="card-body text-center">
-                            <span style="font-size: 2rem;">📓</span>
-                            <h4 class="mt-2">Open Ledger Book</h4>
-                        </div>
-                    </div>
-                    <div class="card" onclick="window.location.href='reports.html'" style="cursor: pointer;">
-                        <div class="card-body text-center">
-                            <span style="font-size: 2rem;">📊</span>
-                            <h4 class="mt-2">View Reports</h4>
-                        </div>
-                    </div>
-                    <div class="card" onclick="window.location.href='settings.html'" style="cursor: pointer;">
-                        <div class="card-body text-center">
-                            <span style="font-size: 2rem;">⚙️</span>
-                            <h4 class="mt-2">Settings</h4>
-                        </div>
-                    </div>
+
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
-    <footer id="main-footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <!-- ===== DASHBOARD CORE RUNTIME ENGINE ===== -->
     <script>
         // ===== SUPABASE CONFIG =====
         const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
         
-        // Fixed naming collision
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // ===== SECURE PAGE ENGINE =====
@@ -137,7 +139,8 @@
             const user = data.session.user;
             
             // Render basic profile data points
-            document.getElementById('user-email').textContent = user.email;
+            const emailElement = document.getElementById('user-email');
+            if (emailElement) emailElement.textContent = user.email;
             
             try {
                 // Fetch user profile information
@@ -205,11 +208,18 @@
             }
         }
 
-        // ===== LOGOUT BUTTON =====
-        document.getElementById('logout-btn').addEventListener('click', async function() {
+        // ===== LOGOUT ROUTINE ATTACHMENTS (CROSS-PLATFORM) =====
+        async function handleSignOut() {
             await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
-        });
+        }
+
+        document.getElementById('logout-btn').addEventListener('click', handleSignOut);
+        
+        const mobileLogout = document.getElementById('mobile-logout-btn');
+        if (mobileLogout) {
+            mobileLogout.addEventListener('click', handleSignOut);
+        }
     </script>
 </body>
 </html>

@@ -9,228 +9,271 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <header id="main-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                    <p class="site-tagline">Ledger Book</p>
-                </a>
+
+    <div class="app-layout">
+        
+        <!-- ===== DESKTOP SIDEBAR ===== -->
+        <aside class="sidebar-desktop">
+            <div class="sidebar-header">
+                <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                <p class="site-tagline">Financial Analytics</p>
             </div>
-            <nav id="main-nav" class="main-navigation">
+            
+            <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
                     <li><a href="transactions.html" class="nav-link active">Ledger Book</a></li>
+                    <li><a href="reports.html" class="nav-link">Reports</a></li>
                 </ul>
-                <div class="auth-buttons">
-                    <button id="logout-btn" class="btn btn-login">Logout</button>
-                </div>
             </nav>
-        </div>
-    </header>
-
-    <main class="section">
-        <div class="container">
-            <div id="loading" class="text-center" style="padding: 2rem;">
-                <h3>Verifying secure vault access...</h3>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline" style="width: 100%;">Logout</button>
             </div>
+        </aside>
 
-            <div id="ledger-content" style="display: none;">
-                <div class="grid grid-2 gap-4">
+        <!-- ===== MOBILE FLOATING NAV ===== -->
+        <nav class="mobile-floating-nav">
+            <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+            <a href="transactions.html" class="mobile-nav-item active">Ledger</a>
+            <a href="reports.html" class="mobile-nav-item">Reports</a>
+            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+        </nav>
+
+        <!-- ===== MAIN CONTENT WRAPPER ===== -->
+        <main class="main-content">
+            <div class="container hero-section">
+                
+                <!-- LOADING OVERLAY -->
+                <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
+                    <h3 class="text-gradient">Accessing local ledger registries...</h3>
+                    <p class="text-muted">Syncing data streams...</p>
+                </div>
+
+                <!-- MAIN TRANSACTIONS VIEWPORT -->
+                <div id="transactions-content" style="display: none;">
                     
-                    <!-- LEFT COLUMN: RECORD A TRANSACTION FORM -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="mb-3">Log Transaction</h3>
-                            <div id="form-alert" class="alert" style="display: none; margin-bottom: 15px;"></div>
+                    <!-- Title Header -->
+                    <header class="mb-4" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2 class="text-gradient">Ledger Book</h2>
+                            <p class="lead">Audit real-time transactional rows and download operational breakdowns.</p>
+                        </div>
+                    </header>
+
+                    <!-- ===== INTERACTIVE FILTER & EXPORT TOOLKIT ===== -->
+                    <div class="card floating-card mb-4" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div class="card-body" style="padding: 1rem var(--space-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                             
-                            <form id="transaction-form">
-                                <div class="form-group">
-                                    <label class="form-label">Transaction Type</label>
-                                    <select id="tx-type" class="form-control" required>
-                                        <option value="income">💰 Sale / Income (Money In)</option>
-                                        <option value="expense">📝 Expense / Cost (Money Out)</option>
-                                    </select>
-                                </div>
+                            <!-- Month Filter Selector Dropdown -->
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; white-space: nowrap;">Statement Period:</label>
+                                <select id="month-filter" style="padding: 0.5rem 1rem; background: var(--bg-light); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-small); color: white; font-family: inherit; font-size: 0.85rem; cursor: pointer;">
+                                    <option value="all">Show All Records</option>
+                                    <option value="2026-01">January 2026</option>
+                                    <option value="2026-02">February 2026</option>
+                                    <option value="2026-03">March 2026</option>
+                                    <option value="2026-04">April 2026</option>
+                                    <option value="2026-05">May 2026</option>
+                                    <option value="2026-06">June 2026</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Amount (MWK)</label>
-                                    <input type="number" step="0.01" id="tx-amount" class="form-control" placeholder="e.g. 15000" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Category</label>
-                                    <select id="tx-category" class="form-control" required>
-                                        <option value="Sales">Sales Revenue</option>
-                                        <option value="Stock">Restocking / Inventory</option>
-                                        <option value="Rent">Rent & Utilities</option>
-                                        <option value="Transport">Transport / Logistics</option>
-                                        <option value="Wages">Wages / Staff Pay</option>
-                                        <option value="Other">Other Expenses</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Description / Note</label>
-                                    <input type="text" id="tx-desc" class="form-control" placeholder="e.g. Sold 3 wholesale bags of maize">
-                                </div>
-
-                                <button type="submit" id="save-btn" class="btn btn-primary btn-block">Save to Ledger</button>
-                            </form>
+                            <!-- Export Action Button Trigger -->
+                            <button id="export-csv-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                                📥 Download Neat CSV Statement
+                            </button>
                         </div>
                     </div>
 
-                    <!-- RIGHT COLUMN: RECENT HISTORY LIST -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="mb-3">Transaction History</h3>
-                            <div style="overflow-x: auto;">
-                                <table class="table" style="width: 100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr style="border-bottom: 2px solid #eee; text-align: left;">
-                                            <th style="padding: 10px;">Date</th>
-                                            <th style="padding: 10px;">Details</th>
-                                            <th style="padding: 10px; text-align: right;">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="history-table-body">
-                                        <!-- Dynamic entries drop in here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- ===== DATA REPRESENTATION MATRIX ===== -->
+                    <div class="card" style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid rgba(255,255,255,0.05); color: var(--text-secondary);">
+                                    <th style="padding: 1rem;">Date</th>
+                                    <th style="padding: 1rem;">Description</th>
+                                    <th style="padding: 1rem;">Category</th>
+                                    <th style="padding: 1rem;">Type</th>
+                                    <th style="padding: 1rem; text-align: right;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ledger-table-body">
+                                <!-- Filtered rows will generate inside this node -->
+                            </tbody>
+                        </table>
+                        <div id="empty-state" style="display: none; text-align: center; padding: var(--space-xl) 0; color: var(--text-muted);">
+                            No transactional rows logged for this specific statement parameter.
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
+    <!-- ===== FILTER, CALCULATE & CSV RUNTIME ENGINE ===== -->
     <script>
-        // ===== SUPABASE INITIALIZATION =====
+        // ===== SUPABASE INSTANCE CREDENTIALS =====
         const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentUserId = null;
+        let globalLedgerCache = []; // Holds absolute database values locally to reduce fetch weight
 
-        // ===== AUTH RUNTIME GUARD =====
+        // ===== SECURE ACCESS RUNTIME VALIDATION =====
         supabaseClient.auth.getSession().then(({ data }) => {
             if (!data.session) {
                 window.location.href = 'login.html';
                 return;
             }
             currentUserId = data.session.user.id;
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('ledger-content').style.display = 'block';
             
-            // Initial pull of user history
-            renderLedgerHistory();
+            // Execute absolute master data pull
+            fetchMasterLedger();
         });
 
-        // ===== FORM SUBMISSION ENGINE =====
-        document.getElementById('transaction-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const alertDiv = document.getElementById('form-alert');
-            const saveBtn = document.getElementById('save-btn');
-            
-            saveBtn.disabled = true;
-            saveBtn.textContent = 'Recording entry...';
-            alertDiv.style.display = 'none';
-
-            const type = document.getElementById('tx-type').value;
-            const amount = parseFloat(document.getElementById('tx-amount').value);
-            const category = document.getElementById('tx-category').value;
-            const description = document.getElementById('tx-desc').value;
-
+        // ===== MASTER READ RUNTIME FROM DATABASE =====
+        async function fetchMasterLedger() {
             try {
-                const { error } = await supabaseClient
+                const { data: transactions, error } = await supabaseClient
                     .from('transactions')
-                    .insert([
-                        {
-                            user_id: currentUserId,
-                            type: type,
-                            amount: amount,
-                            category: category,
-                            description: description
-                        }
-                    ]);
-
-                if (error) throw error;
-
-                // Success handlers
-                alertDiv.className = "alert alert-success";
-                alertDiv.textContent = "✅ Transaction successfully bound to ledger!";
-                alertDiv.style.display = "block";
-                
-                document.getElementById('transaction-form').reset();
-                
-                // Instantly re-fetch data rows so the user sees their input update
-                await renderLedgerHistory();
-
-            } catch (err) {
-                alertDiv.className = "alert alert-danger";
-                alertDiv.textContent = "❌ Vault error: " + err.message;
-                alertDiv.style.display = "block";
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.textContent = 'Save to Ledger';
-            }
-        });
-
-        // ===== ENGINE: READ AND RENDER RUNTIME LAUNCH =====
-        async function renderLedgerHistory() {
-            const tbody = document.getElementById('history-table-body');
-            tbody.innerHTML = ''; // Wipe out existing placeholder markup
-
-            try {
-                // Read operations ordering data by timestamp descending
-                const { data: records, error } = await supabaseClient
-                    .from('transactions')
-                    .select('*')
+                    .select('created_at, description, category, type, amount')
                     .eq('user_id', currentUserId)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                if (!records || records.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px; color:#888;">No transactions recorded yet. Your book is completely empty!</td></tr>`;
-                    return;
-                }
-
-                records.forEach(row => {
-                    const tr = document.createElement('tr');
-                    tr.style.borderBottom = "1px solid #f5f5f5";
-                    
-                    // Parse localized date formatting structures
-                    const txDate = new Date(row.created_at).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'short'
-                    });
-
-                    // Check type class assignment rules for custom UI coloring
-                    const prefix = row.type === 'income' ? '+' : '-';
-                    const colorStyle = row.type === 'income' ? 'color:#2e7d32; font-weight:bold;' : 'color:#c62828; font-weight:bold;';
-                    const displayDescription = row.description ? ` - ${row.description}` : '';
-
-                    tr.innerHTML = `
-                        <td style="padding: 12px 10px; color: #666; font-size: 0.9rem;">${txDate}</td>
-                        <td style="padding: 12px 10px;"><strong>${row.category}</strong><span style="color:#888; font-size:0.85rem;">${displayDescription}</span></td>
-                        <td style="padding: 12px 10px; text-align: right; ${colorStyle}">${prefix} MWK ${parseFloat(row.amount).toLocaleString()}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+                globalLedgerCache = transactions || [];
+                
+                // Fire dynamic layout engine with default configuration
+                applyFilterAndRender();
 
             } catch (err) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red; padding:20px;">Failed to parse ledger array: ${err.message}</td></tr>`;
+                console.error("Ledger pipeline failure:", err.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('transactions-content').style.display = 'block';
             }
         }
 
-        // ===== LOGOUT BUTTON ENGINE =====
-        document.getElementById('logout-btn').addEventListener('click', async function() {
+        // ===== FILTER PIPELINE ENGINE =====
+        function applyFilterAndRender() {
+            const filterValue = document.getElementById('month-filter').value;
+            let activeDataset = [];
+
+            if (filterValue === 'all') {
+                activeDataset = globalLedgerCache;
+            } else {
+                // Slice string coordinates to isolate matching YYYY-MM variables
+                activeDataset = globalLedgerCache.filter(tx => {
+                    if (!tx.created_at) return false;
+                    return tx.created_at.startsWith(filterValue);
+                });
+            }
+
+            renderTableRows(activeDataset);
+        }
+
+        // ===== TABLE DOM MANIPULATION RUNTIME =====
+        function renderTableRows(dataset) {
+            const tbody = document.getElementById('ledger-table-body');
+            const emptyState = document.getElementById('empty-state');
+            tbody.innerHTML = '';
+
+            if (dataset.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            emptyState.style.display = 'none';
+
+            dataset.forEach(tx => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = "1px solid rgba(255,255,255,0.03)";
+                
+                // Parse accurate raw timestamps into display parameters
+                const structuredDate = tx.created_at ? tx.created_at.split('T')[0] : 'N/A';
+                const typeStyle = tx.type === 'income' ? 'color: #2ecc71;' : 'color: #e74c3c;';
+                const typeLabel = tx.type === 'income' ? 'INFLOW' : 'OUTFLOW';
+
+                row.innerHTML = `
+                    <td style="padding: 1rem; color: var(--text-secondary);">${structuredDate}</td>
+                    <td style="padding: 1rem; font-weight: 600; color: var(--text-primary);">${tx.description || 'General Item'}</td>
+                    <td style="padding: 1rem;"><span style="font-size:0.8rem; background:rgba(255,255,255,0.03); padding:4px 8px; border-radius:var(--radius-small); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary);">${tx.category}</span></td>
+                    <td style="padding: 1rem; font-weight: 700; font-size: 0.8rem; ${typeStyle}">${typeLabel}</td>
+                    <td style="padding: 1rem; text-align: right; font-weight: 700; ${typeStyle}">MWK ${parseFloat(tx.amount).toLocaleString()}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // ===== AUTOMATED CSV PARSER AND EXPORT SYSTEM =====
+        function exportCurrentDatasetToCSV() {
+            const filterValue = document.getElementById('month-filter').value;
+            let exportData = [];
+
+            // Get whatever data context matches the user's active visual selection
+            if (filterValue === 'all') {
+                exportData = globalLedgerCache;
+            } else {
+                exportData = globalLedgerCache.filter(tx => tx.created_at && tx.created_at.startsWith(filterValue));
+            }
+
+            if (exportData.length === 0) {
+                alert("❌ Cannot compile empty registry. Add transactions or clear your filter parameters first.");
+                return;
+            }
+
+            // Define rigid, neat structural column titles
+            const csvHeaders = ['Date', 'Description', 'Category', 'Transaction Type', 'Value (MWK)'];
+            
+            // Map array entries into sanitized comma-separated syntax rows
+            const csvRows = exportData.map(tx => {
+                const date = tx.created_at ? tx.created_at.split('T')[0] : 'N/A';
+                // Escape custom string descriptions to secure formatting layout if commas exist
+                const description = tx.description ? `"${tx.description.replace(/"/g, '""')}"` : '"General Item"';
+                const category = tx.category || 'Other';
+                const type = tx.type ? tx.type.toUpperCase() : 'UNKNOWN';
+                const amount = tx.amount || 0;
+
+                return [date, description, category, type, amount].join(',');
+            });
+
+            // Join system headers to operational data blocks
+            const csvContent = "data:text/csv;charset=utf-8," + [csvHeaders.join(','), ...csvRows].join('\n');
+            
+            // Generate virtual DOM download pipeline anchors
+            const securePayload = encodeURI(csvContent);
+            const downloadAnchor = document.createElement('a');
+            
+            const fileContextName = filterValue === 'all' ? 'Master_Ledger_Complete' : `Ledger_Statement_${filterValue}`;
+            
+            downloadAnchor.setAttribute('href', securePayload);
+            downloadAnchor.setAttribute('download', `FinFlow_${fileContextName}.csv`);
+            document.body.appendChild(downloadAnchor);
+            
+            // Execute instantaneous file generation event
+            downloadAnchor.click();
+            document.body.removeChild(downloadAnchor);
+        }
+
+        // ===== DYNAMIC COMPONENT LISTENERS =====
+        document.getElementById('month-filter').addEventListener('change', applyFilterAndRender);
+        document.getElementById('export-csv-btn').addEventListener('click', exportCurrentDatasetToCSV);
+
+        // ===== GLOBAL SECURE AUTH LOGOUT ACTION LOGIC =====
+        async function handleSignOut() {
             await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
-        });
+        }
+
+        document.getElementById('logout-btn').addEventListener('click', handleSignOut);
+        
+        const mobileLogout = document.getElementById('mobile-logout-btn');
+        if (mobileLogout) {
+            mobileLogout.addEventListener('click', handleSignOut);
+        }
     </script>
 </body>
 </html>

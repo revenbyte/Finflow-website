@@ -9,87 +9,108 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <header id="main-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                    <p class="site-tagline">Financial Reports</p>
-                </a>
+
+    <div class="app-layout">
+        
+        <!-- ===== DESKTOP SIDEBAR ===== -->
+        <aside class="sidebar-desktop">
+            <div class="sidebar-header">
+                <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
+                <p class="site-tagline">Financial Analytics</p>
             </div>
-            <nav id="main-nav" class="main-navigation">
+            
+            <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="transactions.html">Ledger Book</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="transactions.html" class="nav-link">Ledger Book</a></li>
                     <li><a href="reports.html" class="nav-link active">Reports</a></li>
                 </ul>
-                <div class="auth-buttons">
-                    <button id="logout-btn" class="btn btn-login">Logout</button>
-                </div>
             </nav>
-        </div>
-    </header>
-
-    <main class="section">
-        <div class="container">
-            <!-- LOADING OVERLAY -->
-            <div id="loading" class="text-center" style="padding: 4rem;">
-                <h3>Compiling financial data structures...</h3>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline" style="width: 100%;">Logout</button>
             </div>
+        </aside>
 
-            <!-- MAIN REPORT VIEWPORT -->
-            <div id="report-content" style="display: none;">
+        <!-- ===== MOBILE FLOATING NAV ===== -->
+        <nav class="mobile-floating-nav">
+            <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+            <a href="transactions.html" class="mobile-nav-item">Ledger</a>
+            <a href="reports.html" class="mobile-nav-item active">Reports</a>
+            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+        </nav>
+
+        <!-- ===== MAIN CONTENT WRAPPER ===== -->
+        <main class="main-content">
+            <div class="container hero-section">
                 
-                <!-- SUMMARY STATEMENT CARDS -->
-                <div class="grid grid-3 gap-4 mb-4">
-                    <div class="card" style="border-left: 5px solid #1565c0;">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Total Gross Income</h3>
-                            <h2 id="rep-income" style="color: #1565c0; margin: 0;">MWK 0</h2>
-                        </div>
-                    </div>
-                    <div class="card" style="border-left: 5px solid #c62828;">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Total Total Expenses</h3>
-                            <h2 id="rep-expenses" style="color: #c62828; margin: 0;">MWK 0</h2>
-                        </div>
-                    </div>
-                    <div class="card" style="border-left: 5px solid #2e7d32;">
-                        <div class="card-body">
-                            <h3 class="small text-muted">Net Profit Margin</h3>
-                            <h2 id="rep-profit" style="color: #2e7d32; margin: 0;">MWK 0</h2>
-                        </div>
-                    </div>
+                <!-- LOADING OVERLAY -->
+                <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
+                    <h3 class="text-gradient">Compiling financial data structures...</h3>
+                    <p class="text-muted">Parsing active ledger books...</p>
                 </div>
 
-                <div class="grid grid-2 gap-4">
-                    <!-- LEFT COLUMN: CATEGORICAL EXPENSE ANALYSIS -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="mb-1">Expense Breakdown</h3>
-                            <p class="text-muted small mb-3">See exactly where your business cash is leaking</p>
-                            
-                            <div id="expense-bars-container">
-                                <!-- Dynamic progress bars will inject here -->
+                <!-- MAIN REPORT VIEWPORT -->
+                <div id="report-content" style="display: none;">
+                    
+                    <!-- Title Header -->
+                    <header class="mb-5">
+                        <h2 class="text-gradient">Financial Statements</h2>
+                        <p class="lead">Automated metric tracking and system balance insights.</p>
+                    </header>
+                    
+                    <!-- SUMMARY STATEMENT CARDS -->
+                    <div class="grid grid-3 gap-4 mb-5">
+                        <div class="card floating-card" style="border-left: 4px solid #3498db;">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Total Gross Income</h3>
+                                <h2 id="rep-income" style="color: #3498db; font-size: 1.8rem; font-weight: 700; margin: 0;">MWK 0</h2>
+                            </div>
+                        </div>
+                        <div class="card floating-card" style="border-left: 4px solid #e74c3c;">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Total Expenses</h3>
+                                <h2 id="rep-expenses" style="color: #e74c3c; font-size: 1.8rem; font-weight: 700; margin: 0;">MWK 0</h2>
+                            </div>
+                        </div>
+                        <div class="card floating-card" style="border-left: 4px solid #2ecc71;">
+                            <div class="card-body">
+                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Net Profit Margin</h3>
+                                <h2 id="rep-profit" style="color: #2ecc71; font-size: 1.8rem; font-weight: 700; margin: 0;">MWK 0</h2>
                             </div>
                         </div>
                     </div>
 
-                    <!-- RIGHT COLUMN: FINANCIAL INSIGHTS ENGINE -->
-                    <div class="card" style="background-color: #f9fbfd; border: 1px dashed #b3e5fc;">
-                        <div class="card-body">
-                            <h3 class="mb-2">💡 Automated Business Insights</h3>
-                            <div id="insight-box" style="line-height: 1.6; color: #333;">
-                                Analyzing your ledgers...
+                    <div class="grid grid-2 gap-4">
+                        <!-- LEFT COLUMN: CATEGORICAL EXPENSE ANALYSIS -->
+                        <div class="card">
+                            <div class="card-body" style="padding: var(--space-md);">
+                                <h3 class="mb-1" style="font-size: 1.3rem;">Expense Breakdown</h3>
+                                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: var(--space-md);">See exactly where your business cash is leaking</p>
+                                
+                                <div id="expense-bars-container">
+                                    <!-- Dynamic progress bars will inject here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COLUMN: FINANCIAL INSIGHTS ENGINE -->
+                        <div class="card" style="background: rgba(52, 152, 219, 0.03); border: 1px dashed rgba(52, 152, 219, 0.25);">
+                            <div class="card-body" style="padding: var(--space-md);">
+                                <h3 class="mb-2" style="font-size: 1.3rem;">💡 Automated Business Insights</h3>
+                                <div id="insight-box" style="line-height: 1.7; color: var(--text-secondary); font-size: 0.9rem;">
+                                    Analyzing your ledgers...
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
+    <!-- ===== ANALYTICS COMPILER ENGINE script ===== -->
     <script>
         // ===== UPDATED SUPABASE INSTANCE CREDENTIALS =====
         const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
@@ -176,23 +197,23 @@
             container.innerHTML = '';
 
             if (totalExpense === 0) {
-                container.innerHTML = `<p style="color:#888; text-align:center; padding: 20px;">No operational expenses tracked yet.</p>`;
+                container.innerHTML = `<p style="color: var(--text-muted); text-align:center; padding: 20px;">No operational expenses tracked yet.</p>`;
                 return;
             }
 
             for (const [category, amount] of Object.entries(categoryMap)) {
                 // Calculate percentage relative to total cost outbound strings
-                const percentage = totalExpense > 0 ? ((amount / totalExpense) * 180 / 1.8).toFixed(0) : 0;
+                const percentage = totalExpense > 0 ? ((amount / totalExpense) * 100).toFixed(0) : 0;
                 
                 const segment = document.createElement('div');
                 segment.style.marginBottom = "20px";
                 segment.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem;">
-                        <strong>${category}</strong>
-                        <span style="color:#555;">MWK ${amount.toLocaleString()} (${percentage}%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85rem;">
+                        <strong style="color: var(--text-primary);">${category}</strong>
+                        <span style="color: var(--text-muted);">MWK ${amount.toLocaleString()} (${percentage}%)</span>
                     </div>
-                    <div style="width: 100%; background-color: #eee; height: 12px; border-radius: 6px; overflow: hidden;">
-                        <div style="width: ${percentage}%; background-color: #c62828; height: 100%; border-radius: 6px; transition: width 0.5s ease;"></div>
+                    <div style="width: 100%; background-color: rgba(255,255,255,0.05); height: 8px; border-radius: var(--radius-small); overflow: hidden;">
+                        <div style="width: ${percentage}%; background-color: #e74c3c; height: 100%; border-radius: var(--radius-small); transition: width 0.5s ease;"></div>
                     </div>
                 `;
                 container.appendChild(segment);
@@ -211,11 +232,11 @@
 
             // High level conditional performance checking rules
             if (profit < 0) {
-                feedbackText += `<p style="color:#c62828; font-weight:bold;">⚠️ Critical Risk Status: Your business is currently operational at a financial net loss. Your outgoing costs outpace incoming revenue strings.</p>`;
+                feedbackText += `<p style="color:#e74c3c; font-weight:bold; margin-bottom: 0.5rem;">⚠️ Critical Risk Status: Your business is currently operational at a financial net loss. Your outgoing costs outpace incoming revenue strings.</p>`;
             } else if (income > 0 && (expense / income) > 0.7) {
-                feedbackText += `<p style="color:#ef6c00; font-weight:bold;">⚠️ Warning Flag: Your operational expense load eats up over 70% of gross incoming revenue pipelines. Profit margins are dangerously tight.</p>`;
+                feedbackText += `<p style="color:#f39c12; font-weight:bold; margin-bottom: 0.5rem;">⚠️ Warning Flag: Your operational expense load eats up over 70% of gross incoming revenue pipelines. Profit margins are dangerously tight.</p>`;
             } else {
-                feedbackText += `<p style="color:#2e7d32; font-weight:bold;">✅ Good Financial Health: Your business structures are running soundly and producing net positive capital assets.</p>`;
+                feedbackText += `<p style="color:#2ecc71; font-weight:bold; margin-bottom: 0.5rem;">✅ Good Financial Health: Your business structures are running soundly and producing net positive capital assets.</p>`;
             }
 
             // Find highest expense culprit category logic loops
@@ -229,17 +250,24 @@
             }
 
             if (maxVal > 0) {
-                feedbackText += `<p class="mt-3">🎯 **Cost Center Highlight:** Your number one driver of operational cash outbound drain is **${highestCategory}**, logging a cumulative value of **MWK ${maxVal.toLocaleString()}**. Your business should audit this category closely to cut waste and preserve cash reserves.</p>`;
+                feedbackText += `<p style="margin-top: 1rem;">🎯 <strong>Cost Center Highlight:</strong> Your number one driver of operational cash outbound drain is <strong>${highestCategory}</strong>, logging a cumulative value of <strong>MWK ${maxVal.toLocaleString()}</strong>. Your business should audit this category closely to cut waste and preserve cash reserves.</p>`;
             }
 
             box.innerHTML = feedbackText;
         }
 
-        // ===== LOGOUT BUTTON ENGINE =====
-        document.getElementById('logout-btn').addEventListener('click', async function() {
+        // ===== LOGOUT BUTTON ENGINE (CROSS-PLATFORM) =====
+        async function handleSignOut() {
             await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
-        });
+        }
+
+        document.getElementById('logout-btn').addEventListener('click', handleSignOut);
+        
+        const mobileLogout = document.getElementById('mobile-logout-btn');
+        if (mobileLogout) {
+            mobileLogout.addEventListener('click', handleSignOut);
+        }
     </script>
 </body>
 </html>

@@ -5,64 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header id="main-header">
-        <div class="container header-container">
+
+    <!-- ===== MARKETING CONTAINER HEADER ===== -->
+    <header class="marketing-header">
+        <div class="container header-viewport">
             <div class="logo-area">
-                <a href="index.html" class="logo-link">
+                <a href="index.html" style="text-decoration: none;">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
                 </a>
             </div>
-            <nav id="main-nav" class="main-navigation">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+            <nav class="marketing-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
-                <div class="auth-buttons" id="nav-auth-container">
-                    <a href="login.html" class="btn btn-login">Sign In</a>
-                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                <div class="auth-cluster" id="nav-auth-container">
+                    <a href="login.html" class="btn btn-outline">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Start Free</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- Contact Form Section -->
-    <section class="section">
-        <div class="container" style="max-width: 600px;">
-            <div class="card animate-fade-up">
-                <div class="card-body">
-                    <h2 class="section-title text-gradient text-center mb-4">Get in Touch</h2>
-                    <p class="text-center mb-4">Have questions about setting up your business profile? Drop us a line below.</p>
-                    
-                    <form id="contact-form" onsubmit="handleContact(event)">
-                        <div class="form-group mb-3">
-                            <label for="contact-name" class="form-label">Your Name</label>
-                            <input type="text" id="contact-name" class="form-input" required placeholder="E.g., Chinsinsi Phiri">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="contact-email" class="form-label">Email Address</label>
-                            <input type="email" id="contact-email" class="form-input" required placeholder="name@company.mw">
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="contact-message" class="form-label">Message / Query</label>
-                            <textarea id="contact-message" class="form-input" rows="5" required placeholder="How can we help your business today?"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                    </form>
-                    <div id="contact-alert" class="alert mt-3" style="display: none;"></div>
+    <!-- ===== CONTACT FORM VIEWPORT SECTION ===== -->
+    <main style="padding-top: 100px;">
+        <section style="padding: var(--space-xl) 0;">
+            <div class="container" style="max-width: 600px; margin: 0 auto;">
+                
+                <div class="text-center mb-5">
+                    <h2 class="text-gradient" style="font-size: var(--font-lg); font-weight: 800; margin-bottom: 0.5rem;">Get in Touch</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Have questions about setting up your business profile? Drop us a line below.</p>
+                </div>
+
+                <div class="card floating-card">
+                    <div class="card-body" style="padding: var(--space-md);">
+                        
+                        <!-- Dynamic Feedback Alert Badge -->
+                        <div id="contact-alert" class="badge" style="display: none; width: 100%; padding: 0.75rem; margin-bottom: 1.2rem; border-radius: var(--radius-medium); text-align: left; font-size: 0.85rem;"></div>
+                        
+                        <form id="contact-form" onsubmit="handleContact(event)" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                            <div>
+                                <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Your Name</label>
+                                <input type="text" id="contact-name" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" required placeholder="E.g., Chinsinsi Phiri">
+                            </div>
+                            <div>
+                                <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Email Address</label>
+                                <input type="email" id="contact-email" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" required placeholder="name@company.mw">
+                            </div>
+                            <div>
+                                <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Message / Query</label>
+                                <textarea id="contact-message" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit; resize: vertical;" rows="5" required placeholder="How can we help your business today?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; margin-top: 0.5rem;">Send Message</button>
+                        </form>
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer id="main-footer">
+    <!-- ===== MARKETING FOOTER ===== -->
+    <footer style="padding: var(--space-lg) 0; border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: var(--space-xl);">
         <div class="container text-center">
-            <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
         </div>
     </footer>
 
@@ -70,12 +82,17 @@
         function handleContact(e) {
             e.preventDefault();
             const alertBox = document.getElementById('contact-alert');
-            alertBox.className = "alert alert-success mt-3";
+            
+            // Apply premium dark-alert theme variable styling
+            alertBox.style.background = "rgba(46, 125, 50, 0.15)";
+            alertBox.style.color = "#2ecc71";
+            alertBox.style.border = "1px solid rgba(46, 125, 50, 0.3)";
             alertBox.innerText = "Zikomo! Your message has been sent successfully. We will get back to you shortly.";
             alertBox.style.display = "block";
+            
             document.getElementById('contact-form').reset();
         }
     </script>
-    <script src="auth-check.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>

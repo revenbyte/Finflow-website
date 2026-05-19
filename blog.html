@@ -5,72 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Insights Blog - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header id="main-header">
-        <div class="container header-container">
+
+    <!-- ===== MARKETING CONTAINER HEADER ===== -->
+    <header class="marketing-header">
+        <div class="container header-viewport">
             <div class="logo-area">
-                <a href="index.html" class="logo-link">
+                <a href="index.html" style="text-decoration: none;">
                     <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
                 </a>
             </div>
-            <nav id="main-nav" class="main-navigation">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <nav class="marketing-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
-                <div class="auth-buttons" id="nav-auth-container">
-                    <a href="login.html" class="btn btn-login">Sign In</a>
-                    <a href="signup.html" class="btn btn-signup">Start Free</a>
+                <div class="auth-cluster" id="nav-auth-container">
+                    <a href="login.html" class="btn btn-outline">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Start Free</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- Blog Container -->
-    <section class="section">
-        <div class="container">
-            <div class="text-center mb-5 animate-fade-up">
-                <h1 class="section-title text-gradient">FinFlow Insights</h1>
-                <p class="lead">Practical financial tips for scaling your business in Malawi</p>
+    <!-- ===== BLOG GRID MODULE CONTAINERS ===== -->
+    <main style="padding-top: 100px;">
+        <section style="padding: var(--space-xl) 0;">
+            <div class="container">
+                
+                <div class="text-center mb-5">
+                    <h1 class="text-gradient" style="font-size: var(--font-xl); font-weight: 800; margin-bottom: 0.5rem;">FinFlow Insights</h1>
+                    <p class="lead" style="color: var(--text-secondary);">Practical financial tips for scaling your business operations in Malawi</p>
+                </div>
+
+                <div class="grid grid-2 gap-4">
+                    <!-- Article Card 1 -->
+                    <article class="card floating-card">
+                        <div class="card-body" style="padding: var(--space-md); display: flex; flex-direction: column; height: 100%;">
+                            <div style="margin-bottom: 0.8rem;">
+                                <span class="badge" style="background: rgba(52, 152, 219, 0.1); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.2); padding: 4px 10px; font-weight: 700; font-size: 0.75rem;">Cash Flow</span>
+                            </div>
+                            <h3 style="font-size: 1.3rem; line-height: 1.4; margin-bottom: 0.5rem; color: var(--text-primary);">How to Manage Business Cash Flow During Lean Months</h3>
+                            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">Published: May 2026 • 4 min read</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; flex-grow: 1;">Learn how to separate your personal pockets from your shop's cash register drawer, balance vendor payments, and keep emergency reserves ready...</p>
+                            <a href="#" style="color: #3498db; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-top: 1.2rem; display: inline-block;">Read Full Guide →</a>
+                        </div>
+                    </article>
+
+                    <!-- Article Card 2 -->
+                    <article class="card floating-card">
+                        <div class="card-body" style="padding: var(--space-md); display: flex; flex-direction: column; height: 100%;">
+                            <div style="margin-bottom: 0.8rem;">
+                                <span class="badge" style="background: rgba(52, 152, 219, 0.1); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.2); padding: 4px 10px; font-weight: 700; font-size: 0.75rem;">SME Growth</span>
+                            </div>
+                            <h3 style="font-size: 1.3rem; line-height: 1.4; margin-bottom: 0.5rem; color: var(--text-primary);">Preparing Your Ledger Books for Micro-Finance Loans</h3>
+                            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">Published: April 2026 • 6 min read</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; flex-grow: 1;">What do local Malawian credit institutions actually want to see? Discover how clean transaction rows and automated summaries prove your business stability instantly...</p>
+                            <a href="#" style="color: #3498db; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-top: 1.2rem; display: inline-block;">Read Full Guide →</a>
+                        </div>
+                    </article>
+                </div>
+
             </div>
+        </section>
+    </main>
 
-            <div class="grid grid-2">
-                <!-- Article 1 -->
-                <article class="card floating-card">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Cash Flow</span>
-                        <h3>How to Manage Business Cash Flow During Lean Months</h3>
-                        <p class="text-muted small mb-3">Published: May 2026 • 4 min read</p>
-                        <p>Learn how to separate your personal pockets from your shop's cash register drawer, balance vendor payments, and keep emergency reserves ready...</p>
-                        <a href="#" class="text-primary d-inline-block mt-3" style="font-weight: 600;">Read Full Guide →</a>
-                    </div>
-                </article>
-
-                <!-- Article 2 -->
-                <article class="card floating-card">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">SME Growth</span>
-                        <h3>Preparing Your Ledger Books for Micro-Finance Loans</h3>
-                        <p class="text-muted small mb-3">Published: April 2026 • 6 min read</p>
-                        <p>What do local Malawian credit institutions actually want to see? Discover how clean transaction rows and automated summaries prove your business stability instantly...</p>
-                        <a href="#" class="text-primary d-inline-block mt-3" style="font-weight: 600;">Read Full Guide →</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <footer id="main-footer">
+    <!-- ===== MARKETING FOOTER ===== -->
+    <footer style="padding: var(--space-lg) 0; border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: var(--space-xl);">
         <div class="container text-center">
-            <p>&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 FinFlow MW. Blantyre, Malawi.</p>
         </div>
     </footer>
 
-    <script src="auth-check.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
