@@ -6,6 +6,10 @@
     <title>FinFlow MW - Smart Finance for Malawi Businesses</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#06080a">
+    <meta name="apple-mobile-web-app-title" content="FinFlow MW">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -169,6 +173,16 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('PWA background engine active and locked in, g.'))
+                .catch(err => console.error('PWA installation fault: ', err));
+            });
+        }
     </script>
 </body>
 </html>
