@@ -5,275 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ledger Book - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Supabase JS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
     <div class="app-layout">
         
-        <!-- ===== DESKTOP SIDEBAR ===== -->
         <aside class="sidebar-desktop">
             <div class="sidebar-header">
                 <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                <p class="site-tagline">Financial Analytics</p>
+                <p class="site-tagline">Ledger Book Matrix</p>
             </div>
             
             <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
-                    <li><a href="transactions.html" class="nav-link active">Ledger Book</a></li>
-                    <li><a href="reports.html" class="nav-link">Reports</a></li>
+                    <li><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-columns"></i> Dashboard</a></li>
+                    <li><a href="transactions.html" class="nav-link active"><i class="fa-solid fa-book"></i> Ledger Book</a></li>
+                    <li><a href="reports.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Reports</a></li>
+                    <li><a href="settings.html" class="nav-link"><i class="fa-solid fa-sliders"></i> Settings</a></li>
                 </ul>
             </nav>
             
             <div class="sidebar-footer">
-                <button id="logout-btn" class="btn btn-outline" style="width: 100%;">Logout</button>
+                <button id="logout-btn" class="btn btn-outline" style="width: 100%;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
         </aside>
 
-        <!-- ===== MOBILE FLOATING NAV ===== -->
         <nav class="mobile-floating-nav">
-            <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
-            <a href="transactions.html" class="mobile-nav-item active">Ledger</a>
-            <a href="reports.html" class="mobile-nav-item">Reports</a>
-            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+            <a href="dashboard.html" class="mobile-nav-item"><i class="fa-solid fa-chart-columns"></i></a>
+            <a href="transactions.html" class="mobile-nav-item active"><i class="fa-solid fa-book"></i></a>
+            <a href="reports.html" class="mobile-nav-item"><i class="fa-solid fa-chart-pie"></i></a>
+            <a href="settings.html" class="mobile-nav-item"><i class="fa-solid fa-sliders"></i></a>
         </nav>
 
-        <!-- ===== MAIN CONTENT WRAPPER ===== -->
         <main class="main-content">
-            <div class="container hero-section">
+            <div class="container" style="padding-top: 3rem;">
                 
-                <!-- LOADING OVERLAY -->
-                <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
-                    <h3 class="text-gradient">Accessing local ledger registries...</h3>
-                    <p class="text-muted">Syncing data streams...</p>
+                <div id="loading" class="text-center" style="padding: 5rem 0;">
+                    <h3 class="text-gradient"><i class="fa-solid fa-circle-notch fa-spin"></i> Streaming operational rows...</h3>
                 </div>
 
-                <!-- MAIN TRANSACTIONS VIEWPORT -->
-                <div id="transactions-content" style="display: none;">
-                    
-                    <!-- Title Header -->
-                    <header class="mb-4" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                        <div>
-                            <h2 class="text-gradient">Ledger Book</h2>
-                            <p class="lead">Audit real-time transactional rows and download operational breakdowns.</p>
-                        </div>
+                <div id="ledger-content" style="display: none;">
+                    <header class="mb-5">
+                        <h2 class="text-gradient">Financial Ledger Sheets</h2>
+                        <p class="text-muted mt-2">Log operations or pull structured data spreadsheets directly.</p>
                     </header>
 
-                    <!-- ===== INTERACTIVE FILTER & EXPORT TOOLKIT ===== -->
-                    <div class="card floating-card mb-4" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);">
-                        <div class="card-body" style="padding: 1rem var(--space-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                            
-                            <!-- Month Filter Selector Dropdown -->
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <label style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; white-space: nowrap;">Statement Period:</label>
-                                <select id="month-filter" style="padding: 0.5rem 1rem; background: var(--bg-light); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-small); color: white; font-family: inherit; font-size: 0.85rem; cursor: pointer;">
-                                    <option value="all">Show All Records</option>
-                                    <option value="2026-01">January 2026</option>
-                                    <option value="2026-02">February 2026</option>
-                                    <option value="2026-03">March 2026</option>
-                                    <option value="2026-04">April 2026</option>
-                                    <option value="2026-05">May 2026</option>
-                                    <option value="2026-06">June 2026</option>
-                                </select>
+                    <div class="grid grid-3" style="grid-template-columns: 0.9fr 1.1fr; gap: 2rem;">
+                        
+                        <div class="card" style="height: fit-content;">
+                            <div class="card-body">
+                                <h3 class="mb-3" style="font-size: 1.1rem;"><i class="fa-solid fa-pen-to-square" style="color: var(--primary);"></i> Log Transaction</h3>
+                                
+                                <div id="form-alert" style="display:none; padding:0.6rem; border-radius:var(--radius-sm); font-size:0.8rem; margin-bottom:1rem;"></div>
+
+                                <form id="transaction-form" style="display:flex; flex-direction:column; gap:1rem;">
+                                    <div>
+                                        <label style="display:block; color:var(--text-dim); font-size:0.75rem; font-weight:600; margin-bottom:0.3rem;">STREAM DIRECTION</label>
+                                        <select id="tx-type" style="width:100%; padding:0.65rem; background:#111622; border:1px solid var(--border-color); border-radius:var(--radius-sm); color:white; font-family:inherit;">
+                                            <option value="income">Income (+ MWK)</option>
+                                            <option value="expense">Expense (- MWK)</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label style="display:block; color:var(--text-dim); font-size:0.75rem; font-weight:600; margin-bottom:0.3rem;">VOLUME VALUE (MWK)</label>
+                                        <input type="number" id="tx-amount" step="0.01" style="width:100%; padding:0.65rem; background:#111622; border:1px solid var(--border-color); border-radius:var(--radius-sm); color:white; font-family:inherit;" placeholder="50000" required>
+                                    </div>
+
+                                    <div>
+                                        <label style="display:block; color:var(--text-dim); font-size:0.75rem; font-weight:600; margin-bottom:0.3rem;">CATEGORY</label>
+                                        <input type="text" id="tx-category" style="width:100%; padding:0.65rem; background:#111622; border:1px solid var(--border-color); border-radius:var(--radius-sm); color:white; font-family:inherit;" placeholder="Sales, Inventory, Rent" required>
+                                    </div>
+
+                                    <div>
+                                        <label style="display:block; color:var(--text-dim); font-size:0.75rem; font-weight:600; margin-bottom:0.3rem;">MEMO DESCRIPTION (OPTIONAL)</label>
+                                        <input type="text" id="tx-desc" style="width:100%; padding:0.65rem; background:#111622; border:1px solid var(--border-color); border-radius:var(--radius-sm); color:white; font-family:inherit;" placeholder="Invoice details...">
+                                    </div>
+
+                                    <button type="submit" id="save-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; margin-top:0.5rem;"><i class="fa-solid fa-cube"></i> Commit to Vault</button>
+                                </form>
                             </div>
-
-                            <!-- Export Action Button Trigger -->
-                            <button id="export-csv-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
-                                📥 Download Neat CSV Statement
-                            </button>
                         </div>
-                    </div>
 
-                    <!-- ===== DATA REPRESENTATION MATRIX ===== -->
-                    <div class="card" style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
-                            <thead>
-                                <tr style="border-bottom: 2px solid rgba(255,255,255,0.05); color: var(--text-secondary);">
-                                    <th style="padding: 1rem;">Date</th>
-                                    <th style="padding: 1rem;">Description</th>
-                                    <th style="padding: 1rem;">Category</th>
-                                    <th style="padding: 1rem;">Type</th>
-                                    <th style="padding: 1rem; text-align: right;">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ledger-table-body">
-                                <!-- Filtered rows will generate inside this node -->
-                            </tbody>
-                        </table>
-                        <div id="empty-state" style="display: none; text-align: center; padding: var(--space-xl) 0; color: var(--text-muted);">
-                            No transactional rows logged for this specific statement parameter.
+                        <div class="card">
+                            <div class="card-body">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+                                    <h3><i class="fa-solid fa-list-check" style="color:var(--primary);"></i> Transaction History</h3>
+                                    
+                                    <div style="display:flex; gap:0.5rem;">
+                                        <select id="month-filter" style="padding:0.4rem 0.6rem; background:#111622; border:1px solid var(--border-color); border-radius:var(--radius-sm); color:white; font-size:0.85rem;">
+                                            <option value="all">All Entries</option>
+                                            <option value="0">January</option>
+                                            <option value="1">February</option>
+                                            <option value="2">March</option>
+                                            <option value="3">April</option>
+                                            <option value="4">May</option>
+                                            <option value="5">June</option>
+                                            <option value="6">July</option>
+                                            <option value="7">August</option>
+                                            <option value="8">September</option>
+                                            <option value="9">October</option>
+                                            <option value="10">November</option>
+                                            <option value="11">December</option>
+                                        </select>
+                                        <button id="export-csv-btn" class="btn btn-outline" style="padding:0.4rem 0.8rem; font-size:0.8rem;"><i class="fa-solid fa-file-csv" style="color:var(--success);"></i> Export CSV</button>
+                                    </div>
+                                </div>
+                                
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <thead>
+                                            <tr style="text-align: left; color: var(--text-muted); font-size: 0.75rem; border-bottom: 1px solid var(--border-color); text-transform: uppercase; letter-spacing: 0.05em;">
+                                                <th style="padding: 12px 15px;">Date</th>
+                                                <th style="padding: 12px 15px;">Details</th>
+                                                <th style="padding: 12px 15px; text-align: right;">Volume Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id=\"history-table-body\">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- ===== FILTER, CALCULATE & CSV RUNTIME ENGINE ===== -->
-    <script>
-        // ===== SUPABASE INSTANCE CREDENTIALS =====
-        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        let currentUserId = null;
-        let globalLedgerCache = []; // Holds absolute database values locally to reduce fetch weight
-
-        // ===== SECURE ACCESS RUNTIME VALIDATION =====
-        supabaseClient.auth.getSession().then(({ data }) => {
-            if (!data.session) {
-                window.location.href = 'login.html';
-                return;
-            }
-            currentUserId = data.session.user.id;
-            
-            // Execute absolute master data pull
-            fetchMasterLedger();
-        });
-
-        // ===== MASTER READ RUNTIME FROM DATABASE =====
-        async function fetchMasterLedger() {
-            try {
-                const { data: transactions, error } = await supabaseClient
-                    .from('transactions')
-                    .select('created_at, description, category, type, amount')
-                    .eq('user_id', currentUserId)
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                globalLedgerCache = transactions || [];
-                
-                // Fire dynamic layout engine with default configuration
-                applyFilterAndRender();
-
-            } catch (err) {
-                console.error("Ledger pipeline failure:", err.message);
-            } finally {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('transactions-content').style.display = 'block';
-            }
-        }
-
-        // ===== FILTER PIPELINE ENGINE =====
-        function applyFilterAndRender() {
-            const filterValue = document.getElementById('month-filter').value;
-            let activeDataset = [];
-
-            if (filterValue === 'all') {
-                activeDataset = globalLedgerCache;
-            } else {
-                // Slice string coordinates to isolate matching YYYY-MM variables
-                activeDataset = globalLedgerCache.filter(tx => {
-                    if (!tx.created_at) return false;
-                    return tx.created_at.startsWith(filterValue);
-                });
-            }
-
-            renderTableRows(activeDataset);
-        }
-
-        // ===== TABLE DOM MANIPULATION RUNTIME =====
-        function renderTableRows(dataset) {
-            const tbody = document.getElementById('ledger-table-body');
-            const emptyState = document.getElementById('empty-state');
-            tbody.innerHTML = '';
-
-            if (dataset.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            }
-            emptyState.style.display = 'none';
-
-            dataset.forEach(tx => {
-                const row = document.createElement('tr');
-                row.style.borderBottom = "1px solid rgba(255,255,255,0.03)";
-                
-                // Parse accurate raw timestamps into display parameters
-                const structuredDate = tx.created_at ? tx.created_at.split('T')[0] : 'N/A';
-                const typeStyle = tx.type === 'income' ? 'color: #2ecc71;' : 'color: #e74c3c;';
-                const typeLabel = tx.type === 'income' ? 'INFLOW' : 'OUTFLOW';
-
-                row.innerHTML = `
-                    <td style="padding: 1rem; color: var(--text-secondary);">${structuredDate}</td>
-                    <td style="padding: 1rem; font-weight: 600; color: var(--text-primary);">${tx.description || 'General Item'}</td>
-                    <td style="padding: 1rem;"><span style="font-size:0.8rem; background:rgba(255,255,255,0.03); padding:4px 8px; border-radius:var(--radius-small); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary);">${tx.category}</span></td>
-                    <td style="padding: 1rem; font-weight: 700; font-size: 0.8rem; ${typeStyle}">${typeLabel}</td>
-                    <td style="padding: 1rem; text-align: right; font-weight: 700; ${typeStyle}">MWK ${parseFloat(tx.amount).toLocaleString()}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // ===== AUTOMATED CSV PARSER AND EXPORT SYSTEM =====
-        function exportCurrentDatasetToCSV() {
-            const filterValue = document.getElementById('month-filter').value;
-            let exportData = [];
-
-            // Get whatever data context matches the user's active visual selection
-            if (filterValue === 'all') {
-                exportData = globalLedgerCache;
-            } else {
-                exportData = globalLedgerCache.filter(tx => tx.created_at && tx.created_at.startsWith(filterValue));
-            }
-
-            if (exportData.length === 0) {
-                alert("❌ Cannot compile empty registry. Add transactions or clear your filter parameters first.");
-                return;
-            }
-
-            // Define rigid, neat structural column titles
-            const csvHeaders = ['Date', 'Description', 'Category', 'Transaction Type', 'Value (MWK)'];
-            
-            // Map array entries into sanitized comma-separated syntax rows
-            const csvRows = exportData.map(tx => {
-                const date = tx.created_at ? tx.created_at.split('T')[0] : 'N/A';
-                // Escape custom string descriptions to secure formatting layout if commas exist
-                const description = tx.description ? `"${tx.description.replace(/"/g, '""')}"` : '"General Item"';
-                const category = tx.category || 'Other';
-                const type = tx.type ? tx.type.toUpperCase() : 'UNKNOWN';
-                const amount = tx.amount || 0;
-
-                return [date, description, category, type, amount].join(',');
-            });
-
-            // Join system headers to operational data blocks
-            const csvContent = "data:text/csv;charset=utf-8," + [csvHeaders.join(','), ...csvRows].join('\n');
-            
-            // Generate virtual DOM download pipeline anchors
-            const securePayload = encodeURI(csvContent);
-            const downloadAnchor = document.createElement('a');
-            
-            const fileContextName = filterValue === 'all' ? 'Master_Ledger_Complete' : `Ledger_Statement_${filterValue}`;
-            
-            downloadAnchor.setAttribute('href', securePayload);
-            downloadAnchor.setAttribute('download', `FinFlow_${fileContextName}.csv`);
-            document.body.appendChild(downloadAnchor);
-            
-            // Execute instantaneous file generation event
-            downloadAnchor.click();
-            document.body.removeChild(downloadAnchor);
-        }
-
-        // ===== DYNAMIC COMPONENT LISTENERS =====
-        document.getElementById('month-filter').addEventListener('change', applyFilterAndRender);
-        document.getElementById('export-csv-btn').addEventListener('click', exportCurrentDatasetToCSV);
-
-        // ===== GLOBAL SECURE AUTH LOGOUT ACTION LOGIC =====
-        async function handleSignOut() {
-            await supabaseClient.auth.signOut();
-            window.location.href = 'index.html';
-        }
-
-        document.getElementById('logout-btn').addEventListener('click', handleSignOut);
-        
-        const mobileLogout = document.getElementById('mobile-logout-btn');
-        if (mobileLogout) {
-            mobileLogout.addEventListener('click', handleSignOut);
-        }
-    </script>
+    <script src="auth.js"></script>
 </body>
 </html>

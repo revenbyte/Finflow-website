@@ -7,7 +7,6 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Session interceptor: If already logged in, skip auth screens entirely
     supabaseClient.auth.getSession().then(({ data }) => {
         if (data.session) {
             window.location.href = 'dashboard.html';
@@ -20,43 +19,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// ===== REGISTRATION WORKER ENGINE =====
 async function handleUserSignUp(e) {
     e.preventDefault();
     
-    const alertDiv = document.getElementById('auth-alert');
-    const submitBtn = document.getElementById('signup-btn');
-    
-    const email = document.getElementById('signup-email').value.trim();
+    const fullName = document.getElementById('signup-name').value;
+    const businessName = document.getElementById('signup-business').value;
+    const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
     const confirmPassword = document.getElementById('signup-confirm-password').value;
-    
-    // UI Loading state deployment
-    alertDiv.style.display = 'none';
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Deploying vault profile...';
+    const submitBtn = document.getElementById('signup-btn');
 
-    // Front-end password check validation
     if (password !== confirmPassword) {
-        renderAlert("❌ Access Denied: Passwords do not match.", "danger");
-        resetSubmitButton(submitBtn);
+        renderAlert("❌ Validation Fault: Passwords do not match.", "danger");
         return;
     }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Spinning up node...`;
 
     try {
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: {
+                data: {
+                    full_name: fullName,
+                    business_name: businessName
+                }
+            }
         });
 
         if (error) throw error;
 
-        // Check if confirmation email rules are active
         if (data.user && data.session === null) {
-            renderAlert("📩 Registration processing! Check your email to verify your secure vault path.", "info");
+            renderAlert("📩 Registration processing! Check email to confirm registration links.", "info");
             document.getElementById('signup-form').reset();
         } else if (data.session) {
-            // Immediate sign-in configuration fallback
             renderAlert("✅ Vault created successfully! Opening channels...", "success");
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
@@ -66,32 +64,29 @@ async function handleUserSignUp(e) {
     } catch (err) {
         renderAlert("❌ Registration Fault: " + err.message, "danger");
     } finally {
-        resetSubmitButton(submitBtn);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i> Initialize Account Node`;
     }
 }
 
-// ===== AUTH UI HELPER UTILITIES =====
 function renderAlert(message, type) {
     const alertDiv = document.getElementById('auth-alert');
+    if (!alertDiv) return;
+    
     alertDiv.textContent = message;
     alertDiv.style.display = "block";
     
     if (type === "success") {
-        alertDiv.style.background = "rgba(46, 125, 50, 0.15)";
-        alertDiv.style.color = "#2ecc71";
-        alertDiv.style.border = "1px solid rgba(46, 125, 50, 0.3)";
-    } else if (type === "info") {
-        alertDiv.style.background = "rgba(26, 188, 156, 0.15)";
-        alertDiv.style.color = "#1abc9c";
-        alertDiv.style.border = "1px solid rgba(26, 188, 156, 0.3)";
+        alertDiv.style.background = "rgba(0, 230, 118, 0.1)";
+        alertDiv.style.color = "var(--success)";
+        alertDiv.style.border = "1px solid rgba(0, 230, 118, 0.2)";
+    } else if (type === "danger") {
+        alertDiv.style.background = "rgba(255, 59, 48, 0.1)";
+        alertDiv.style.color = "var(--danger)";
+        alertDiv.style.border = "1px solid rgba(255, 59, 48, 0.2)";
     } else {
-        alertDiv.style.background = "rgba(198, 40, 40, 0.15)";
-        alertDiv.style.color = "#e74c3c";
-        alertDiv.style.border = "1px solid rgba(198, 40, 40, 0.3)";
+        alertDiv.style.background = "rgba(0, 163, 255, 0.1)";
+        alertDiv.style.color = "var(--primary)";
+        alertDiv.style.border = "1px solid rgba(0, 163, 255, 0.2)";
     }
-}
-
-function resetSubmitButton(btn) {
-    btn.disabled = false;
-    btn.textContent = 'Initialize Registration';
 }

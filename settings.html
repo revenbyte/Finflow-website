@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
     <div class="app-layout">
         
-        <!-- ===== DESKTOP SIDEBAR ===== -->
         <aside class="sidebar-desktop">
             <div class="sidebar-header">
                 <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
@@ -24,6 +23,7 @@
                     <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
                     <li><a href="transactions.html" class="nav-link">Ledger Book</a></li>
                     <li><a href="reports.html" class="nav-link">Reports</a></li>
+                    <li><a href="settings.html" class="nav-link active">Settings</a></li>
                 </ul>
             </nav>
             
@@ -32,28 +32,34 @@
             </div>
         </aside>
 
-        <!-- ===== MOBILE FLOATING NAV ===== -->
-        <nav class="mobile-floating-nav">
-            <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
-            <a href="transactions.html" class="mobile-nav-item">Ledger</a>
-            <a href="reports.html" class="mobile-nav-item">Reports</a>
-            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+        <nav class="mobile-floating-nav" style="display: flex; justify-content: space-around; align-items: center; padding: 0.5rem var(--space-md); background: rgba(13, 17, 23, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(255, 255, 255, 0.05); height: 65px;">
+            <a href="dashboard.html" class="mobile-nav-item" aria-label="Dashboard" style="padding: 0.75rem; display: flex; justify-content: center; align-items: center;">
+                <i data-lucide="layout-dashboard" style="width: 24px; height: 24px; stroke-width: 2.5;"></i>
+            </a>
+            <a href="transactions.html" class="mobile-nav-item" aria-label="Ledger Book" style="padding: 0.75rem; display: flex; justify-content: center; align-items: center;">
+                <i data-lucide="book-open" style="width: 24px; height: 24px; stroke-width: 2.5;"></i>
+            </a>
+            <a href="reports.html" class="mobile-nav-item" aria-label="Reports" style="padding: 0.75rem; display: flex; justify-content: center; align-items: center;">
+                <i data-lucide="pie-chart" style="width: 24px; height: 24px; stroke-width: 2.5;"></i>
+            </a>
+            <a href="settings.html" class="mobile-nav-item active" aria-label="Settings" style="padding: 0.75rem; display: flex; justify-content: center; align-items: center;">
+                <i data-lucide="settings" style="width: 24px; height: 24px; stroke-width: 2.5;"></i>
+            </a>
+            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight" aria-label="Logout" style="padding: 0.75rem; display: flex; justify-content: center; align-items: center; color: #e74c3c;">
+                <i data-lucide="log-out" style="width: 24px; height: 24px; stroke-width: 2.5;"></i>
+            </a>
         </nav>
 
-        <!-- ===== MAIN CONTENT WRAPPER ===== -->
         <main class="main-content">
             <div class="container hero-section" style="max-width: 650px; margin: 0 auto;">
                 
-                <!-- LOADING OVERLAY -->
                 <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
                     <h3 class="text-gradient">Fetching account profiles...</h3>
                     <p class="text-muted">Pulling secure database variables...</p>
                 </div>
 
-                <!-- MAIN SETTINGS FORM VIEWPORT -->
                 <div id="settings-content" style="display: none;">
                     
-                    <!-- Title Header -->
                     <header class="mb-5">
                         <h2 class="text-gradient">System Settings</h2>
                         <p class="lead">Manage your profile info and core system parameters.</p>
@@ -64,7 +70,6 @@
                             <h3 class="mb-1" style="font-size: 1.3rem;">Business Identity</h3>
                             <p class="text-muted" style="font-size: 0.85rem; margin-bottom: var(--space-md);">Manage your public trading profiles and user access tags</p>
                             
-                            <!-- Dynamic Feedback Alert -->
                             <div id="settings-alert" class="badge" style="display: none; width: 100%; padding: 0.75rem; margin-bottom: 1.2rem; border-radius: var(--radius-medium); text-align: left; font-size: 0.85rem;"></div>
 
                             <form id="settings-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
@@ -84,128 +89,44 @@
                                     <input type="text" id="set-business" style="width:100%; padding:0.75rem; background:var(--bg-light); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-small); color:white; font-family: inherit;" required placeholder="e.g. Phiri Agro-Dealers">
                                 </div>
 
-                                <div style="margin-top: 0.5rem;">
-                                    <label style="display:block; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.4rem; font-weight:600;">Current Plan Status</label>
-                                    <div style="background: rgba(52, 152, 219, 0.03); padding: 1rem; border-radius: var(--radius-medium); border: 1px dashed rgba(52, 152, 219, 0.25); display: flex; justify-content: space-between; align-items: center;">
-                                        <strong id="set-plan" style="color: #3498db; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.5px;">STARTER</strong>
-                                        <span style="font-size: 0.75rem; background: #3498db; color: #fff; padding: 3px 8px; border-radius: var(--radius-small); font-weight: 700; letter-spacing: 0.5px;">ACTIVE</span>
-                                    </div>
-                                </div>
-
-                                <button type="submit" id="save-settings-btn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.85rem;">Update Profile Data</button>
+                                <button type="submit" id="save-btn" class="btn btn-primary" style="margin-top: 0.5rem; width: 100%;">Update Profile Data</button>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- ===== PROFILE CONFIGURATION RUNTIME ENGINE ===== -->
+    <script src="auth.js"></script>
     <script>
-        // ===== SUPABASE INSTANCE CREDENTIALS =====
-        const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Settings page local lifecycle runtime
+        document.addEventListener("DOMContentLoaded", () => {
+            const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
+            const localClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let currentUserId = null;
+            localClient.auth.getSession().then(async ({ data }) => {
+                if (!data.session) return;
+                
+                const u = data.session.user;
+                document.getElementById('set-email').value = u.email;
 
-        // ===== SECURE ACCESS CONTROL CHECK =====
-        supabaseClient.auth.getSession().then(async ({ data }) => {
-            if (!data.session) {
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            const user = data.session.user;
-            currentUserId = user.id;
-            
-            // Set email immediately from Auth data
-            document.getElementById('set-email').value = user.email;
-
-            // Load existing profile parameters
-            await loadUserProfile();
-        });
-
-        // ===== READ USER PROFILE FROM DB =====
-        async function loadUserProfile() {
-            try {
-                const { data, error } = await supabaseClient
-                    .from('users')
-                    .select('full_name, business_name, plan')
-                    .eq('id', currentUserId)
-                    .single();
-
-                if (error) throw error;
-
-                if (data) {
-                    document.getElementById('set-name').value = data.full_name || '';
-                    document.getElementById('set-business').value = data.business_name || '';
-                    document.getElementById('set-plan').textContent = data.plan || 'Starter';
+                try {
+                    const { data: profile } = await localClient.from('profiles').select('*').eq('id', u.id).single();
+                    if (profile) {
+                        document.getElementById('set-name').value = profile.full_name || '';
+                        document.getElementById('set-business').value = profile.business_name || '';
+                    }
+                } catch (e) {
+                    console.error("Profile cache error:", e.message);
+                } finally {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('settings-content').style.display = 'block';
+                    lucide.createIcons();
                 }
-            } catch (err) {
-                console.error("Profile load err:", err.message);
-            } finally {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('settings-content').style.display = 'block';
-            }
-        }
-
-        // ===== WRITE USER PROFILE SUBMISSION ENGINE =====
-        document.getElementById('settings-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const alertDiv = document.getElementById('settings-alert');
-            const saveBtn = document.getElementById('save-settings-btn');
-
-            saveBtn.disabled = true;
-            saveBtn.textContent = 'Saving structural changes...';
-            alertDiv.style.display = 'none';
-
-            const fullName = document.getElementById('set-name').value.trim();
-            const businessName = document.getElementById('set-business').value.trim();
-
-            try {
-                const { error } = await supabaseClient
-                    .from('users')
-                    .update({
-                        full_name: fullName,
-                        business_name: businessName
-                    })
-                    .eq('id', currentUserId);
-
-                if (error) throw error;
-
-                alertDiv.style.background = "rgba(46, 125, 50, 0.15)";
-                alertDiv.style.color = "#2ecc71";
-                alertDiv.style.border = "1px solid rgba(46, 125, 50, 0.3)";
-                alertDiv.textContent = "✅ Profile registry updated successfully!";
-                alertDiv.style.display = "block";
-
-            } catch (err) {
-                alertDiv.style.background = "rgba(198, 40, 40, 0.15)";
-                alertDiv.style.color = "#e74c3c";
-                alertDiv.style.border = "1px solid rgba(198, 40, 40, 0.3)";
-                alertDiv.textContent = "❌ Write fault encountered: " + err.message;
-                alertDiv.style.display = "block";
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.textContent = 'Update Profile Data';
-            }
+            });
         });
-
-        // ===== LOGOUT ROUTINE ACTIONS (CROSS-PLATFORM) =====
-        async function handleSignOut() {
-            await supabaseClient.auth.signOut();
-            window.location.href = 'index.html';
-        }
-
-        document.getElementById('logout-btn').addEventListener('click', handleSignOut);
-        
-        const mobileLogout = document.getElementById('mobile-logout-btn');
-        if (mobileLogout) {
-            mobileLogout.addEventListener('click', handleSignOut);
-        }
     </script>
 </body>
 </html>

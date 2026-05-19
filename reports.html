@@ -5,269 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports - FinFlow MW</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Supabase JS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
     <div class="app-layout">
         
-        <!-- ===== DESKTOP SIDEBAR ===== -->
         <aside class="sidebar-desktop">
             <div class="sidebar-header">
                 <h1 class="site-logo">FinFlow<span class="logo-highlight">MW</span></h1>
-                <p class="site-tagline">Financial Analytics</p>
+                <p class="site-tagline">Financial Analytics Panel</p>
             </div>
             
             <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
-                    <li><a href="transactions.html" class="nav-link">Ledger Book</a></li>
-                    <li><a href="reports.html" class="nav-link active">Reports</a></li>
+                    <li><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-columns"></i> Dashboard</a></li>
+                    <li><a href="transactions.html" class="nav-link"><i class="fa-solid fa-book"></i> Ledger Book</a></li>
+                    <li><a href="reports.html" class="nav-link active"><i class="fa-solid fa-chart-pie"></i> Reports</a></li>
+                    <li><a href="settings.html" class="nav-link"><i class="fa-solid fa-sliders"></i> Settings</a></li>
                 </ul>
             </nav>
             
             <div class="sidebar-footer">
-                <button id="logout-btn" class="btn btn-outline" style="width: 100%;">Logout</button>
+                <button id="logout-btn" class="btn btn-outline" style="width: 100%;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
         </aside>
 
-        <!-- ===== MOBILE FLOATING NAV ===== -->
         <nav class="mobile-floating-nav">
-            <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
-            <a href="transactions.html" class="mobile-nav-item">Ledger</a>
-            <a href="reports.html" class="mobile-nav-item active">Reports</a>
-            <a href="#" id="mobile-logout-btn" class="mobile-nav-item auth-highlight">Logout</a>
+            <a href="dashboard.html" class="mobile-nav-item"><i class="fa-solid fa-chart-columns"></i></a>
+            <a href="transactions.html" class="mobile-nav-item"><i class="fa-solid fa-book"></i></a>
+            <a href="reports.html" class="mobile-nav-item active"><i class="fa-solid fa-chart-pie"></i></a>
+            <a href="settings.html" class="mobile-nav-item"><i class="fa-solid fa-sliders"></i></a>
         </nav>
 
-        <!-- ===== MAIN CONTENT WRAPPER ===== -->
         <main class="main-content">
-            <div class="container hero-section">
+            <div class="container" style="padding-top: 3rem;">
                 
-                <!-- LOADING OVERLAY -->
-                <div id="loading" class="text-center" style="padding: var(--space-xl) 0;">
-                    <h3 class="text-gradient">Compiling financial data structures...</h3>
-                    <p class="text-muted">Parsing active ledger books...</p>
+                <div id="loading" class="text-center" style="padding: 5rem 0;">
+                    <h3 class="text-gradient"><i class="fa-solid fa-circle-notch fa-spin"></i> Syncing analytics database...</h3>
                 </div>
 
-                <!-- MAIN REPORT VIEWPORT -->
                 <div id="report-content" style="display: none;">
-                    
-                    <!-- Title Header -->
                     <header class="mb-5">
-                        <h2 class="text-gradient">Financial Statements</h2>
-                        <p class="lead">Automated metric tracking and system balance insights.</p>
+                        <h2 class="text-gradient">Performance Insights</h2>
+                        <p class="text-muted mt-2">Visual overview tracking the performance parameters of your venture capital flows.</p>
                     </header>
-                    
-                    <!-- SUMMARY STATEMENT CARDS -->
-                    <div class="grid grid-3 gap-4 mb-5">
-                        <div class="card floating-card" style="border-left: 4px solid #3498db;">
-                            <div class="card-body">
-                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Total Gross Income</h3>
-                                <h2 id="rep-income" style="color: #3498db; font-size: 1.8rem; font-weight: 700; margin: 0;">MWK 0</h2>
-                            </div>
-                        </div>
-                        <div class="card floating-card" style="border-left: 4px solid #e74c3c;">
-                            <div class="card-body">
-                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Total Expenses</h3>
-                                <h2 id="rep-expenses" style="color: #e74c3c; font-size: 1.8rem; font-weight: 700; margin: 0;">MWK 0</h2>
-                            </div>
-                        </div>
-                        <div class="card floating-card" style="border-left: 4px solid #2ecc71;">
-                            <div class="card-body">
-                                <h3 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Net Profit Margin</h3>
-                                <h2 id="rep-profit" style="color: #2ecc71; font-size: 1.8rem; font-weight: 700; margin: 0;">MWK 0</h2>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="grid grid-2 gap-4">
-                        <!-- LEFT COLUMN: CATEGORICAL EXPENSE ANALYSIS -->
+                    <div class="grid grid-3" style="grid-template-columns: 1.2fr 0.8fr; gap: 2rem;">
+                        
                         <div class="card">
-                            <div class="card-body" style="padding: var(--space-md);">
-                                <h3 class="mb-1" style="font-size: 1.3rem;">Expense Breakdown</h3>
-                                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: var(--space-md);">See exactly where your business cash is leaking</p>
-                                
-                                <div id="expense-bars-container">
-                                    <!-- Dynamic progress bars will inject here -->
+                            <div class="card-body">
+                                <h3 class="mb-5" style="font-size: 1.1rem;"><i class="fa-solid fa-chart-simple" style="color: var(--primary);"></i> Category Budget Distribution</h3>
+                                <div id="bar-chart-container" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="height: fit-content; background: linear-gradient(180deg, var(--bg-card) 0%, rgba(0,163,255,0.02) 100%);">
+                            <div class="card-body">
+                                <h3 class="mb-3" style="font-size: 1.1rem;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--warning);"></i> Automated Audit Advisory</h3>
+                                <div id="insight-box" style="line-height: 1.6; font-size: 0.9rem; color: var(--text-dim); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: rgba(6,8,10,0.5);">
+                                    Evaluating profile datasets to compile algorithmic suggestions...
                                 </div>
                             </div>
                         </div>
 
-                        <!-- RIGHT COLUMN: FINANCIAL INSIGHTS ENGINE -->
-                        <div class="card" style="background: rgba(52, 152, 219, 0.03); border: 1px dashed rgba(52, 152, 219, 0.25);">
-                            <div class="card-body" style="padding: var(--space-md);">
-                                <h3 class="mb-2" style="font-size: 1.3rem;">💡 Automated Business Insights</h3>
-                                <div id="insight-box" style="line-height: 1.7; color: var(--text-secondary); font-size: 0.9rem;">
-                                    Analyzing your ledgers...
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- ===== ANALYTICS COMPILER ENGINE script ===== -->
     <script>
-        // ===== UPDATED SUPABASE INSTANCE CREDENTIALS =====
         const SUPABASE_URL = 'https://xphdrjxemdiuuebpttya.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaGRyanhlbWRpdXVlYnB0dHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMDQwNjcsImV4cCI6MjA5NDY4MDA2N30.rBSJYJjMI5MsNK_J_eMoGr4RpuGr98EFiQW78rF5T84';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let currentUserId = null;
-
-        // ===== SECURE PAGE SECURE RUNTIME =====
-        supabaseClient.auth.getSession().then(({ data }) => {
-            if (!data.session) {
-                window.location.href = 'login.html';
-                return;
-            }
-            currentUserId = data.session.user.id;
-            
-            // Fire the engine data compiler
-            generateReportData();
+        document.addEventListener("DOMContentLoaded", () => {
+            supabaseClient.auth.getSession().then(({ data }) => {
+                if (!data.session) { window.location.href = 'index.html'; return; }
+                renderAnalyticsMatrix(data.session.user.id);
+            });
         });
 
-        // ===== ANALYTICS COMPILER ENGINE =====
-        async function generateReportData() {
+        async function renderAnalyticsMatrix(userId) {
             try {
-                const { data: transactions, error } = await supabaseClient
-                    .from('transactions')
-                    .select('type, amount, category')
-                    .eq('user_id', currentUserId);
-
-                if (error) throw error;
-
-                let incomeTotal = 0;
-                let expenseTotal = 0;
+                const { data: txs } = await supabaseClient.from('transactions').select('*').eq('user_id', userId);
                 
-                // Track category totals dictionary specifically for expenses
-                const categoryMap = {
-                    'Stock': 0,
-                    'Rent': 0,
-                    'Transport': 0,
-                    'Wages': 0,
-                    'Other': 0
-                };
+                let income = 0;
+                let expenses = 0;
+                let categories = {};
 
-                if (transactions) {
-                    transactions.forEach(tx => {
-                        const amt = parseFloat(tx.amount) || 0;
-                        if (tx.type === 'income') {
-                            incomeTotal += amt;
-                        } else if (tx.type === 'expense') {
-                            expenseTotal += amt;
-                            // Add sum to category mapping tracker
-                            if (categoryMap[tx.category] !== undefined) {
-                                categoryMap[tx.category] += amt;
-                            } else {
-                                categoryMap['Other'] += amt;
-                            }
+                if (txs) {
+                    txs.forEach(t => {
+                        const amt = parseFloat(t.amount) || 0;
+                        if (t.type === 'income') {
+                            income += amt;
+                        } else {
+                            expenses += amt;
+                            categories[t.category] = (categories[t.category] || 0) + amt;
                         }
                     });
                 }
 
-                const netProfit = incomeTotal - expenseTotal;
+                const barContainer = document.getElementById('bar-chart-container');
+                barContainer.innerHTML = '';
 
-                // Render metrics values to Top Level Summary Cards
-                document.getElementById('rep-income').textContent = `MWK ${incomeTotal.toLocaleString()}`;
-                document.getElementById('rep-expenses').textContent = `MWK ${expenseTotal.toLocaleString()}`;
-                document.getElementById('rep-profit').textContent = `MWK ${netProfit.toLocaleString()}`;
+                const maxExpense = Math.max(...Object.values(categories), 1);
 
-                // Process dynamic visual progress bars inside container
-                renderExpenseBreakdown(categoryMap, expenseTotal);
-                
-                // Generate automated advice insights for your partner's clients
-                generateBusinessInsights(incomeTotal, expenseTotal, netProfit, categoryMap);
+                if (Object.keys(categories).length === 0) {
+                    barContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem; text-align:center; padding: 2rem 0;">No active expense operational chains mapped yet.</p>`;
+                } else {
+                    for (const [cat, value] of Object.entries(categories)) {
+                        const pct = (value / maxExpense) * 100;
+                        const row = document.createElement('div');
+                        row.innerHTML = `
+                            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.4rem;">
+                                <span style="font-weight:600; color:var(--text-main);">${cat}</span>
+                                <span style="color:var(--danger); font-weight:700;">MWK ${value.toLocaleString()}</span>
+                            </div>
+                            <div style="width:100%; height:6px; background:rgba(255,255,255,0.02); border-radius:10px; overflow:hidden; border: 1px solid var(--border-color);">
+                                <div style="width:${pct}%; height:100%; background:linear-gradient(90deg, #ff3b30, #ff7b00); border-radius:10px;"></div>
+                            </div>
+                        `;
+                        barContainer.appendChild(row);
+                    }
+                }
 
-            } catch (err) {
-                console.error("Report breakdown failure: ", err.message);
+                const box = document.getElementById('insight-box');
+                if (income > expenses) {
+                    box.innerHTML = `<p style="color: var(--success); font-weight:600; margin-bottom:0.5rem;"><i class="fa-solid fa-circle-check"></i> Capital Flow Optimal</p> Net operations are profitable. Your cash runway looks completely steady, big man. Capital expansion sequences are cleared.`;
+                } else if (income < expenses) {
+                    box.innerHTML = `<p style="color: var(--danger); font-weight:600; margin-bottom:0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Outflow Deficit Warning</p Enterprise operating on a net negative deficit. Instantly optimize your highest resource drainage categories.`;
+                } else {
+                    box.innerHTML = `<p style="color: var(--warning); font-weight:600; margin-bottom:0.5rem;"><i class="fa-solid fa-scale-balanced"></i> Capital Equalization Mode</p> Operational revenue completely matches expenditures. Refactor sales channels to establish a true strategic advantage.`;
+                }
+
+            } catch (e) {
+                console.error(e);
             } finally {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('report-content').style.display = 'block';
             }
         }
 
-        // ===== RENDERING METHOD FOR VISUAL PROGRESS BARS =====
-        function renderExpenseBreakdown(categoryMap, totalExpense) {
-            const container = document.getElementById('expense-bars-container');
-            container.innerHTML = '';
-
-            if (totalExpense === 0) {
-                container.innerHTML = `<p style="color: var(--text-muted); text-align:center; padding: 20px;">No operational expenses tracked yet.</p>`;
-                return;
-            }
-
-            for (const [category, amount] of Object.entries(categoryMap)) {
-                // Calculate percentage relative to total cost outbound strings
-                const percentage = totalExpense > 0 ? ((amount / totalExpense) * 100).toFixed(0) : 0;
-                
-                const segment = document.createElement('div');
-                segment.style.marginBottom = "20px";
-                segment.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85rem;">
-                        <strong style="color: var(--text-primary);">${category}</strong>
-                        <span style="color: var(--text-muted);">MWK ${amount.toLocaleString()} (${percentage}%)</span>
-                    </div>
-                    <div style="width: 100%; background-color: rgba(255,255,255,0.05); height: 8px; border-radius: var(--radius-small); overflow: hidden;">
-                        <div style="width: ${percentage}%; background-color: #e74c3c; height: 100%; border-radius: var(--radius-small); transition: width 0.5s ease;"></div>
-                    </div>
-                `;
-                container.appendChild(segment);
-            }
-        }
-
-        // ===== LOGIC RULE ARCHITECTURE FOR AUTOMATED ADVICE =====
-        function generateBusinessInsights(income, expense, profit, categoryMap) {
-            const box = document.getElementById('insight-box');
-            let feedbackText = "";
-
-            if (income === 0 && expense === 0) {
-                box.textContent = "Start adding transactions to your Ledger Book, and our accounting algorithm will automatically write optimization insights for your business right here.";
-                return;
-            }
-
-            // High level conditional performance checking rules
-            if (profit < 0) {
-                feedbackText += `<p style="color:#e74c3c; font-weight:bold; margin-bottom: 0.5rem;">⚠️ Critical Risk Status: Your business is currently operational at a financial net loss. Your outgoing costs outpace incoming revenue strings.</p>`;
-            } else if (income > 0 && (expense / income) > 0.7) {
-                feedbackText += `<p style="color:#f39c12; font-weight:bold; margin-bottom: 0.5rem;">⚠️ Warning Flag: Your operational expense load eats up over 70% of gross incoming revenue pipelines. Profit margins are dangerously tight.</p>`;
-            } else {
-                feedbackText += `<p style="color:#2ecc71; font-weight:bold; margin-bottom: 0.5rem;">✅ Good Financial Health: Your business structures are running soundly and producing net positive capital assets.</p>`;
-            }
-
-            // Find highest expense culprit category logic loops
-            let highestCategory = "";
-            let maxVal = 0;
-            for (const [cat, val] of Object.entries(categoryMap)) {
-                if (val > maxVal) {
-                    maxVal = val;
-                    highestCategory = cat;
-                }
-            }
-
-            if (maxVal > 0) {
-                feedbackText += `<p style="margin-top: 1rem;">🎯 <strong>Cost Center Highlight:</strong> Your number one driver of operational cash outbound drain is <strong>${highestCategory}</strong>, logging a cumulative value of <strong>MWK ${maxVal.toLocaleString()}</strong>. Your business should audit this category closely to cut waste and preserve cash reserves.</p>`;
-            }
-
-            box.innerHTML = feedbackText;
-        }
-
-        // ===== LOGOUT BUTTON ENGINE (CROSS-PLATFORM) =====
         async function handleSignOut() {
             await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
         }
-
         document.getElementById('logout-btn').addEventListener('click', handleSignOut);
-        
-        const mobileLogout = document.getElementById('mobile-logout-btn');
-        if (mobileLogout) {
-            mobileLogout.addEventListener('click', handleSignOut);
-        }
+        document.getElementById('mobile-logout-btn')?.addEventListener('click', handleSignOut);
     </script>
+    <script src="auth.js"></script>
 </body>
 </html>
